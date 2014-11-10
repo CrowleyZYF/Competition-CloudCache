@@ -1,5 +1,5 @@
 CacheServer使用JAVA Servlet处理用户请求, 依据的都是Java Servlet的那一套. 只是作了稍许更改:
-1. 源代码并不局限于JAVA, 而是囊括了基于JVM平台的各种脚本语言. 只要源代码能够被编译成JAVA的.class文件, 都是允许的. 我已经成功将Groovy集成进去了, 很轻松, 不用费多大劲. 需要引入jar包: groovy-all-xxx.jar
+1. 源代码并不局限于JAVA, 而是囊括了基于JVM平台的各种脚本语言. 只要源代码能够被编译成JAVA的.class文件, 都是允许的. 我已经成功将Groovy集成进去了, 很轻松, 不用费多大劲. 需要引入jar包: groovy-all-xxx.jar.
 2. 项目中通过编写一个main方法来启动servlet容器, 即不是通过服务器发布而是跑应用程序的方式作开发. 这里实现的思想是:
 	导入两个包(jfinal和jetty), 其中jfinal只是用来辅助启动jetty的, 我们并不使用此框架. 另外通过jfinal的扫描模式可以实现热部署, 即项目代码的.class文件有更改就自动重新加载项目而不需重新启动jetty. 
 

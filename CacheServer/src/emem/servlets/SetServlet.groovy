@@ -1,5 +1,7 @@
 package emem.servlets
 
+import emem.commons.Statics
+
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -18,7 +20,14 @@ class SetServlet extends HttpServlet {
     void doPost(HttpServletRequest req, HttpServletResponse res) {
         def key = req.getParameter('key')
         def value = req.getParameter('value')
-        println "set data: $key -> $value"
+
+        def jedis;
+        try {
+            jedis = Statics.pool.getResource()
+            jedis.set(key, value)
+        } finally {
+            jedis.close()
+        }
     }
 
 }
