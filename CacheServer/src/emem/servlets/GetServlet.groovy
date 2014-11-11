@@ -1,6 +1,6 @@
 package emem.servlets
 
-import emem.commons.Statics
+import emem.servlets.Gold.TokenInvalidateException
 
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -14,14 +14,17 @@ class GetServlet extends HttpServlet {
     @Override
     void doGet(HttpServletRequest req, HttpServletResponse res) {
         def key = req.getParameter('key')
+        def token = req.getParameter('token')
 
-        def jedis;
+        def cacheConn = null;
         try {
-            jedis = Statics.pool.getResource()
-            def value = jedis.get(key);
+            cacheConn = Gold.getCacheConnection(token)
+            def value = cacheConn.get(key);
             res.getWriter().print(value)
+        } catch(TokenInvalidateException ex) {
+            res.sendError(400, "Not invalidate token: $token")
         } finally {
-            jedis.close()
+            cacheConn?.close()
         }
     }
 

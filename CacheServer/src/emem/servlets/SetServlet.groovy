@@ -1,6 +1,6 @@
 package emem.servlets
 
-import emem.commons.Statics
+import emem.servlets.Gold.TokenInvalidateException
 
 import javax.servlet.http.HttpServlet
 import javax.servlet.http.HttpServletRequest
@@ -20,13 +20,16 @@ class SetServlet extends HttpServlet {
     void doPost(HttpServletRequest req, HttpServletResponse res) {
         def key = req.getParameter('key')
         def value = req.getParameter('value')
+        def token = req.getParameter('token')
 
-        def jedis;
+        def cacheConn = null;
         try {
-            jedis = Statics.pool.getResource()
-            jedis.set(key, value)
+            cacheConn = Gold.getCacheConnection(token)
+            cacheConn.set(key, value)
+        } catch(TokenInvalidateException ex) {
+            res.sendError(400, "Not invalidate token: $token")
         } finally {
-            jedis.close()
+            cacheConn?.close()
         }
     }
 
