@@ -16,53 +16,60 @@
         返回字符串的值
         例如: /get?key=hello => world
 
-关于list的接口:
-    /list/set: key, value
-        存储list类型的值, 其中list中的值是由","分割的字符串序列, 
-        字符串值中的",\"需要用"\"转义
-        例如: /list/set?key=hello&value=1,2,3
-    /list/get: key => value
-        返回list类型的值, 其中value同上
-        例如: /list/get?key=hello => 1,2,3
-
-    /list/set: key, index, value
-        存储list中的某个索引位置的字符串值,
-        index是个数字, 不能超出已有的list的索引范围
-        例如: /list/set?key=hello&index=1&value=b
-            调用之后list变成[1,b,3]
-    /list/get: key, index => value
-        返回list中的某个索引位置的字符串值, index同上
-        例如: /list/get?key=hello&index=1 => b
-    
-    /list/insert: key, [index], value
-        向list中的某个索引位置之前插入字符串值, 插入后新值的索引就是index,
-        如果index没有给定, 默认插入到list的末尾
-        例如: /list/insert?key=hello&index=1&value=t
-            调用之后list变成[1,t,b,3]
-    
-    /list/remove: key, [index] => value
-        删除list中的某个索引位置的值, 
-        如果index没有给定, 默认删除末尾的值
-        例如: /list/remove?key=hello&index=1
-            调用之后list变成[1,b,3]
-            
 关于hashtable的接口:
     
-    /table/set: key, value
+    /hash/setAll: key, value
         存储hashtable类型的值, 
         其中hashtable内部元素的值是由","和":"分割的字符串键值对序列,
         字符串值中的",:\"需要用"\"转义
-        例如: /table/set?key=hello&value=k1:1,k2:2,k3:3
-    /table/get: key => value
+        例如: /table/setAll?key=hello&value=k1:1,k2:2,k3:3
+    /hash/getAll: key => value
         返回hashtable类型的值
-        例如: /table/get?key=hello => k1:1,k2:2,k3:3
+        例如: /table/getAll?key=hello => k1:1,k2:2,k3:3
         
-    /table/set: key, index, value
+    /hash/set: key, index, value
         设置hashtable集合内指定索引键的值
         例如: /table/set?key=hello&index=k1&value=b
-    /table/get: key, index
+    /hash/get: key, index
         返回hashtable集合内指定索引建的值
         例如: /table/get?key=hello&index=k1
-    /table/remove: 
+    /hash/remove:
         删除hashtable集合内指定索引建的键值对
         例如: /table/remove?key=hello&index=k1
+
+    /hash/size: key => size
+        返回hashtable的大小
+        例如: /hash/size?key=hello => 3
+
+关于list的接口/彻底不支持了/:
+    /list/setAll: key, value
+        存储list类型的值, 其中list中的值是由","分割的字符串序列,
+        字符串值中的",\"需要用"\"转义
+        例如: /list/setAll?key=hello&value=1,2,3
+    /list/getAll: key => value
+        返回list类型的值, 其中value同上
+        例如: /list/getAll?key=hello => 1,2,3
+
+    /list/set: key, index, value
+        存储list中的某个索引位置的字符串值,
+        index是个数字, 不能超出list的索引范围
+        例如: /list/set?key=hello&index=1&value=b
+            调用之后list变成[1,b,3]
+    /list/get: key, [index] => value
+        返回list中的某个索引位置的字符串值, index同上
+        如果index没有指定, 返回list的最后一个元素
+        例如: /list/get?key=hello&index=1 => b
+    /list/insert: key, [index], value
+        向list中的某个索引位置之前插入字符串值, 插入后新值的索引就是index
+        如果index没有指定, 在list末尾插入值
+        例如: /list/insert?key=hello&index=1&value=t
+            调用之后list变成[1,t,b,3]
+    /list/remove: key, [index] => value
+        删除list中的某个索引位置的值, 并且返回删除的值
+        如果index没有指定, 删除list末尾的值
+        例如: /list/remove?key=hello&index=1
+            调用之后list变成[1,b,3]
+
+    /list/size: key => size
+        返回list的大小
+        例如: /list/size?key=hello => 3

@@ -11,3 +11,6 @@
     415 Unsupported Media Type (不支持的媒体类型) - 如果请求中包含了不正确的内容类型
     422 Unprocessable Entity (无法处理的实体) - 出现验证错误时使用
     429 Too Many Requests (请求过多) - 当请求由于访问速率限制而被拒绝时
+
+更详细的请见
+http://tool.oschina.net/commons?type=5
