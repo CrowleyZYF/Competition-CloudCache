@@ -4,3 +4,9 @@
 然后启动服务器, 并尝试在浏览器中输入:
 localhost:8080/set?key=..&value=..&token=a或者b
 localhost:8080/get?key=..&token=a或者b
+
+安装好JAVA后可以从命令行启动了:
+首先cd进入文件夹WebContent, 然后输入命令: 
+java -cp WEB-INF/classes;WEB-INF/lib/jfinal-1.8-bin-with-src.jar;WEB-INF/lib/jetty-server-8.1.8.jar test.Main
+上面是windows下的启动方式, linux下的启动方式如下:
+java -cp WEB-INF/classes:WEB-INF/lib/jfinal-1.8-bin-with-src.jar:WEB-INF/lib/jetty-server-8.1.8.jar test.Main

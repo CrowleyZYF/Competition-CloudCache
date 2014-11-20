@@ -1,0 +1,68 @@
+整个协议层支持三种数据结构, 分别是string, list, hashtable. 
+其中基本元素只有string, list和hashtable内的元素也是string类型的. 
+然后键值即key一律都是string. 
+
+约束: 
+    下面的接口描述中, 所给的参数都不能为空, 加上[]的除外
+    每个接口都有用户隔离的功能, 使用token参数进行区别, 就没有单独列出来了
+    例如对于用户mingming来说, 其完整的调用应该是/set?key=hello&value=world&token=mingming
+
+关于标量string的接口:
+
+    /set: key, value 
+        存储字符串的值
+        例如: /set?key=hello&value=world
+    /get: key => value 
+        返回字符串的值
+        例如: /get?key=hello => world
+
+关于list的接口:
+    /list/set: key, value
+        存储list类型的值, 其中list中的值是由","分割的字符串序列, 
+        字符串值中的",\"需要用"\"转义
+        例如: /list/set?key=hello&value=1,2,3
+    /list/get: key => value
+        返回list类型的值, 其中value同上
+        例如: /list/get?key=hello => 1,2,3
+
+    /list/set: key, index, value
+        存储list中的某个索引位置的字符串值,
+        index是个数字, 不能超出已有的list的索引范围
+        例如: /list/set?key=hello&index=1&value=b
+            调用之后list变成[1,b,3]
+    /list/get: key, index => value
+        返回list中的某个索引位置的字符串值, index同上
+        例如: /list/get?key=hello&index=1 => b
+    
+    /list/insert: key, [index], value
+        向list中的某个索引位置之前插入字符串值, 插入后新值的索引就是index,
+        如果index没有给定, 默认插入到list的末尾
+        例如: /list/insert?key=hello&index=1&value=t
+            调用之后list变成[1,t,b,3]
+    
+    /list/remove: key, [index] => value
+        删除list中的某个索引位置的值, 
+        如果index没有给定, 默认删除末尾的值
+        例如: /list/remove?key=hello&index=1
+            调用之后list变成[1,b,3]
+            
+关于hashtable的接口:
+    
+    /table/set: key, value
+        存储hashtable类型的值, 
+        其中hashtable内部元素的值是由","和":"分割的字符串键值对序列,
+        字符串值中的",:\"需要用"\"转义
+        例如: /table/set?key=hello&value=k1:1,k2:2,k3:3
+    /table/get: key => value
+        返回hashtable类型的值
+        例如: /table/get?key=hello => k1:1,k2:2,k3:3
+        
+    /table/set: key, index, value
+        设置hashtable集合内指定索引键的值
+        例如: /table/set?key=hello&index=k1&value=b
+    /table/get: key, index
+        返回hashtable集合内指定索引建的值
+        例如: /table/get?key=hello&index=k1
+    /table/remove: 
+        删除hashtable集合内指定索引建的键值对
+        例如: /table/remove?key=hello&index=k1
