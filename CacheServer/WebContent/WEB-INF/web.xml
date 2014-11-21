@@ -6,22 +6,13 @@
    metadata-complete="false"
    version="3.1">
 
-    <servlet>
-        <servlet-name>Get</servlet-name>
-        <servlet-class>emem.servlets.GetServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Get</servlet-name>
-        <url-pattern>/get</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>Set</servlet-name>
-        <servlet-class>emem.servlets.SetServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Set</servlet-name>
-        <url-pattern>/set</url-pattern>
-    </servlet-mapping>
+    <filter>
+        <filter-name>DispatchFilter</filter-name>
+        <filter-class>emem.cacheserver.controllers.DispatchFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>DispatchFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 
 </web-app>
