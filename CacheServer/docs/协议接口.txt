@@ -1,4 +1,18 @@
-整个协议层支持三种数据结构, 分别是string, list, hashtable. 
+
+接口中使用token来隔离不同的缓存服务. token配置的接口如下:
+
+1. /config/token/set: token, host, port
+
+2. /config/token/remove: token
+
+3. /config/token/list:
+    返回的数据格式是:
+        token1 127.0.0.1 6379
+        token2 192.168.1.100 6380
+        ...
+    每行用空格隔开
+
+整个协议层支持三种数据结构, 分别是string, list, hashtable.
 其中基本元素只有string, list和hashtable内的元素也是string类型的. 
 然后键值即key一律都是string. 
 
