@@ -34,7 +34,7 @@ class ControllerUtils {
     static def getCacheClient(token, res) {
         def cacheClient = cacheConfig.getCacheClient(token)
         if(!cacheClient) {
-            res.sendError(500)
+            res.sendError(404, "Token[$token] not found")
             return false
         }
         return cacheClient

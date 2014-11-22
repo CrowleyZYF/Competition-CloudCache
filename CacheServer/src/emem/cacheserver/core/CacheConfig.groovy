@@ -42,7 +42,9 @@ class CacheConfig {
 
     def store(file) {
         if(file.getParentFile().mkdirs()) file.write(toString())
-        //TODO 保存tokens.conf失败
+        else {
+            System.err.println "Failed to store tokens config to file $file"
+        }
     }
 
     private static def cacheConfig = new CacheConfig()

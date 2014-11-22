@@ -21,7 +21,8 @@ class DispatchFilter implements Filter {
     void init(FilterConfig filterConfig) throws ServletException {
         println 'filter init'
 
-        CacheConfig.getInstance().init(new File('WEB-INF/config/tokens.conf'))
+        def tokensConf = filterConfig.getServletContext().getRealPath('/WEB-INF/config/tokens.conf')
+        CacheConfig.getInstance().init(new File(tokensConf))
 
         def pack = 'emem.cacheserver.controllers'
         def dir = new File(getClass().getResource('').getFile())
@@ -53,13 +54,15 @@ class DispatchFilter implements Filter {
             return;
         }
 
+        //TODO 方法执行过程中可能产生异常
         metaMethods[0].invoke(c, rq, res)
     }
 
     @Override
     void destroy() {
-        CacheConfig.getInstance().store(new File('WEB-INF/config/tokens.conf'))
-
         println 'filter destroy'
+
+        def tokensConf = filterConfig.getServletContext().getRealPath('/WEB-INF/config/tokens.conf')
+        CacheConfig.getInstance().store(new File(tokensConf))
     }
 }
