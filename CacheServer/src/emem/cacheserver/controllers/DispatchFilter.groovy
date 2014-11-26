@@ -1,6 +1,7 @@
 package emem.cacheserver.controllers
 
 import emem.cacheserver.core.CacheConfig
+import emem.cacheserver.core.ServerConfig
 
 import javax.servlet.Filter
 import javax.servlet.FilterChain
@@ -15,11 +16,13 @@ import javax.servlet.http.HttpServletResponse
  * Created by hello on 14-11-20.
  */
 class DispatchFilter implements Filter {
+    private final static logger = ServerConfig.getLogger()
+
     private final def mapping = [:]
 
     @Override
     void init(FilterConfig filterConfig) throws ServletException {
-        println 'filter init'
+        logger.log 'filter init'
 
         def tokensConf = filterConfig.getServletContext().getRealPath('/WEB-INF/config/tokens.conf')
         CacheConfig.getInstance().init(new File(tokensConf))
@@ -60,7 +63,7 @@ class DispatchFilter implements Filter {
 
     @Override
     void destroy() {
-        println 'filter destroy'
+        logger.log 'filter destroy'
 
         def tokensConf = filterConfig.getServletContext().getRealPath('/WEB-INF/config/tokens.conf')
         CacheConfig.getInstance().store(new File(tokensConf))

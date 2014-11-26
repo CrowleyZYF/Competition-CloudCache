@@ -6,6 +6,7 @@ import emem.cacheserver.clients.JedisCacheClient
  * Created by hello on 14-11-20.
  */
 class CacheConfig {
+    private static final def logger = ServerConfig.getLogger()
 
     private def tokenMapping = [:]
 
@@ -43,7 +44,7 @@ class CacheConfig {
     def store(file) {
         if(file.getParentFile().mkdirs()) file.write(toString())
         else {
-            System.err.println "Failed to store tokens config to file $file"
+            logger.error "Failed to store tokens config to file $file"
         }
     }
 
