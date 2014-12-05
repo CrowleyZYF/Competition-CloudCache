@@ -22,7 +22,7 @@ class DispatchFilter implements Filter {
 
     @Override
     void init(FilterConfig filterConfig) throws ServletException {
-        logger.log 'filter init'
+        logger.debug 'Dispatch filter init'
 
         def tokensConf = filterConfig.getServletContext().getRealPath('/WEB-INF/config/tokens.conf')
         CacheConfig.getInstance().init(new File(tokensConf))
@@ -59,11 +59,13 @@ class DispatchFilter implements Filter {
 
         //TODO 方法执行过程中可能产生异常
         metaMethods[0].invoke(c, rq, res)
+
+        filterChain.doFilter(servletRequest, servletResponse)
     }
 
     @Override
     void destroy() {
-        logger.log 'filter destroy'
+        logger.debug 'Dispatch filter destroy'
 
         def tokensConf = filterConfig.getServletContext().getRealPath('/WEB-INF/config/tokens.conf')
         CacheConfig.getInstance().store(new File(tokensConf))

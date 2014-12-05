@@ -44,4 +44,8 @@ class JedisWrapper {
     def hashSize(key) {
         jedis.hlen(key)
     }
+
+    def expire(key, expire) {
+        jedis.expire(key, expire)
+    }
 }

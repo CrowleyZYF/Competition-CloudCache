@@ -25,7 +25,9 @@
 
 接下来的工作:
 1. 增加接口的过期支持
+    如何获取expire
 2. 将token的配置放置到公用的数据库中去
 3. 增加协议HTTPS的支持
+    https://docs.oracle.com/cd/E19148-01/820-0843/aeopq/index.html
 4. 设计统计策略(放置到数据库)
 5. 增加协议RMI的支持
