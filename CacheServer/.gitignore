@@ -1,3 +1,4 @@
 .idea/
 WebContent/WEB-INF/classes/**
 WebContent/WEB-INF/config/**
+src/test/self/

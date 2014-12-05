@@ -1,5 +1,6 @@
 package emem.cacheserver.core
 
+import com.gmongo.GMongo
 import emem.cacheserver.clients.JedisCacheClient
 
 /**
@@ -9,17 +10,22 @@ class CacheConfig {
     private static final def logger = ServerConfig.getLogger()
 
     private def tokenMapping = [:]
+    private def db
 
-    def setCacheClient(token, client) {
-        tokenMapping[token] = client
+    private CacheConfig() {
+        def mongo = new GMongo()
+        db = mongo.getDB('tokens')
     }
 
     def getCacheClient(String token) {
-        return tokenMapping[token]
-    }
-
-    def removeCacheClient(token) {
-        tokenMapping.remove(token)
+        def cacheClient = tokenMapping[token]
+        if(!cacheClient) {
+            def v = db.tokens.findOne(['token': token])
+            if(!v) return null
+            cacheClient = new JedisCacheClient(v.host, v.port)
+            tokenMapping[token] = cacheClient
+        }
+        return cacheClient
     }
 
     @Override
@@ -49,8 +55,6 @@ class CacheConfig {
     }
 
     private static def cacheConfig = new CacheConfig()
-
-    private CacheConfig() {}
 
     static def getInstance() {
         return cacheConfig

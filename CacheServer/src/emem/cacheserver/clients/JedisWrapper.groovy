@@ -7,7 +7,7 @@ import redis.clients.jedis.Jedis
  */
 class JedisWrapper {
 
-    private final Jedis jedis;
+    private final Jedis jedis
 
     JedisWrapper(jedis) {
         this.jedis = jedis

@@ -2,6 +2,7 @@ package emem.cacheserver.controllers
 
 import emem.cacheserver.core.CacheConfig
 import emem.cacheserver.core.ServerConfig
+import emem.cacheserver.rmi.RMIServer
 
 import javax.servlet.Filter
 import javax.servlet.FilterChain
@@ -11,6 +12,7 @@ import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import java.rmi.registry.LocateRegistry
 
 /**
  * Created by hello on 14-11-20.
@@ -24,6 +26,7 @@ class DispatchFilter implements Filter {
     void init(FilterConfig filterConfig) throws ServletException {
         logger.debug 'Dispatch filter init'
 
+        //初始化基本服务器配置
         def tokensConf = filterConfig.getServletContext().getRealPath('/WEB-INF/config/tokens.conf')
         CacheConfig.getInstance().init(new File(tokensConf))
 
@@ -37,6 +40,10 @@ class DispatchFilter implements Filter {
             def path = it.getAnnotation(Route).value()
             mapping[path] = it.newInstance()
         }
+
+        //enable rmi
+        RMIServer.start()
+
     }
 
     @Override
