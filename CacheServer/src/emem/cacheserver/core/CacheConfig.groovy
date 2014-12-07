@@ -1,6 +1,5 @@
 package emem.cacheserver.core
 
-import com.gmongo.GMongo
 import emem.cacheserver.clients.JedisCacheClient
 
 /**
@@ -10,30 +9,28 @@ class CacheConfig {
     private static final def logger = ServerConfig.getLogger()
 
     private def tokenMapping = [:]
-    private def db
 
-    private CacheConfig() {
-        def mongo = new GMongo()
-        db = mongo.getDB('tokens')
+    private CacheConfig() {}
+
+    def setCacheClient(token, cacheClient) {
+        tokenMapping[token] = cacheClient
     }
 
     def getCacheClient(String token) {
-        def cacheClient = tokenMapping[token]
-        if(!cacheClient) {
-            def v = db.tokens.findOne(['token': token])
-            if(!v) return null
-            cacheClient = new JedisCacheClient(v.host, v.port)
-            tokenMapping[token] = cacheClient
+        tokenMapping[token]
+    }
+
+    def removeCacheClient(token) {
+        tokenMapping.remove(token)
+    }
+
+    def init(tokenCollection) {
+        tokenCollection.find().each {
+            tokenMapping[it._id] = new JedisCacheClient(it.host, it.port)
         }
-        return cacheClient
     }
 
-    @Override
-    String toString() {
-        tokenMapping.entrySet().collect {"$it.key $it.value"}.join('\n')
-    }
-
-    def init(file) {
+    def init(File file) {
         if(!file.exists()) return
         try {
             def tokenMapping = [:]
@@ -47,14 +44,12 @@ class CacheConfig {
         }
     }
 
-    def store(file) {
-        if(file.getParentFile().mkdirs()) file.write(toString())
-        else {
-            logger.error "Failed to store tokens config to file $file"
-        }
+    @Override
+    String toString() {
+        tokenMapping.entrySet().collect {"$it.key $it.value"}.join('\n')
     }
 
-    private static def cacheConfig = new CacheConfig()
+    private final static def cacheConfig = new CacheConfig()
 
     static def getInstance() {
         return cacheConfig

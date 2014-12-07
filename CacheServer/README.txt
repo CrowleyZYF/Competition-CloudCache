@@ -1,16 +1,21 @@
-最新的工作进展是:
+实现的功能列表:
+1. 基本的HTTP数据操作接口
+    数据操作的类型支持字符串和hash, 并配有过期值的设置
 
-1. 实现了基本数据的操作接口, 包括基本字符串数据的get, set以及hash结构的支持
+2. 基本的token配置接口
+    token配置需要调用缓存服务子系统提供的接口.
+    token的配置内容放在mongodb数据库里, 现在放置的数据库是
+        IP: localhost, 数据库名: tokens
+    数据格式: _id(token), host, port
 
-2. 更改了用户token的配置, 现在全部配置在mongodb数据库中
+3. RMI协议的支持
 
-3. 增加接口的过期支持, 每个接口附加一个参数expire=seconds
+4. JAR客户端
 
-4. 增加协议RMI的支持
-
-5. 增加统计支持, 将每次请求的数据(key, time)添加到公用的mongodb数据库中
-
-详情请见 docs/接口协议.txt
+5. 统计数据的支持
+    现将所有客户端请求添加到mongodb数据中去了, 目前的数据库是
+        IP: localhost, 数据库名: stat
+    数据格式: token, key, time
 
 构建步骤:
 
@@ -32,5 +37,7 @@
 需要稍稍注意的工作:
 1. 增加接口的过期支持
     如何获取expire
-3. 增加协议HTTPS的支持
+2. 增加协议HTTPS的支持
     https://docs.oracle.com/cd/E19148-01/820-0843/aeopq/index.html
+3. RMI协议
+    Groovy拦截器

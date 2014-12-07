@@ -1,12 +1,6 @@
-package emem.cacheserver.rmi
+package emem.cacheclient
 
-import java.rmi.Naming
-
-def port = 8088
-def token = 'a'
-
-def cacheClientFactory = Naming.lookup("rmi://localhost:$port/CacheClientFactory")
-def cacheClient = cacheClientFactory.getInstance(token)
+CacheClient cacheClient = new CacheClient('localhost', 8080, 'a')
 
 cacheClient.set('hello', 'world')
 println cacheClient.get('hello') == 'world'

@@ -14,14 +14,14 @@ import javax.servlet.ServletResponse
 /**
  * Created by hello on 14-12-5.
  */
-class AfterFilter implements Filter {
+class DataFilter implements Filter {
     private final static logger = ServerConfig.getLogger()
 
     private def db
 
     @Override
     void init(FilterConfig filterConfig) throws ServletException {
-        logger.debug 'AfterFilter init'
+        logger.debug 'Data filter init'
 
         def mongo = new GMongo()
         db = mongo.getDB("stat")
@@ -29,7 +29,7 @@ class AfterFilter implements Filter {
 
     @Override
     void doFilter(ServletRequest rq, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        logger.debug('Do AfterFilter')
+        logger.debug('Do data filter')
 
         def key = rq.getParameter('key')
         def token = rq.getParameter('token')
@@ -51,6 +51,6 @@ class AfterFilter implements Filter {
 
     @Override
     void destroy() {
-        logger.debug 'AfterFilter destroy'
+        logger.debug 'Data filter destroy'
     }
 }

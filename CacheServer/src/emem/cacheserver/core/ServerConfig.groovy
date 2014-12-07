@@ -1,14 +1,22 @@
 package emem.cacheserver.core
 
+import com.gmongo.GMongo
+
 /**
  * Created by hello on 14-11-26.
  */
 class ServerConfig {
 
-    private final static def logger = new SimpleLogger()
+    final static logger = new SimpleLogger()
 
-    static def getLogger() {
-        return logger
+    final static tokenDB
+
+    final static statDB
+
+    static {
+        def mongo = new GMongo()
+        tokenDB = mongo.getDB('tokens')
+        statDB = mongo.getDB('stat')
     }
 
 }

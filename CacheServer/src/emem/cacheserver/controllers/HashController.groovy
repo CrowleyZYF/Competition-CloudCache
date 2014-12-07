@@ -5,7 +5,7 @@ import emem.common.data.LHData
 /**
  * Created by hello on 14-11-20.
  */
-@Route('/hash')
+@Route('/data/hash')
 class HashController {
 
     def setAll(rq, res) {
@@ -54,7 +54,7 @@ class HashController {
         if(!cacheClient) return
 
         cacheClient.operate {
-            res.getWriter().print it.hashGet(params.key, params.index)
+            res.getWriter().print it.hashGet(params.key, params.index)?:''
         }
     }
 

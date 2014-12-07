@@ -20,6 +20,8 @@
     下面的接口描述中, 所给的参数都不能为空, 加上[]的除外
     每个接口都有用户隔离的功能, 使用token参数进行区别, 就没有单独列出来了
     例如对于用户mingming来说, 其完整的调用应该是/set?key=hello&value=world&token=mingming
+    每个接口都添加有过期值的支持, 参数名为expire, value值是秒数
+    例如想要key在10秒后过期, 完整的调用应该是/set?key=hello&value=world&token=mingming&expire=10
 
 关于标量string的接口:
 

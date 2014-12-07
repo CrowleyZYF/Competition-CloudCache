@@ -27,8 +27,7 @@ class DispatchFilter implements Filter {
         logger.debug 'Dispatch filter init'
 
         //初始化基本服务器配置
-        def tokensConf = filterConfig.getServletContext().getRealPath('/WEB-INF/config/tokens.conf')
-        CacheConfig.getInstance().init(new File(tokensConf))
+        CacheConfig.getInstance().init(ServerConfig.tokenDB.tokens)
 
         def pack = 'emem.cacheserver.controllers'
         def dir = new File(getClass().getResource('').getFile())
@@ -56,6 +55,8 @@ class DispatchFilter implements Filter {
         def path = fullPath[0..<index]?:'/'
         def method = fullPath.substring(index+1)
 
+        logger.log "Handle request mapping to $path#$method"
+
         def c
         def metaMethods
 
@@ -67,14 +68,11 @@ class DispatchFilter implements Filter {
         //TODO 方法执行过程中可能产生异常
         metaMethods[0].invoke(c, rq, res)
 
-        filterChain.doFilter(servletRequest, servletResponse)
+        if(path.startsWith('/data')) filterChain.doFilter(servletRequest, servletResponse)
     }
 
     @Override
     void destroy() {
         logger.debug 'Dispatch filter destroy'
-
-        def tokensConf = filterConfig.getServletContext().getRealPath('/WEB-INF/config/tokens.conf')
-        CacheConfig.getInstance().store(new File(tokensConf))
     }
 }
