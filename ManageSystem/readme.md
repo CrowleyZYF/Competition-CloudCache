@@ -52,25 +52,27 @@
 4. 数据库
  
 - Redis实例表
- 
+
+
 |_id|rid|version|os|pid|ip|port|memory_buy|memory_allot|token|
-|-|-|-|-|-|-|-|-|-|-|-|
+|----|----|----|----|----|----|----|----|----|----|
 |ObjectId|redis id|redis version|os|process id|ip|port|购买的内存|现在分配的内存|token|
+
 
 - redis info表
 
 |_id|rid|connected_clients|used_memory|used_memory_human|used_memory_rss|used_memory_peak|used_memory_peak_human|mem_fragmentation_ratio|
-|-|
+|----|----|----|----|----|----|----|----|----|----|----|----|
 
 - 节点表
 
 |_id|ip|os|version|cpu|memory|
-|-|
+|----|----|----|----|----|----|
 
 - 节点信息表 
 
 |_id|ip|cpu_used|memory_used|io_ratio|network|alive|
-|-|
+|----|----|----|----|----|----|----|
 
 
 [1]:http://www.cnblogs.com/chengmo/archive/2010/10/22/1858302.html
