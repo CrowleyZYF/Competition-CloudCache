@@ -9,8 +9,13 @@ class JedisCacheClient {
 
     private final def pool
 
+    final def host
+    final def port
+
     JedisCacheClient(host, port) {
         pool = new JedisPool(host, port)
+        this.host = host
+        this.port = port
     }
 
     def operate(Closure closure) {
@@ -21,6 +26,11 @@ class JedisCacheClient {
         } finally {
             jedis.close()
         }
+    }
+
+    @Override
+    String toString() {
+        return "$host $port"
     }
 
 }

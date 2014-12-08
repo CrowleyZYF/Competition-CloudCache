@@ -1,4 +1,4 @@
 .idea/
 WebContent/WEB-INF/classes/**
-
-src/test/
+WebContent/WEB-INF/config/**
+src/test/self/

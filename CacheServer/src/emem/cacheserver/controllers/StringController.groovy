@@ -2,7 +2,7 @@ package emem.cacheserver.controllers
 /**
  * Created by hello on 14-11-20.
  */
-@Route("/")
+@Route("/data")
 class StringController {
 
     def set(rq, res) {
