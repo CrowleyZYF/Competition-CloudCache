@@ -1,5 +1,9 @@
 package emem.cacheserver.controllers
 
+import emem.cacheserver.core.CacheConfig
+import emem.cacheserver.core.ServerConfig
+import emem.cacheserver.rmi.RMIServer
+
 import javax.servlet.Filter
 import javax.servlet.FilterChain
 import javax.servlet.FilterConfig
@@ -8,16 +12,22 @@ import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+import java.rmi.registry.LocateRegistry
 
 /**
  * Created by hello on 14-11-20.
  */
 class DispatchFilter implements Filter {
+    private final static logger = ServerConfig.getLogger()
+
     private final def mapping = [:]
 
     @Override
     void init(FilterConfig filterConfig) throws ServletException {
-        println 'filter init'
+        logger.debug 'Dispatch filter init'
+
+        //初始化基本服务器配置
+        CacheConfig.getInstance().init(ServerConfig.tokenDB.tokens)
 
         def pack = 'emem.cacheserver.controllers'
         def dir = new File(getClass().getResource('').getFile())
@@ -30,7 +40,9 @@ class DispatchFilter implements Filter {
             mapping[path] = it.newInstance()
         }
 
-        println mapping
+        //enable rmi
+        RMIServer.start()
+
     }
 
     @Override
@@ -43,6 +55,8 @@ class DispatchFilter implements Filter {
         def path = fullPath[0..<index]?:'/'
         def method = fullPath.substring(index+1)
 
+        logger.log "Handle request mapping to $path#$method"
+
         def c
         def metaMethods
 
@@ -51,11 +65,14 @@ class DispatchFilter implements Filter {
             return;
         }
 
+        //TODO 方法执行过程中可能产生异常
         metaMethods[0].invoke(c, rq, res)
+
+        if(path.startsWith('/data')) filterChain.doFilter(servletRequest, servletResponse)
     }
 
     @Override
     void destroy() {
-        println 'filter destroy'
+        logger.debug 'Dispatch filter destroy'
     }
 }

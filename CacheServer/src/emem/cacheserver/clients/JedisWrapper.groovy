@@ -7,7 +7,7 @@ import redis.clients.jedis.Jedis
  */
 class JedisWrapper {
 
-    private final Jedis jedis;
+    private final Jedis jedis
 
     JedisWrapper(jedis) {
         this.jedis = jedis
@@ -43,5 +43,9 @@ class JedisWrapper {
 
     def hashSize(key) {
         jedis.hlen(key)
+    }
+
+    def expire(key, expire) {
+        jedis.expire(key, expire)
     }
 }

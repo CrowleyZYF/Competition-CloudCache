@@ -11,12 +11,21 @@ class ControllerUtils {
 
     static def retrieveParams(paramNames, rq, res) {
         def params = [:]
-        for(name in paramNames) {
+        for(namePair in paramNames) {
+            def tokens = namePair.split(':')
+
+            def name = tokens[0]
             def value = rq.getParameter(name)
             if(!value) {
                 res.sendError(400, "Missing parameter $name")
                 return false
             }
+
+            def type = tokens.size() > 1 ? tokens[1] : null
+            if(type == "Integer") {
+                value = value.toInteger()
+            }
+
             params[name] = value
         }
         return params
@@ -25,7 +34,7 @@ class ControllerUtils {
     static def getCacheClient(token, res) {
         def cacheClient = cacheConfig.getCacheClient(token)
         if(!cacheClient) {
-            res.sendError(500)
+            res.sendError(404, "Token[$token] not found")
             return false
         }
         return cacheClient
