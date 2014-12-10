@@ -34,6 +34,9 @@
     1. 发布时删除lib目录下的jetty jar
     2. Context绑定到/
 
+4. 对token和stat的数据库可以实现配置, 配置设置可以修改文件WebContent/WEB-INF/web.xml中的参数.
+   在DispatchFilter下的init-param里, 修改其中的param-value即可
+
 需要稍稍注意的工作:
 1. 增加接口的过期支持
     如何获取expire

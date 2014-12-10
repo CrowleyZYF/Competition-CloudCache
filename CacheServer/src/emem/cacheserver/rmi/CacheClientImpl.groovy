@@ -1,6 +1,5 @@
 package emem.cacheserver.rmi
 
-import emem.cacheserver.core.CacheConfig
 import emem.common.rmi.CacheClient
 
 import java.rmi.RemoteException
