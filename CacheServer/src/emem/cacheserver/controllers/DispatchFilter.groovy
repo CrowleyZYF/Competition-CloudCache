@@ -1,18 +1,13 @@
 package emem.cacheserver.controllers
 
+import com.gmongo.GMongo
 import emem.cacheserver.core.CacheConfig
 import emem.cacheserver.core.ServerConfig
 import emem.cacheserver.rmi.RMIServer
 
-import javax.servlet.Filter
-import javax.servlet.FilterChain
-import javax.servlet.FilterConfig
-import javax.servlet.ServletException
-import javax.servlet.ServletRequest
-import javax.servlet.ServletResponse
+import javax.servlet.*
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
-import java.rmi.registry.LocateRegistry
 
 /**
  * Created by hello on 14-11-20.
@@ -27,8 +22,16 @@ class DispatchFilter implements Filter {
         logger.debug 'Dispatch filter init'
 
         //初始化基本服务器配置
+        def tokenDBHost = filterConfig.getInitParameter('tokenDBHost')?:'localhost'
+        def tokenDBName = filterConfig.getInitParameter('tokenDBName')?:'tokens'
+        def statDBHost = filterConfig.getInitParameter('statDBHost')?:'localhost'
+        def statDBName = filterConfig.getInitParameter('statDBName')?:'stat'
+        ServerConfig.tokenDB = new GMongo(tokenDBHost).getDB(tokenDBName)
+        ServerConfig.statDB = new GMongo(statDBHost).getDB(statDBName)
+
         CacheConfig.getInstance().init(ServerConfig.tokenDB.tokens)
 
+        //配置Controllers
         def pack = 'emem.cacheserver.controllers'
         def dir = new File(getClass().getResource('').getFile())
         dir.list().findAll {it.endsWith('.class')}

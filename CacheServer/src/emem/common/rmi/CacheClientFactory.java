@@ -8,6 +8,6 @@ import java.rmi.RemoteException;
  */
 public interface CacheClientFactory extends Remote {
 
-    CacheClient getInstance(String token) throws RemoteException;
+    CacheClient getCacheClient(String token) throws RemoteException;
 
 }

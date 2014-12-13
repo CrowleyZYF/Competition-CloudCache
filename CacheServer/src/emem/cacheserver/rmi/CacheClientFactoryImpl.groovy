@@ -15,7 +15,7 @@ class CacheClientFactoryImpl implements CacheClientFactory {
     private final static def logger = ServerConfig.logger
 
     @Override
-    CacheClient getInstance(String token) {
+    CacheClient getCacheClient(String token) {
         logger.log "RMI: new cache client request from token $token"
 
         def cacheClient = CacheConfig.getInstance().getCacheClient(token)
