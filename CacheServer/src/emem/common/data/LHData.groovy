@@ -1,7 +1,4 @@
 package emem.common.data
-
-import javax.servlet.UnavailableException
-
 /**
  * Created by hello on 14-11-20.
  */

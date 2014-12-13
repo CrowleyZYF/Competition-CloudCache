@@ -6,7 +6,7 @@ def port = 8088
 def token = 'a'
 
 def cacheClientFactory = Naming.lookup("rmi://localhost:$port/CacheClientFactory")
-def cacheClient = cacheClientFactory.getInstance(token)
+def cacheClient = cacheClientFactory.getCacheClient(token)
 
 cacheClient.set('hello', 'world')
 println cacheClient.get('hello') == 'world'

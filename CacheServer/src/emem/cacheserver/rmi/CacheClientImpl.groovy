@@ -1,6 +1,5 @@
 package emem.cacheserver.rmi
 
-import emem.cacheserver.core.CacheConfig
 import emem.common.rmi.CacheClient
 
 import java.rmi.RemoteException
@@ -76,6 +75,78 @@ class CacheClientImpl implements CacheClient {
         def size
         cacheClient.operate {
             size = it.hashSize(key)
+        }
+        size
+    }
+
+    @Override
+    void set(String key, String value, long expire) {
+        cacheClient.operate {
+            it.set(key, value)
+            it.expire(key, expire)
+        }
+    }
+
+    @Override
+    String get(String key, long expire) {
+        def value
+        cacheClient.operate {
+            value = it.get(key)
+            it.expire(key, expire)
+        }
+        value
+    }
+
+    @Override
+    void hashSetAll(String key, Map<String, String> map, long expire) {
+        cacheClient.operate {
+            it.hashSetAll(key, map)
+            it.expire(key, expire)
+        }
+    }
+
+    @Override
+    Map<String, String> hashGetAll(String key, long expire) throws RemoteException {
+        def map
+        cacheClient.operate {
+            map = it.hashGetAll(key)
+            it.expire(key, expire)
+        }
+        map
+    }
+
+    @Override
+    void hashSet(String key, String index, String value, long expire) throws RemoteException {
+        cacheClient.operate {
+            it.hashSet(key, index, value)
+            it.expire(key, expire)
+        }
+    }
+
+    @Override
+    String hashGet(String key, String index, long expire) throws RemoteException {
+        def value
+        cacheClient.operate {
+            value = it.hashGet(key, index)
+            it.expire(key, expire)
+        }
+        value
+    }
+
+    @Override
+    void hashRemove(String key, String index, long expire) throws RemoteException {
+        cacheClient.operate {
+            it.hashRemove(key, index)
+            it.expire(key, expire)
+        }
+    }
+
+    @Override
+    long hashSize(String key, long expire) throws RemoteException {
+        def size
+        cacheClient.operate {
+            size = it.hashSize(key)
+            it.expire(key, expire)
         }
         size
     }

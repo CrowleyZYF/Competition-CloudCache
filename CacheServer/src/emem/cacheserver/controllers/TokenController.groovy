@@ -16,7 +16,7 @@ class TokenController {
         def params = ControllerUtils.retrieveParams(['token', 'host', 'port:Integer'], rq, res)
         if(!params) return;
 
-        ServerConfig.tokenDB.tokens.save(['_id': params.token, 'host': params.host, 'port': params.port])
+//        ServerConfig.tokenDB.tokens.save(['_id': params.token, 'host': params.host, 'port': params.port])
         cacheConfig.setCacheClient(params.token, new JedisCacheClient(params.host, params.port))
     }
 
@@ -24,7 +24,7 @@ class TokenController {
         def params = ControllerUtils.retrieveParams(['token'], rq, res)
         if(!params) return;
 
-        ServerConfig.tokenDB.tokens.remove(['_id': params.token])
+//        ServerConfig.tokenDB.tokens.remove(['_id': params.token])
         cacheConfig.removeCacheClient(params.token)
     }
 

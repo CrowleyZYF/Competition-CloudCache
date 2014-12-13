@@ -1,0 +1,65 @@
+缓存服务子系统是一个客户端-服务器架构, 对HTTP和RMI两种协议提供支持.
+
+其中HTTP协议的接口规定如下:
+
+    整个协议层支持三种数据结构, 分别是string, hash.
+    其中基本元素只有string, 和hash内的元素也是string类型的.
+    然后键值即key一律都是string.
+
+    约束:
+        下面的接口描述中, 所给的参数都不能为空, 加上[]的除外
+        每个接口都有用户隔离的功能, 使用token参数进行区别, 就没有单独列出来了
+        例如对于用户mingming来说, 其完整的调用应该是/set?key=hello&value=world&token=mingming
+        每个接口都添加有过期值的支持, 参数名为expire, value值是秒数
+        例如想要key在10秒后过期, 完整的调用应该是/set?key=hello&value=world&token=mingming&expire=10
+
+    关于标量string的接口:
+
+        /set: key, value
+            存储字符串的值
+            例如: /set?key=hello&value=world
+        /get: key => value
+            返回字符串的值
+            例如: /get?key=hello => world
+
+    关于hash的接口:
+
+        /hash/setAll: key, value
+            存储hash类型的值,
+            其中hash内部元素的值是由","和":"分割的字符串键值对序列,
+            字符串值中的",:\"需要用"\"转义
+            例如: /table/setAll?key=hello&value=k1:1,k2:2,k3:3
+        /hash/getAll: key => value
+            返回hash类型的值
+            例如: /table/getAll?key=hello => k1:1,k2:2,k3:3
+
+        /hash/set: key, index, value
+            设置hash集合内指定索引键的值
+            例如: /table/set?key=hello&index=k1&value=b
+        /hash/get: key, index
+            返回hash集合内指定索引建的值
+            例如: /table/get?key=hello&index=k1
+        /hash/remove:
+            删除hash集合内指定索引建的键值对
+            例如: /table/remove?key=hello&index=k1
+
+        /hash/size: key => size
+            返回hash的大小
+            例如: /hash/size?key=hello => 3
+
+另外, 对于RMI协议, 需要动作的是:
+
+    首先, 引入两个.class文件, 分别是emem.common.rmi.CacheClientFactory和emem.common.rmi.CacheClient
+    其中CacheClientFactory是CacheClient的生成工厂, 其定义一个getCacheClient方法, 接受token参数返回一个CacheClient的实例.
+    CacheClient定义了一系列缓存操作的接口, 包括set, get, setHashAll, getHashAll等.
+    客户端需要做的是, 了解缓存服务子系统的host(例如localhost)和端口号(例如8088), 然后通过调用
+        (CacheClientFactory)Naming.lookup("rmi://localhost:8088/CacheClientFactory")
+    返回一个CacheClientFactory实例, 接下来的操作就跟普通java对象操作没啥区别了.
+
+这是两个协议层. 那么接下来说说客户端jar包的情况:
+
+    首先, 由于RMI协议已经是直接通过调用JAVA方法操作的, 就不提供JAR包了.
+
+    对于HTTP协议, 提供了JAR包的支持. 其包为emem.cacheclient. 其中唯一被客户端用到的类是CacheClient.
+    该类的使用是, 首先通过构造方法CacheClient(host, port, token)返回一个CacheClient实例, 然后就可以进行诸如
+    set, get, setHashAll, getHashAll等操作.
