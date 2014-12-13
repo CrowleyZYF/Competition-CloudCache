@@ -4,6 +4,7 @@ import emem.cacheserver.core.CacheConfig
 import emem.cacheserver.core.ServerConfig
 
 import javax.servlet.*
+import javax.servlet.http.HttpServletRequest
 
 /**
  * Created by hello on 14-12-5.
@@ -20,6 +21,7 @@ class DataFilter implements Filter {
     void doFilter(ServletRequest rq, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         logger.debug('Do data filter')
 
+        def op = rq.getServletPath().replace('/data/', '')
         def key = rq.getParameter('key')
         def token = rq.getParameter('token')
         if(key && token) {
@@ -34,7 +36,7 @@ class DataFilter implements Filter {
             }
 
             //统计
-            ServerConfig.statDB[token].insert(['key': key, 'time': System.currentTimeMillis()])
+            ServerConfig.statDB[token].insert(['token': token, 'key': key, 'op': op, 'time': System.currentTimeMillis()])
         }
     }
 

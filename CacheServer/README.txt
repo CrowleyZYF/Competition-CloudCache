@@ -15,18 +15,19 @@
 5. 统计数据的支持
     现将所有客户端请求添加到mongodb数据中去了, 目前的数据库是
         IP: localhost, 数据库名: stat
-    数据格式: token, key, time
+    数据格式: token, key, op, time
+    其中op包括: set, get, hash/setAll, hash/getAll, hash/set, hash/get, hash/remove, hash/size
 
 构建步骤:
 
 1. 首先, 将src中的groovy源码和java源码编译到文件夹WebContent/WEB-INF/classes
 
 2. 推荐命令行启动:
-    cd CacheServer
+    cd CacheServer/WebContent
     Linux下执行:
-    java -classpath WebContent/WEB-INF/classes:WebContent/WEB-INF/lib/jetty-server-8.1.8.jar test.ServerStart
+    java -classpath WEB-INF/classes:WEB-INF/lib/jetty-server-8.1.8.jar test.ServerStart
     Windows下执行:
-    java -classpath WebContent/WEB-INF/classes;WebContent/WEB-INF/lib/jetty-server-8.1.8.jar test.ServerStart
+    java -classpath WEB-INF/classes;WEB-INF/lib/jetty-server-8.1.8.jar test.ServerStart
     区别在于-classpath参数下Linux以冒号分割, 而Windows用分号分割
 
 3. 可以把WebContent目录部署到Servlet容器下, 如Jetty, Tomcat等. 推荐使用轻量级的Jetty
