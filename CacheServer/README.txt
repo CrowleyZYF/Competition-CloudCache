@@ -25,9 +25,9 @@
 2. 推荐命令行启动:
     cd CacheServer/WebContent
     Linux下执行:
-    java -classpath WEB-INF/classes:WEB-INF/lib/jetty-server-8.1.8.jar test.ServerStart
+    java -Djava.rmi.server.logCalls=true -cp 'WEB-INF/lib/jetty-server-8.1.8.jar:WEB-INF/classes' test.ServerStart
     Windows下执行:
-    java -classpath WEB-INF/classes;WEB-INF/lib/jetty-server-8.1.8.jar test.ServerStart
+    java -Djava.rmi.server.logCalls=true -cp 'WEB-INF/lib/jetty-server-8.1.8.jar;WEB-INF/classes' test.ServerStart
     区别在于-classpath参数下Linux以冒号分割, 而Windows用分号分割
 
 3. 可以把WebContent目录部署到Servlet容器下, 如Jetty, Tomcat等. 推荐使用轻量级的Jetty

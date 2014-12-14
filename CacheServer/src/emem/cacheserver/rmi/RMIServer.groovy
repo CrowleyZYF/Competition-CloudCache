@@ -2,6 +2,7 @@ package emem.cacheserver.rmi
 
 import emem.cacheserver.core.ServerConfig
 
+import java.rmi.Naming
 import java.rmi.registry.LocateRegistry
 import java.rmi.server.UnicastRemoteObject
 
@@ -17,6 +18,7 @@ class RMIServer {
 
         def cacheClientFactory = UnicastRemoteObject.exportObject(new CacheClientFactoryImpl(), 0)
         registry.bind('CacheClientFactory', cacheClientFactory)
+        Naming.lookup("rmi://localhost:$port/CacheClientFactory") //TODO 预查一次
 
         logger.log "RMI Server started at port $port"
     }

@@ -11,7 +11,7 @@ public class ServerStart {
 
     public static void main(String[] args) throws Exception {
         int port = args.length > 0 ? Integer.parseInt(args[0]) : 8080; //default port
-        String webAppDir = args.length > 1 ? args[1] : "WebContent"; //default web app dir
+        String webAppDir = args.length > 1 ? args[1] : "."; //default web app dir
         String context = args.length > 2 ? args[2] : "/"; //default context
 
         Server server = new Server();
