@@ -29,7 +29,7 @@ class DispatchFilter implements Filter {
         ServerConfig.tokenDB = new GMongo(tokenDBHost).getDB(tokenDBName)
         ServerConfig.statDB = new GMongo(statDBHost).getDB(statDBName)
 
-        CacheConfig.getInstance().init(ServerConfig.tokenDB.tokens)
+        CacheConfig.getInstance().init(ServerConfig.tokenDB.user)
 
         //配置Controllers
         def pack = 'emem.cacheserver.controllers'

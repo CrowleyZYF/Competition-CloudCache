@@ -11,15 +11,15 @@
         <filter-class>emem.cacheserver.controllers.DispatchFilter</filter-class>
         <init-param>
             <param-name>tokenDBHost</param-name>
-            <param-value>localhost</param-value>
+            <param-value>192.168.1.73</param-value>
         </init-param>
         <init-param>
             <param-name>tokenDBName</param-name>
-            <param-value>tokens</param-value>
+            <param-value>emem_system</param-value>
         </init-param>
         <init-param>
             <param-name>statDBHost</param-name>
-            <param-value>localhost</param-value>
+            <param-value>192.168.1.73</param-value>
         </init-param>
         <init-param>
             <param-name>statDBName</param-name>

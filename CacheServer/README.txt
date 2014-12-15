@@ -25,9 +25,9 @@
 2. 推荐命令行启动:
     cd CacheServer/WebContent
     Linux下执行:
-    java -Djava.rmi.server.logCalls=true -cp 'WEB-INF/lib/jetty-server-8.1.8.jar:WEB-INF/classes' test.ServerStart
+    java -Djava.rmi.server.logCalls=true -cp 'WEB-INF/lib/jetty-server-8.1.8.jar:WEB-INF/classes' emem.cacheserver.ServerStart
     Windows下执行:
-    java -Djava.rmi.server.logCalls=true -cp 'WEB-INF/lib/jetty-server-8.1.8.jar;WEB-INF/classes' test.ServerStart
+    java -Djava.rmi.server.logCalls=true -cp 'WEB-INF/lib/jetty-server-8.1.8.jar;WEB-INF/classes' emem.cacheserver.ServerStart
     区别在于-classpath参数下Linux以冒号分割, 而Windows用分号分割
 
 3. 可以把WebContent目录部署到Servlet容器下, 如Jetty, Tomcat等. 推荐使用轻量级的Jetty
@@ -37,6 +37,11 @@
 
 4. 对token和stat的数据库可以实现配置, 配置设置可以修改文件WebContent/WEB-INF/web.xml中的参数.
    在DispatchFilter下的init-param里, 修改其中的param-value即可
+
+5. 客户端测试:
+    打包: jar cvf http-client.jar .
+    java -cp '.:groovy-all-2.3.7.jar:http-client.jar' HttpClientExample
+    java -cp '.:groovy-all-2.3.7.jar:rmi-client.jar' RMIClientExample
 
 需要稍稍注意的工作:
 1. 增加接口的过期支持

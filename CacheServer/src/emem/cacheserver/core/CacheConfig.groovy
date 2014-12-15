@@ -27,7 +27,7 @@ class CacheConfig {
     def init(tokenCollection) {
         def tokenMapping = [:]
         tokenCollection.find().each {
-            tokenMapping[it._id] = new JedisCacheClient(it.host, it.port)
+            tokenMapping[it.token] = new JedisCacheClient(it.host, it.port.toInteger())
         }
         this.tokenMapping = tokenMapping
         logger.log "Init token mapping: \n${this.tokenMapping}"
