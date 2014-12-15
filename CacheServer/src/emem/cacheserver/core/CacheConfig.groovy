@@ -33,20 +33,6 @@ class CacheConfig {
         logger.log "Init token mapping: \n${this.tokenMapping}"
     }
 
-    def init(File file) {
-        if(!file.exists()) return
-        try {
-            def tokenMapping = [:]
-            file.eachLine {
-                def items = it.split(' ')
-                tokenMapping[items[0]] = new JedisCacheClient(items[1], items[2].toInteger())
-            }
-            this.tokenMapping = tokenMapping
-        } catch(e) {
-            e.printStackTrace()
-        }
-    }
-
     @Override
     String toString() {
         tokenMapping.entrySet().collect {"$it.key $it.value"}.join('\n')

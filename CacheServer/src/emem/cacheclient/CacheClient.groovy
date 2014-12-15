@@ -101,7 +101,7 @@ class CacheClient {
         return value.toInteger()
     }
 
-    void set(String key, String value, long expire) {
+    void set(String key, String value, int expire) {
         new HTTPClient(
                 host: host,
                 port: port,
@@ -111,7 +111,7 @@ class CacheClient {
         ).request()
     }
 
-    String get(String key, long expire) {
+    String get(String key, int expire) {
         def value = new HTTPClient(
                 host: host,
                 port: port,
@@ -122,7 +122,7 @@ class CacheClient {
         return value?:null
     }
 
-    void hashSetAll(String key, Map<String, String> hash, long expire) {
+    void hashSetAll(String key, Map<String, String> hash, int expire) {
         def value = LHData.hashToString(hash)
         new HTTPClient(
                 host: host,
@@ -133,7 +133,7 @@ class CacheClient {
         ).request()
     }
 
-    Map<String, String> hashGetAll(String key, long expire) {
+    Map<String, String> hashGetAll(String key, int expire) {
         def value = new HTTPClient(
                 host: host,
                 port: port,
@@ -144,7 +144,7 @@ class CacheClient {
         return value?LHData.hashFromString(value):null
     }
 
-    void hashSet(String key, String index, String value, long expire) {
+    void hashSet(String key, String index, String value, int expire) {
         new HTTPClient(
                 host: host,
                 port: port,
@@ -154,7 +154,7 @@ class CacheClient {
         ).request()
     }
 
-    String hashGet(String key, String index, long expire) {
+    String hashGet(String key, String index, int expire) {
         def value = new HTTPClient(
                 host: host,
                 port: port,
@@ -165,7 +165,7 @@ class CacheClient {
         return value?:null
     }
 
-    void hashRemove(String key, String index, long expire) {
+    void hashRemove(String key, String index, int expire) {
         new HTTPClient(
                 host: host,
                 port: port,
@@ -175,7 +175,7 @@ class CacheClient {
         ).request()
     }
 
-    int hashSize(String key, long expire) {
+    int hashSize(String key, int expire) {
         def value = new HTTPClient(
                 host: host,
                 port: port,

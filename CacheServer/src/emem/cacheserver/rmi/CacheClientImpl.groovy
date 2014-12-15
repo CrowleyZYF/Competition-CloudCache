@@ -80,7 +80,7 @@ class CacheClientImpl implements CacheClient {
     }
 
     @Override
-    void set(String key, String value, long expire) {
+    void set(String key, String value, int expire) {
         cacheClient.operate {
             it.set(key, value)
             it.expire(key, expire)
@@ -88,7 +88,7 @@ class CacheClientImpl implements CacheClient {
     }
 
     @Override
-    String get(String key, long expire) {
+    String get(String key, int expire) {
         def value
         cacheClient.operate {
             value = it.get(key)
@@ -98,7 +98,7 @@ class CacheClientImpl implements CacheClient {
     }
 
     @Override
-    void hashSetAll(String key, Map<String, String> map, long expire) {
+    void hashSetAll(String key, Map<String, String> map, int expire) {
         cacheClient.operate {
             it.hashSetAll(key, map)
             it.expire(key, expire)
@@ -106,7 +106,7 @@ class CacheClientImpl implements CacheClient {
     }
 
     @Override
-    Map<String, String> hashGetAll(String key, long expire) throws RemoteException {
+    Map<String, String> hashGetAll(String key, int expire) throws RemoteException {
         def map
         cacheClient.operate {
             map = it.hashGetAll(key)
@@ -116,7 +116,7 @@ class CacheClientImpl implements CacheClient {
     }
 
     @Override
-    void hashSet(String key, String index, String value, long expire) throws RemoteException {
+    void hashSet(String key, String index, String value, int expire) throws RemoteException {
         cacheClient.operate {
             it.hashSet(key, index, value)
             it.expire(key, expire)
@@ -124,7 +124,7 @@ class CacheClientImpl implements CacheClient {
     }
 
     @Override
-    String hashGet(String key, String index, long expire) throws RemoteException {
+    String hashGet(String key, String index, int expire) throws RemoteException {
         def value
         cacheClient.operate {
             value = it.hashGet(key, index)
@@ -134,7 +134,7 @@ class CacheClientImpl implements CacheClient {
     }
 
     @Override
-    void hashRemove(String key, String index, long expire) throws RemoteException {
+    void hashRemove(String key, String index, int expire) throws RemoteException {
         cacheClient.operate {
             it.hashRemove(key, index)
             it.expire(key, expire)
@@ -142,7 +142,7 @@ class CacheClientImpl implements CacheClient {
     }
 
     @Override
-    long hashSize(String key, long expire) throws RemoteException {
+    long hashSize(String key, int expire) throws RemoteException {
         def size
         cacheClient.operate {
             size = it.hashSize(key)

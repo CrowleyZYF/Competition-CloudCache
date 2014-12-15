@@ -4,9 +4,7 @@
 
 2. 基本的token配置接口
     token配置需要调用缓存服务子系统提供的接口.
-    token的配置内容放在mongodb数据库里, 现在放置的数据库是
-        IP: localhost, 数据库名: tokens
-    数据格式: _id(token), host, port
+    token的配置内容放在mongodb数据库里, 文档格式: token, host, port
 
 3. RMI协议的支持
 
@@ -19,6 +17,10 @@
     其中op包括: set, get, hash/setAll, hash/getAll, hash/set, hash/get, hash/remove, hash/size
 
 构建步骤:
+
+0. 已经将开发环境在邓老师的机器上搭建好了, 邓老师需要做的是:
+    git pull
+    run
 
 1. 首先, 将src中的groovy源码和java源码编译到文件夹WebContent/WEB-INF/classes
 
@@ -42,6 +44,11 @@
     打包: jar cvf http-client.jar .
     java -cp '.:groovy-all-2.3.7.jar:http-client.jar' HttpClientExample
     java -cp '.:groovy-all-2.3.7.jar:rmi-client.jar' RMIClientExample
+
+工作计划:
+1. 整理文档
+2. hash数据的转义支持
+3. RMI协议没有写入stat
 
 需要稍稍注意的工作:
 1. 增加接口的过期支持
