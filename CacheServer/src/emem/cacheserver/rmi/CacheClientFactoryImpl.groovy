@@ -19,7 +19,7 @@ class CacheClientFactoryImpl implements CacheClientFactory {
         logger.log "RMI: new cache client request from token $token"
 
         def cacheClient = CacheConfig.getInstance().getCacheClient(token)
-        cacheClient = new CacheClientImpl(cacheClient)
+        cacheClient = new CacheClientImpl(cacheClient, token)
         return UnicastRemoteObject.exportObject(cacheClient, 0)
     }
 }

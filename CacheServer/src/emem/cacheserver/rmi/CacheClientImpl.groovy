@@ -1,5 +1,6 @@
 package emem.cacheserver.rmi
 
+import emem.cacheserver.core.ServerConfig
 import emem.common.rmi.CacheClient
 
 import java.rmi.RemoteException
@@ -10,13 +11,16 @@ import java.rmi.RemoteException
 class CacheClientImpl implements CacheClient {
 
     private final cacheClient
+    private final token
 
-    CacheClientImpl(cacheClient) {
+    CacheClientImpl(cacheClient, token) {
         this.cacheClient = cacheClient
+        this.token = token
     }
 
     @Override
     void set(String key, String value) {
+        log('set', key)
         cacheClient.operate {
             it.set(key, value)
         }
@@ -24,6 +28,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     String get(String key) {
+        log('get', key)
         def value
         cacheClient.operate {
             value = it.get(key)
@@ -33,6 +38,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     void hashSetAll(String key, Map<String, String> map) {
+        log('hash/setAll', key)
         cacheClient.operate {
             it.hashSetAll(key, map)
         }
@@ -40,6 +46,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     Map<String, String> hashGetAll(String key) throws RemoteException {
+        log('hash/getAll', key)
         def map
         cacheClient.operate {
             map = it.hashGetAll(key)
@@ -49,6 +56,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     void hashSet(String key, String index, String value) throws RemoteException {
+        log('hash/set', key)
         cacheClient.operate {
             it.hashSet(key, index, value)
         }
@@ -56,6 +64,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     String hashGet(String key, String index) throws RemoteException {
+        log('hash/get', key)
         def value
         cacheClient.operate {
             value = it.hashGet(key, index)
@@ -65,6 +74,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     void hashRemove(String key, String index) throws RemoteException {
+        log('hash/remove', key)
         cacheClient.operate {
             it.hashRemove(key, index)
         }
@@ -72,6 +82,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     long hashSize(String key) throws RemoteException {
+        log('hash/size', key)
         def size
         cacheClient.operate {
             size = it.hashSize(key)
@@ -81,6 +92,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     void set(String key, String value, int expire) {
+        log('set', key)
         cacheClient.operate {
             it.set(key, value)
             it.expire(key, expire)
@@ -89,6 +101,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     String get(String key, int expire) {
+        log('get', key)
         def value
         cacheClient.operate {
             value = it.get(key)
@@ -99,6 +112,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     void hashSetAll(String key, Map<String, String> map, int expire) {
+        log('hash/setAll', key)
         cacheClient.operate {
             it.hashSetAll(key, map)
             it.expire(key, expire)
@@ -107,6 +121,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     Map<String, String> hashGetAll(String key, int expire) throws RemoteException {
+        log('hash/getAll', key)
         def map
         cacheClient.operate {
             map = it.hashGetAll(key)
@@ -117,6 +132,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     void hashSet(String key, String index, String value, int expire) throws RemoteException {
+        log('hash/set', key)
         cacheClient.operate {
             it.hashSet(key, index, value)
             it.expire(key, expire)
@@ -125,6 +141,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     String hashGet(String key, String index, int expire) throws RemoteException {
+        log('hash/get', key)
         def value
         cacheClient.operate {
             value = it.hashGet(key, index)
@@ -135,6 +152,7 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     void hashRemove(String key, String index, int expire) throws RemoteException {
+        log('hash/remove', key)
         cacheClient.operate {
             it.hashRemove(key, index)
             it.expire(key, expire)
@@ -143,11 +161,16 @@ class CacheClientImpl implements CacheClient {
 
     @Override
     long hashSize(String key, int expire) throws RemoteException {
+        log('hash/size', key)
         def size
         cacheClient.operate {
             size = it.hashSize(key)
             it.expire(key, expire)
         }
         size
+    }
+
+    def log(key, op) {
+        ServerConfig.statDB[token].insert(['token': token, 'key': key, 'op': op, 'time': System.currentTimeMillis()])
     }
 }
