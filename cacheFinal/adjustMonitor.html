@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/grey.css" />
+    <link type="text/css" rel="stylesheet/less" href="css/main.less" />
+    <link type="text/css" rel="stylesheet/less" href="css/home.less" />
+    <script type="text/javascript" src="js/less-1.7.5.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/icheck.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/adjust.js"></script>
+    <title>云缓存</title>
+    <style>
+        tbody tr:hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="home.html">eMem</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="home.html">缓存管理</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">缓存监控<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="severMonitor.html">缓存服务器状态监控</a></li>
+                        <li><a href="netMonitor.html">网络链路监控</a></li>
+                        <li><a href="cacheMonitor.html">缓存服务监控</a></li>
+                        <li><a href="errorMonitor.html">缓存异常监控</a></li>
+                    </ul>
+                </li>
+                <li><a href="statisticsMonitor.html">缓存统计</a></li>
+                <li class="active"><a href="adjustMonitor.html">自动调整</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">管理员设置</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">另外的功能</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">退出系统</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="title">
+    <h1><span>eMem</span>弹性云缓存系统</h1>
+</div>
+<div id="system">
+    <nav>
+        <div>
+            <h3><span>Hi</span> 庄奕峰</h3>
+            <h4>castiel.zyf@gmail.com</h4>
+        </div>
+        <div>
+            <h3>缓存自动调整记录</h3>
+            <div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-lg btn-block dropdown-toggle" data-toggle="dropdown">查 看 实 例 概 况<span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="adjustRecord.html">61.164.36.20:1111</a></li>
+                        <li><a href="adjustRecord.html">61.164.36.20:1112</a></li>
+                        <li><a href="adjustRecord.html">61.164.36.20:1113</a></li>
+                        <li><a href="adjustRecord.html">61.164.36.20:1114</a></li>
+                        <li><a href="adjustRecord.html">61.164.36.20:1115</a></li>
+                        <li><a href="adjustRecord.html">61.164.36.20:1116</a></li>
+                        <li><a href="adjustRecord.html">61.164.36.20:1117</a></li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-warning btn-lg btn-block needConfirm" id="stopAll" data-toggle="modal" data-target="#confirmModal">查 看 实 例 明 细</button>
+            </div>
+        </div>
+    </nav>
+    <div id="partSystem">
+        <div class="partSystemBlock">
+            <div class="hasButton">
+                <h3 class="partTitle">实例列表</h3>
+                <div>
+                    <button type="button" class="btn btn-info">更换自动调整算法</button>
+                </div>
+            </div>
+            <div style="margin-top: 20px">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#all" role="tab" data-toggle="tab">所有实例</a></li>
+                    <li role="presentation"><a href="#redis" role="tab" data-toggle="tab">基于Redis的实例</a></li>
+                    <li role="presentation"><a href="#memcached" role="tab" data-toggle="tab">基于Memcached的实例</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="all">
+                        <div>
+                            <table class="table" id="allTable">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>IP：端口</th>
+                                    <th>实例号</th>
+                                    <th>管理员</th>
+                                    <th>状态</th>
+                                    <th>缓存引擎</th>
+                                    <th>区域</th>
+                                    <th>创建时间</th>
+                                    <th>调整算法</th>
+                                    <th>已用缓存及配额</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="redis">
+                        <div>
+                            <table class="table" id="redisTable">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>IP：端口</th>
+                                    <th>实例号</th>
+                                    <th>管理员</th>
+                                    <th>状态</th>
+                                    <th>区域</th>
+                                    <th>创建时间</th>
+                                    <th>调整算法</th>
+                                    <th>已用缓存及配额</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="memcached">
+                        <div>
+                            <table class="table" id="memcachedTable">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>IP：端口</th>
+                                    <th>实例号</th>
+                                    <th>管理员</th>
+                                    <th>状态</th>
+                                    <th>区域</th>
+                                    <th>创建时间</th>
+                                    <th>调整算法</th>
+                                    <th>已用缓存及配额</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="float:none;clear:both;"></div>
+        </div>
+    </div>
+    <div style="float:none;clear:both;"></div>
+</div>
+</body>
+</html>

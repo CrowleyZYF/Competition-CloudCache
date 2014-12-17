@@ -1,0 +1,358 @@
+html{
+  min-width: 1350px;
+}
+body{
+  background: url("../image/bg.png") repeat;
+}
+nav{
+  margin-bottom: 0 !important;
+  font-family: "微软雅黑";
+}
+#title{
+  margin-top: 0;
+  box-shadow: 0 0 6px rgba(0, 0, 0, .3);
+  font-family: "微软雅黑";
+
+  h1{
+    margin: 0;
+    padding: 20px;
+    color: #797979;
+    font-family: "微软雅黑";
+    font-size: 32px;
+
+    span{
+      color: #1685a9;
+      font-family: Cambria, Georgia, serif;
+      padding-right: 10px;
+    }
+  }
+}
+
+#system {
+  min-width: 1350px;
+
+  > nav {
+    float: left;
+    width: 250px;
+    border-right: 3px solid lightgray;
+
+    > div:first-child {
+      width: 100%;
+      padding: 10px 20px;
+      color: #797979;
+      border-bottom: 1px solid lightgray;
+
+      h3 {
+        font-family: "微软雅黑";
+
+        span {
+          color: #1685a9;
+          font-family: Cambria, Georgia, serif;
+          margin-right: 10px;
+        }
+      }
+
+      h4{
+        font-family: Cambria, Georgia, serif;
+      }
+    }
+
+    > div:last-child {
+      h3 {
+        padding-left: 20px;
+        color: #797979;
+        font-family: "微软雅黑";
+      }
+      h4 {
+        padding-left: 20px;
+        color: #797979;
+        font-family: "微软雅黑";
+      }
+      > div {
+        width: 210px;
+        margin-left: 20px;
+        margin-top: 20px;
+
+        button {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  #partSystem {
+    float: left;
+    min-width: 1100px;
+    margin-bottom: 50px;
+  }
+}
+
+/*监控内容块的基本样式*/
+.partSystemBlock {
+  width: 98%;
+  margin: 1% 1% 50px 1%;
+
+  >div{
+    margin-left: 20px;
+  }
+  /*标题部分*/
+  >div:first-child {
+    margin-left: 20px;
+
+    h3 {
+      display: block;
+      color: #797979;
+      padding-left: 15px;
+      border-left: 5px solid #1685a9;
+      font-family: "微软雅黑";
+      padding-bottom: 3px;
+    }
+  }
+}
+
+//基础信息块样式
+.blockInfo{
+  font-family: "微软雅黑";
+  margin: 20px auto 20px 20px;
+  border: 1px solid lightgray;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 15px 25px;
+
+  >ul{
+    height: 30px;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+
+    >li{
+      width: 25%;
+      height: 30px;
+      float: left;
+      padding-top: 5px;
+
+      >span{
+        font-size: 13px;
+      }
+
+      >span:first-child{
+        display: inline-block;
+        width: 130px;
+        color: #797979;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+//蓝色方块样式
+.blueBlocks{
+  margin-top: 20px;
+  height: 120px;
+
+  >div{
+    font-family: "微软雅黑";
+    float: left;
+    width: 11%;
+    height: 100px;
+    margin-right: 1.7%;
+    background-color: #d8e9f1;
+    border-radius: 5%;
+
+    h5{
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+      color: #797979;
+    }
+
+    p{
+      text-align: center;
+      font-size: 40px;
+      font-weight: bold;
+      color: #1685a9;
+      font-family: Eurostile, Cambria, serif;
+      margin-top: -5px;
+    }
+
+    &:first-child{
+      margin-left: 0;
+    }
+
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}
+
+//图表块
+.chartBlock{
+  margin-left: 20px;
+  height: 460px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+
+  >div{
+    float: left;
+    height: 450px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+
+    &:first-child{
+      width: 68%;
+      margin-right: 2%;
+    }
+
+    &:last-child{
+      width: 30%;
+    }
+  }
+
+  .chartSmallBlock{
+    >div{
+      background-color: #f4f4f4;
+      float: left;
+      width: 33.3%;
+      padding: 50px 0;
+      height: 448px;
+    }
+  }
+}
+
+//行块
+.lineInfo{
+  font-family: "微软雅黑";
+  margin: 20px auto;
+  border: 1px solid lightgray;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 15px 25px;
+
+  ul {
+    list-style: none;
+    border-bottom: 1px dashed #c6c6c6;
+    height: 60px;
+    padding: 10px 0;
+
+    li {
+      float: left;
+      width: 10%;
+
+      span {
+        display: inline-block;
+        margin-top: 10px;
+      }
+
+      &:last-child {
+        width: 80%;
+
+        span {
+          float: left;
+
+          &:last-child {
+            width: 85%;
+            margin-top: 0;
+            margin-left: 15px;
+
+            .progress {
+              background-color: #c6c6c6;
+              margin-bottom: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
+/*标题部分右侧有按钮组*/
+.hasButton{
+  height: 60px;
+  h3{
+    float: left !important;
+  }
+  /* 按钮组 */
+  >div{
+    float: right;
+
+    button{
+      margin-top: 20px;
+      margin-right: 5px;
+    }
+  }
+}
+
+/*标题部分右侧没有按钮组*/
+.noButton{
+  height: 30px;
+  h3{
+    margin-top: 36px !important;
+  }
+}
+
+.modal{
+  *{
+    font-family: "微软雅黑" !important;
+  }
+
+  .modal-dialog{
+    margin-top: 150px;
+  }
+
+  .modal-small{
+    width: 350px;
+  }
+}
+
+
+
+
+
+    /*#baseInfo{
+      font-family: "微软雅黑";
+
+      >div{
+        height: 160px;
+
+        >ul{
+          float: left;
+          width: 25%;
+          list-style: none;
+          padding: 20px;
+
+          >li{
+            height: 30px;
+
+            >span:first-child{
+              display: inline-block;
+              width: 130px;
+              color: #797979;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    .blockInfo{
+      width: 96%;
+      margin: 20px auto;
+      border: 1px solid lightgray;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+
+    .pagination>li>a, .pagination>li>span {
+      position: relative;
+      float: left;
+      padding: 6px 12px;
+      margin-left: -1px;
+      line-height: 1.428571429;
+      text-decoration: none;
+      background-color: transparent;
+      border: 1px solid lightgray;
+    }
+  }
+}*/
