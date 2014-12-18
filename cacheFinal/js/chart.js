@@ -252,6 +252,9 @@ function createDoubleChart(id,title,data,min,max,line,min2,max2,cat) {
         series: data,
         valueAxes: [{
             name: "rate",
+            labels: {
+                format: "{0}%"
+            },
             color: "#FD6901",
             min: min,
             max: max,
@@ -284,36 +287,6 @@ function createDoubleChart(id,title,data,min,max,line,min2,max2,cat) {
 }
 
 function createBarChart(id,title,time,key,max) {
-    /*$(id).kendoChart({
-        title: {
-            text: title
-        },
-        legend: {
-            visible: false
-        },
-        seriesDefaults: {
-            type: "bar"
-        },
-        series: {
-            name: "Unique visitors",
-            data: [1000,950,900,850,800,750,700,650,600,550,500,450,400,350,300,250,200,150,100,50]
-        },
-        valueAxis: {
-            max: max,
-            line: {
-                visible: false
-            },
-            minorGridLines: {
-                visible: true
-            }
-        },
-        categoryAxis: {
-            categories: ["key1","key2","key3","key4","key5","key6","key7","key8","key9","key10","key11","key12","key13","key14","key15","key16","key17","key18","key19","key20"],
-            majorGridLines: {
-                visible: false
-            }
-        }
-    });*/
     $(id).kendoChart({
         theme:"metro",
         title: {
@@ -356,5 +329,64 @@ function createBarChart(id,title,time,key,max) {
             template: "#= category #: #= value #"
         }
     });
+}
 
+function createDouble2Chart(id,title,data,min,max,line1,line2,min2,max2,cat) {
+    $(id).kendoChart({
+        theme:"metro",
+        title: {
+            text: title
+        },
+        legend: {
+            position: "bottom"
+        },
+        seriesDefaults: {
+            style: "smooth"
+        },
+        chartArea: {
+            background: "#f5f5f5"
+        },
+        series: data,
+        valueAxes: [{
+            name: "time",
+            labels: {
+                format: "{0} mins"
+            },
+            color: "#FD6901",
+            min: min,
+            max: max,
+            plotBands: [{
+                from: min,
+                to: line1,
+                color: "#D8534F",
+                opacity: 0.3
+            },{
+                from: line1,
+                to: line2,
+                color: "#5CB75C",
+                opacity: 0.3
+            },{
+                from: line2,
+                to: max,
+                color: "#D8534F",
+                opacity: 0.3
+            }]
+        }, {
+            name: "size",
+            labels: {
+                format: "{0} MB"
+            },
+            color: "#259FD9",
+            min: min2,
+            max: max2
+        }],
+        categoryAxis: {
+            categories: cat
+        },
+        tooltip: {
+            visible: true,
+            format: "{0}",
+            template: "#= category # #= value #"
+        }
+    });
 }
