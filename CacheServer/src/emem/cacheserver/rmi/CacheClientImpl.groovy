@@ -1,6 +1,7 @@
 package emem.cacheserver.rmi
 
 import emem.cacheserver.core.ServerConfig
+import emem.common.data.SerializeUtil
 import emem.common.rmi.CacheClient
 
 import java.rmi.RemoteException
@@ -168,6 +169,26 @@ class CacheClientImpl implements CacheClient {
             it.expire(key, expire)
         }
         size
+    }
+
+    void setObject(String key, Serializable obj) {
+        def value = SerializeUtil.objectToString(obj)
+        set(key, value)
+    }
+
+    void setObject(String key, Serializable obj, int expire) {
+        def value = SerializeUtil.objectToString(obj)
+        set(key, value, expire)
+    }
+
+    Serializable getObject(String key) {
+        def value = get(key)
+        return SerializeUtil.stringToObject(value)
+    }
+
+    Serializable getObject(String key, int expire) {
+        def value = get(key, expire)
+        return SerializeUtil.stringToObject(value)
     }
 
     def log(key, op) {

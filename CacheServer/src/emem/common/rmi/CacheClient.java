@@ -1,5 +1,6 @@
 package emem.common.rmi;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Map;
@@ -75,6 +76,22 @@ public interface CacheClient extends Remote {
      */
     long hashSize(String key) throws RemoteException;
 
+    /**存储对象类型的数据, 该对象需要实现Serializable接口.
+     *
+     * @param key
+     * @param obj
+     * @throws RemoteException
+     */
+    void setObject(String key, Serializable obj) throws RemoteException;
+
+    /**返回对象类型的数据, 该对象需要实现Serializable接口.
+     *
+     * @param key
+     * @return
+     * @throws RemoteException
+     */
+    Serializable getObject(String key) throws RemoteException;
+
 
     void set(String key, String value, int expire) throws RemoteException;
 
@@ -91,5 +108,9 @@ public interface CacheClient extends Remote {
     void hashRemove(String key, String index, int expire) throws RemoteException;
 
     long hashSize(String key, int expire) throws RemoteException;
+
+    void setObject(String key, Serializable obj, int expire) throws RemoteException;
+
+    Serializable getObject(String key, int expire) throws RemoteException;
 
 }

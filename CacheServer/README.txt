@@ -42,11 +42,12 @@
 
 5. 客户端测试:
     打包: jar cvf http-client.jar .
-    java -cp '.:groovy-all-2.3.7.jar:http-client.jar' HttpClientExample
-    java -cp '.:groovy-all-2.3.7.jar:rmi-client.jar' RMIClientExample
+    java -cp '.:groovy-all-2.3.7.jar:http-client.jar' CacheClientDemo
+    java -cp '.:groovy-all-2.3.7.jar:rmi-client.jar' RMIClientDemo
 
 工作计划:
-NONE
+添加object接口
+Memcached?
 
 需要稍稍注意的工作:
 1. 增加接口的过期支持

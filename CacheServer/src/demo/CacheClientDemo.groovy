@@ -19,3 +19,7 @@ println cacheClient.hashSize('hel') == 1
 cacheClient.get('hello', 1) //with expire
 Thread.currentThread().sleep(1500)
 println cacheClient.get('hello') == null
+
+def person = new Person(name: 'hello', age: 18)
+cacheClient.setObject('hello', person)
+println cacheClient.getObject('hello') == person

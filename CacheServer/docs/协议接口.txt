@@ -67,6 +67,10 @@
         cacheClient.set(key, value)
         cacheClient.set(key, value, expire)
     其他的操作类似, 就不一一列出了.
+    另外, 为了便利JAVA接口的使用, 可以直接将一个完整的对象存储进缓存, 以后可以从缓存提取这个对象, 例如:
+        Person person = new Person(name, age)
+        cacheClient.set(key, person)
+        person = (Person)cacheClient.get(key)
 
 RMI远程接口:
 
