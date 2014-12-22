@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.common.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.default.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.dataviz.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.dataviz.default.min.css" />
+    <link type="text/css" rel="stylesheet/less" href="css/main.less" />
+    <link type="text/css" rel="stylesheet/less" href="css/severMonitor.less" />
+    <script type="text/javascript" src="js/less-1.7.5.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/kendo.all.min.js"></script>
+    <script type="text/javascript" src="js/chart.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <title>云缓存</title>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="home.html">eMem</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="home.html">缓存管理</a></li>
+                <li class="dropdown active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">缓存监控<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="active"><a href="severMonitor.html">缓存服务器状态监控</a></li>
+                        <li><a href="netMonitor.html">网络链路监控</a></li>
+                        <li><a href="cacheMonitor.html">缓存服务监控</a></li>
+                        <li><a href="errorMonitor.html">缓存异常监控</a></li>
+                    </ul>
+                </li>
+                <li><a href="statisticsMonitor.html">缓存统计</a></li>
+                <li><a href="adjustMonitor.html">自动调整</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">管理员设置</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">另外的功能</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">退出系统</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="title">
+    <h1><span>eMem</span>弹性云缓存系统</h1>
+</div>
+<div id="system">
+    <nav>
+        <div>
+            <h3><span>Hi</span> 庄奕峰</h3>
+            <h4>castiel.zyf@gmail.com</h4>
+        </div>
+        <div>
+            <h3>缓存监控子系统</h3>
+            <h4>缓存服务器状态监控</h4>
+            <div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-lg btn-block dropdown-toggle" data-toggle="dropdown">选 择 节 点<span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="severMonitor.html">61.164.36.21</a></li>
+                        <li><a href="severMonitor.html">61.164.36.22</a></li>
+                        <li><a href="severMonitor.html">61.164.36.23</a></li>
+                        <li><a href="severMonitor.html">61.164.36.24</a></li>
+                        <li><a href="severMonitor.html">61.164.36.25</a></li>
+                        <li><a href="severMonitor.html">61.164.36.26</a></li>
+                        <li><a href="severMonitor.html">61.164.36.27</a></li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-warning btn-lg btn-block">监 控 设 置</button>
+                <button type="button" class="btn btn-danger btn-lg btn-block">警 报 设 置</button>
+            </div>
+        </div>
+    </nav>
+    <div id="partSystem">
+        <div class="partSystemBlock">
+            <div class="noButton">
+                <h3 class="partTitle">节点基本信息</h3>
+            </div>
+            <div class="blockInfo">
+                <ul>
+                    <li><span>状态：</span><span>已启动</span></li>
+                    <li><span>IP：</span><span>61.164.36.23</span></li>
+                    <li><span>缓存引擎：</span><span>redis</span></li>
+                    <li><span>区域：</span><span>集群1</span></li>
+                </ul>
+                <ul>
+                    <li><span>服务器操作系统：</span><span>Ubuntu</span></li>
+                    <li><span>系统日期：</span><span>2014-12-15</span></li>
+                    <li><span>系统时刻：</span><span>13:12:35</span></li>
+                    <li><span>系统运作时间：</span><span>15天21时48分</span></li>
+                </ul>
+                <ul>
+                    <li><span>已登录终端数：</span><span>56</span></li>
+                    <li><span>缓存实例个数：</span><span>3</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="partSystemBlock">
+            <div class="noButton">
+                <h3 class="partTitle">缓存实例</h3>
+            </div>
+            <div class="lineInfo">
+                <ul>
+                    <li><span>端口号：</span><span>6379</span></li>
+                    <li><span>用户：</span><span>庄奕峰</span></li>
+                    <li><span>使用大小：</span>
+                        <span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%;">
+                                    28%
+                                </div>
+                            </div>
+                            <p>0Byte/128.00MB(28%)</p>
+                        </span>
+                    </li>
+                </ul>
+                <ul>
+                    <li><span>端口号：</span><span>6379</span></li>
+                    <li><span>用户：</span><span>庄奕峰</span></li>
+                    <li><span>使用大小：</span>
+                        <span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%;">
+                                    28%
+                                </div>
+                            </div>
+                            <p>0Byte/128.00MB(28%)</p>
+                        </span>
+                    </li>
+                </ul>
+                <ul>
+                    <li><span>端口号：</span><span>6379</span></li>
+                    <li><span>用户：</span><span>庄奕峰</span></li>
+                    <li><span>使用大小：</span>
+                        <span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%;">
+                                    28%
+                                </div>
+                            </div>
+                            <p>0Byte/128.00MB(28%)</p>
+                        </span>
+                    </li>
+                </ul>
+                <ul>
+                    <li><span>端口号：</span><span>6379</span></li>
+                    <li><span>用户：</span><span>庄奕峰</span></li>
+                    <li><span>使用大小：</span>
+                        <span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%;">
+                                    28%
+                                </div>
+                            </div>
+                            <p>0Byte/128.00MB(28%)</p>
+                        </span>
+                    </li>
+                </ul>
+                <ul>
+                    <li><span>端口号：</span><span>6379</span></li>
+                    <li><span>用户：</span><span>庄奕峰</span></li>
+                    <li><span>使用大小：</span>
+                        <span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%;">
+                                    28%
+                                </div>
+                            </div>
+                            <p>0Byte/128.00MB(28%)</p>
+                        </span>
+                    </li>
+                </ul>
+                <div style="float:none;clear: both"></div>
+            </div>
+        </div>
+        <div class="partSystemBlock">
+            <div class="hasButton">
+                <h3 class="partTitle">CPU信息</h3>
+                <div>
+                    <button type="button" class="btn btn-info">历史记录</button>
+                </div>
+            </div>
+            <div class="blueBlocks">
+                <div>
+                    <h5>负载均值</h5>
+                    <p>12</p>
+                </div>
+                <div>
+                    <h5>进程总数</h5>
+                    <p>191</p>
+                </div>
+                <div>
+                    <h5>运行进程数</h5>
+                    <p>1</p>
+                </div>
+                <div>
+                    <h5>等待进程数</h5>
+                    <p>190</p>
+                </div>
+                <div>
+                    <h5>停止进程数</h5>
+                    <p>0</p>
+                </div>
+                <div>
+                    <h5>复原进程数</h5>
+                    <p>0</p>
+                </div>
+                <div>
+                    <h5>用户态百分比</h5>
+                    <p>0.1</p>
+                </div>
+                <div>
+                    <h5>内核态百分比</h5>
+                    <p>0.1</p>
+                </div>
+            </div>
+            <div class="blockInfo">
+                <ul>
+                    <li><span>负载均值(1分钟)：</span><span>0.0</span></li>
+                    <li><span>负载均值(5分钟)：</span><span>0.0</span></li>
+                    <li><span>负载均值(15分钟)：</span><span>0.0</span></li>
+                    <li><span>CPU使用率(us)：</span><span>0.1</span></li>
+                </ul>
+                <ul>
+                    <li><span>CPU使用率(sy)：</span><span>0.1</span></li>
+                    <li><span>CPU使用率(ni)：</span><span>0.1</span></li>
+                    <li><span>CPU使用率(id)：</span><span>0.1</span></li>
+                    <li><span>CPU使用率(wa)：</span><span>0.1</span></li>
+                </ul>
+                <ul>
+                    <li><span>CPU使用率(hi)：</span><span>0.1</span></li>
+                    <li><span>CPU使用率(si)：</span><span>0.1</span></li>
+                    <li><span>CPU使用率(st)：</span><span>0.1</span></li>
+                </ul>
+            </div>
+            <div class="chartBlock">
+                <div id="CPULoadDefault"></div>
+                <div id="CPULoadSet"></div>
+            </div>
+            <div class="chartBlock">
+                <div id="CPUUseDefault"></div>
+                <div id="CPUUseSet"></div>
+            </div>
+        </div>
+        <div class="partSystemBlock">
+            <div class="hasButton">
+                <h3 class="partTitle">内存信息</h3>
+                <div>
+                    <button type="button" class="btn btn-info">历史记录</button>
+                </div>
+            </div>
+            <div class="blueBlocks" id="memoryInfo">
+                <div>
+                    <h5>内存Total</h5>
+                    <p>1011868</p>
+                </div>
+                <div>
+                    <h5>内存Used</h5>
+                    <p>1011868</p>
+                </div>
+                <div>
+                    <h5>内存Free</h5>
+                    <p>1011868</p>
+                </div>
+                <div>
+                    <h5>内存Buffers</h5>
+                    <p>1011868</p>
+                </div>
+                <div>
+                    <h5>交换区Total</h5>
+                    <p>1011868</p>
+                </div>
+                <div>
+                    <h5>交换区Used</h5>
+                    <p>1011868</p>
+                </div>
+                <div>
+                    <h5>交换区Free</h5>
+                    <p>1011868</p>
+                </div>
+                <div>
+                    <h5>交换区Cached</h5>
+                    <p>1011868</p>
+                </div>
+            </div>
+            <div class="chartBlock">
+                <div id="memoryDefault"></div>
+                <div id="memorySet"></div>
+            </div>
+            <div class="chartBlock">
+                <div id="swapDefault"></div>
+                <div id="swapSet"></div>
+            </div>
+        </div>
+        <div class="partSystemBlock">
+            <div class="hasButton">
+                <h3 class="partTitle">IO信息</h3>
+                <div>
+                    <button type="button" class="btn btn-info">历史记录</button>
+                </div>
+            </div>
+            <div class="blockInfo">
+                <ul>
+                    <li><span>磁盘读入VM速率：</span><span>0KB/S</span></li>
+                    <li><span>VM写入磁盘速率：</span><span>0KB/S</span></li>
+                    <li><span>磁盘写入速率：</span><span>1024KB/S</span></li>
+                    <li><span>磁盘读取速率：</span><span>2048KB/S</span></li>
+                </ul>
+            </div>
+            <div class="chartBlock">
+                <div id="ioDefault"></div>
+                <div id="ioSet"></div>
+            </div>
+        </div>
+
+    </div>
+    <div style="float:none;clear: both"></div>
+</div>
+<script>
+    var cpuLoadDefalut=[
+        {
+            name: "CPU负载平均值",
+            data: [0.11,0.22,0.03,0.34,0.31,0.52,0.69,0.73,0.54,0.26,0.07,0.14,0.11,0.12,0.73,0.64,0.21,0.22,0.09,0.03,0.14,0.16,0.17,0.14],
+            color:"#94CDFE"
+        }];
+    var cpuLoadSet=[
+        {
+            name: "CPU负载平均值",
+            data: [0.11,0.22,0.03,0.34,0.31,0.52],
+            color:"#94CDFE"
+        }];
+
+    var cpuUseDefault=[{
+        name: "us",
+        data: [0.11,0.22,0.03,0.34,0.31,0.52,0.69,0.73,0.54,0.26,0.07,0.14,0.11,0.12,0.73,0.64,0.21,0.22,0.09,0.03,0.14,0.16,0.17,0.14]
+    },{
+        name: "sy",
+        data: [0.21,0.24,0.23,0.14,0.32,0.22,0.19,0.53,0.24,0.36,0.17,0.24,0.16,0.32,0.13,0.24,0.11,0.12,0.29,0.13,0.54,0.26,0.07,0.24]
+    },{
+        name: "id",
+        data: [0.50,0.74,0.53,0.54,0.42,0.52,0.79,0.43,0.84,0.46,0.87,0.44,0.66,0.72,0.54,0.84,0.51,0.72,0.49,0.83,0.64,0.46,0.77,0.74]
+    },{
+        name: "wa",
+        data: [0.30,0.44,0.33,0.54,0.32,0.62,0.39,0.63,0.24,0.76,0.37,0.54,0.26,0.62,0.34,0.64,0.21,0.32,0.29,0.23,0.54,0.36,0.67,0.24]
+    }];
+
+    var cpuUseSet=[{
+        name: "us",
+        data: [0.11,0.22,0.03,0.34,0.31,0.52]
+    },{
+        name: "sy",
+        data: [0.21,0.24,0.23,0.14,0.32,0.22]
+    },{
+        name: "id",
+        data: [0.50,0.74,0.53,0.54,0.42,0.52]
+    },{
+        name: "wa",
+        data: [0.30,0.44,0.33,0.54,0.32,0.62]
+    }];
+
+    var memoryDefault=[{
+        name: "total",
+        data: [0.11,0.22,0.03,0.34,0.31,0.52,0.69,0.73,0.54,0.26,0.07,0.14,0.11,0.12,0.73,0.64,0.21,0.22,0.09,0.03,0.14,0.16,0.17,0.14]
+    },{
+        name: "used",
+        data: [0.21,0.24,0.23,0.14,0.32,0.22,0.19,0.53,0.24,0.36,0.17,0.24,0.16,0.32,0.13,0.24,0.11,0.12,0.29,0.13,0.54,0.26,0.07,0.24]
+    },{
+        name: "free",
+        data: [0.50,0.74,0.53,0.54,0.42,0.52,0.79,0.43,0.84,0.46,0.87,0.44,0.66,0.72,0.54,0.84,0.51,0.72,0.49,0.83,0.64,0.46,0.77,0.74]
+    },{
+        name: "buffers",
+        data: [0.30,0.44,0.33,0.54,0.32,0.62,0.39,0.63,0.24,0.76,0.37,0.54,0.26,0.62,0.34,0.64,0.21,0.32,0.29,0.23,0.54,0.36,0.67,0.24]
+    }];
+
+    var memorySet=[{
+        name: "total",
+        data: [0.11,0.22,0.03,0.34,0.31,0.52]
+    },{
+        name: "used",
+        data: [0.21,0.24,0.23,0.14,0.32,0.22]
+    },{
+        name: "free",
+        data: [0.50,0.74,0.53,0.54,0.42,0.52]
+    },{
+        name: "buffers",
+        data: [0.30,0.44,0.33,0.54,0.32,0.62]
+    }];
+
+    var swapDefault=[{
+        name: "total",
+        data: [0.11,0.22,0.03,0.34,0.31,0.52,0.69,0.73,0.54,0.26,0.07,0.14,0.11,0.12,0.73,0.64,0.21,0.22,0.09,0.03,0.14,0.16,0.17,0.14]
+    },{
+        name: "used",
+        data: [0.21,0.24,0.23,0.14,0.32,0.22,0.19,0.53,0.24,0.36,0.17,0.24,0.16,0.32,0.13,0.24,0.11,0.12,0.29,0.13,0.54,0.26,0.07,0.24]
+    },{
+        name: "free",
+        data: [0.50,0.74,0.53,0.54,0.42,0.52,0.79,0.43,0.84,0.46,0.87,0.44,0.66,0.72,0.54,0.84,0.51,0.72,0.49,0.83,0.64,0.46,0.77,0.74]
+    },{
+        name: "cached",
+        data: [0.30,0.44,0.33,0.54,0.32,0.62,0.39,0.63,0.24,0.76,0.37,0.54,0.26,0.62,0.34,0.64,0.21,0.32,0.29,0.23,0.54,0.36,0.67,0.24]
+    }];
+
+    var swapSet=[{
+        name: "total",
+        data: [0.11,0.22,0.03,0.34,0.31,0.52]
+    },{
+        name: "used",
+        data: [0.21,0.24,0.23,0.14,0.32,0.22]
+    },{
+        name: "free",
+        data: [0.50,0.74,0.53,0.54,0.42,0.52]
+    },{
+        name: "cached",
+        data: [0.30,0.44,0.33,0.54,0.32,0.62]
+    }];
+
+    var ioDefault=[{
+        name: "磁盘写入速率（bi）",
+        data: [0.11,0.22,0.03,0.34,0.31,0.52,0.69,0.73,0.54,0.26,0.07,0.14,0.11,0.12,0.73,0.64,0.21,0.22,0.09,0.03,0.14,0.16,0.17,0.14]
+    },{
+        name: "磁盘读取速率（bo）",
+        data: [0.21,0.24,0.23,0.14,0.32,0.22,0.19,0.53,0.24,0.36,0.17,0.24,0.16,0.32,0.13,0.24,0.11,0.12,0.29,0.13,0.54,0.26,0.07,0.24]
+    }];
+
+    var ioSet=[{
+        name: "磁盘写入速率（bi）",
+        data: [0.11,0.22,0.03,0.34,0.31,0.52]
+    },{
+        name: "磁盘读取速率（bo）",
+        data: [0.21,0.24,0.23,0.14,0.32,0.22]
+    }];
+
+    var cat1=["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
+
+    var cat2=["-59~-50", "-49~-40", "-39~-30", "-29~-20", "-19~-10", "-9~0"];
+
+    $(document).ready(function(){
+        createAreaChart("#CPULoadDefault","24小时内节点CPU负载均值情况图",cpuLoadDefalut,cat1,0,1,0.7);
+        createAreaChart("#CPULoadSet","1小时内节点CPU负载均值情况图",cpuLoadSet,cat2,0,1,0.7);
+        createLineChart("#CPUUseDefault","24小时内节点CPU利用率线图",cpuUseDefault,0,1,0.5,cat1);
+        createLineChart("#CPUUseSet","1小时内节点CPU利用率线图",cpuUseSet,0,1,0.5,cat2);
+        createLineChart("#memoryDefault","24小时内节点内存使用情况线图",memoryDefault,0,1,0.5,cat1);
+        createLineChart("#memorySet","1分钟内节点内存使用情况线图",memorySet,0,1,0.5,cat2);
+        createLineChart("#swapDefault","24小时内节点交换区使用情况线图",swapDefault,0,1,0.5,cat1);
+        createLineChart("#swapSet","1分钟内节点交换区使用情况线图",swapSet,0,1,0.5,cat2);
+        createLineChart("#ioDefault","24小时内节点IO使用情况线图",ioDefault,0,1,0.5,cat1);
+        createLineChart("#ioSet","1分钟内节点IO使用情况线图",ioSet,0,1,0.5,cat2);
+
+    });
+</script>
+</body>
+</html>
