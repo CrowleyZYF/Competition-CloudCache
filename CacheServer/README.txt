@@ -46,9 +46,4 @@
     java -cp '.:groovy-all-2.3.7.jar:rmi-client.jar' RMIClientDemo
 
 工作计划:
-添加object接口
 Memcached?
-
-需要稍稍注意的工作:
-1. 增加接口的过期支持
-    如何获取expire
