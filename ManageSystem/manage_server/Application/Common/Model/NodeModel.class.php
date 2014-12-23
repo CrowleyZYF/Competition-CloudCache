@@ -12,15 +12,16 @@ namespace Common\Model;
 use \MongoClient;
 use Common\Model\Constant;
 
-class NodeModel
+class NodeModel extends Model
 {
     private $mongo;
     private $collection;
 
-    public function __construct()
+    function __construct()
     {
+        parent::__construct();
         $this->mongo = new MongoClient(Constant::$constant['db_host']);
-        $this->collection = $this->mongo->selectCollection('emem_system', 'node');
+        $this->collection = $this->mongo->selectCollection(Constant::$constant['db_node'], Constant::$constant['collection_node']);
     }
 
     public function getCollection()

@@ -43,8 +43,8 @@ class RedisController extends Controller
 
     public function getInstance()
     {
-        $condition = $_REQUEST['condition'];
-        $array = $this->redisModel->getOne($condition);
+        $id = $_REQUEST['id'];
+        $array = $this->redisModel->getByCondition(['ip:port' => $id]);
         $result = [];
         foreach ($array as $item) {
             $result[] = $this->backToFront($item);
@@ -167,7 +167,8 @@ class RedisController extends Controller
             $redisInfoModel = new RedisInfoModel();
             $redisInfoModel->deleteCollection($id);
             $ports = $this->nodeModel->listOneByCondition(['ip' => $ip])['available_port'];
-            $ports[] = $port;
+            $ports[] = (int)$port;
+            array_unique($ports);
             $this->nodeModel->update(['ip' => $ip], ['available_port' => $ports]);
             $token = $this->userModel->delete(['ip:port' => $id]);
             print_r($this->post(Constant::$constant['cache_system'] . '/token/remove', ['token' => $token]));

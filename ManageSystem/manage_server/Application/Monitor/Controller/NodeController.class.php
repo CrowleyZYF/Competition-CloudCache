@@ -10,20 +10,28 @@ namespace Monitor\Controller;
 
 use Common\Model\Constant;
 use Common\Model\RedisModel;
+use Monitor\Model\NodeInfoModel;
 use Think\Controller;
 use Common\Model\NodeModel;
+use MongoDate;
 
 class NodeController extends Controller
 {
     private $nodeModel;
+    private $infoModel;
     private $redisModel;
     private $map;
+    private $nodeId;
 
     public function __construct()
     {
         parent::__construct();
         $this->nodeModel = new NodeModel();
-        $this->redisModel = new RedisModel();
+        if (isset($_REQUEST['id'])) {
+            $this->nodeId = $_REQUEST['id'];
+            $this->redisModel = new RedisModel();
+            $this->infoModel = new NodeInfoModel($this->nodeId);
+        }
         $this->map = Constant::$constant['redis_map'];
     }
 
@@ -36,39 +44,40 @@ class NodeController extends Controller
     //根据Host获取一个node
     public function getNodeById()
     {
-        $condition = ['id' => $_REQUEST['id']];
+        $condition = ['id' => $this->nodeId];
         $this->ajaxReturn($this->nodeModel->listOneByCondition($condition));
     }
 
     public function getInstancesOnNode()
     {
-        $ip = $_REQUEST['id'];
-        $array = $this->redisModel->getByCondition(['ip' => $ip]);
+        $instances = $this->redisModel->getByCondition(['ip' => $this->nodeId]);
         $result = [];
-        foreach ($this->map as $mongoKey => $frontKey) {
-            $result[$frontKey] = $array[$mongoKey];
+        foreach ($instances as $instance) {
+            $temp = [];
+            foreach ($this->map as $mongoKey => $frontKey) {
+                $temp[$frontKey] = $instance[$mongoKey];
+            }
+            $result[] = $temp;
         }
         $this->ajaxReturn($result);
     }
 
     public function getHistory()
     {
-        $ip = $_REQUEST['id'];
-        $time = $_REQUEST['time'];
-        $this->ajaxReturn($this->redisModel->getByCondition(['ip' => $ip, 'date' => ['$gte' => $time]]));
+        $time = isset($_REQUEST['time']) ? $_REQUEST['time'] : new MongoDate(0);
+        $limit = isset($_REQUEST['limit']) ? $_REQUEST['limit'] : 5;
+        $this->ajaxReturn($this->infoModel->getByCondition(['date' => ['$gte' => $time]], $sort = ['date' => -1], $limit));
     }
 
     public function getHistoryAll()
     {
-        $ip = $_REQUEST['id'];
-        $this->ajaxReturn($this->redisModel->getByCondition($condition = ['ip' => $ip], $sort = ['date' => -1]));
+        $this->ajaxReturn($this->infoModel->getByCondition($condition = [], $sort = ['date' => -1]));
     }
 
     public function getHistoryBetween()
     {
-        $ip = $_REQUEST['id'];
         $start = $_REQUEST['start'];
         $end = $_REQUEST['end'];
-        $this->ajaxReturn($this->redisModel->getByCondition($condition = ['ip' => $ip, 'date' => ['$gte' => $start, '$lt' => $end]]));
+        $this->ajaxReturn($this->infoModel->getByCondition($condition = ['date' => ['$gte' => $start, '$lt' => $end]]));
     }
 }
