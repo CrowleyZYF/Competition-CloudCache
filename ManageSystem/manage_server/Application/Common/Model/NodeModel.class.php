@@ -6,6 +6,12 @@
  * Date: 2014/12/13
  * Time: 18:14
  */
+
+namespace Common\Model;
+
+use \MongoClient;
+use Common\Model\Constant;
+
 class NodeModel
 {
     private $mongo;
@@ -13,8 +19,18 @@ class NodeModel
 
     public function __construct()
     {
-        $this->mongo = new MongoClient();
+        $this->mongo = new MongoClient(Constant::$constant['db_host']);
         $this->collection = $this->mongo->selectCollection('emem_system', 'node');
+    }
+
+    public function getCollection()
+    {
+        return $this->collection;
+    }
+
+    public function getMongo()
+    {
+        return $this->mongo;
     }
 
     public function setMongo($ip, $port)
@@ -38,9 +54,23 @@ class NodeModel
         return $array;
     }
 
-    public function listOne($condition)
+    public function listByCondition($condition)
     {
-        $cursor = $this->collection->findOne($condition);
-        return $cursor;
+        $cursor = $this->collection->find($condition);
+        $array = [];
+        foreach ($cursor as $document) {
+            $array[] = $document;
+        }
+        return $array;
+    }
+
+    public function listOneByCondition($condition)
+    {
+        return $this->collection->findOne($condition);
+    }
+
+    public function update($query, $data)
+    {
+        $this->collection->update($query, ['$set' => $data]);
     }
 }

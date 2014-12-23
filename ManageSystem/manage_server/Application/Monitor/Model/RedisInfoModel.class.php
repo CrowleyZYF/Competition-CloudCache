@@ -8,6 +8,7 @@
 
 namespace Monitor\Model;
 
+use Common\Model\Constant;
 use \MongoClient;
 
 class RedisInfoModel
@@ -18,7 +19,7 @@ class RedisInfoModel
 
     public function __construct()
     {
-        $this->mongo = new MongoClient();
+        $this->mongo = new MongoClient(Constant::$constant['db_host']);
         $this->db = $this->mongo->selectDB('redis_info');
     }
 
@@ -27,13 +28,18 @@ class RedisInfoModel
         $this->collection = $this->db->selectCollection($name);
     }
 
-    public function listByCondition($condition, $limit=5)
+    public function listByCondition($condition, $limit = 5)
     {
         $cursor = $this->collection->find()->limit($limit);
         $result = [];
-        foreach($cursor as $document){
+        foreach ($cursor as $document) {
             $result[] = $document;
         }
         return $result;
+    }
+
+    public function deleteCollection($name)
+    {
+        $this->db->dropCollection($name);
     }
 }

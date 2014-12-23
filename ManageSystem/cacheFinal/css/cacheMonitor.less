@@ -1,0 +1,235 @@
+#system{
+  .partTitle{
+    float: none !important;
+  }
+
+  #insInfo{
+    margin-top: 50px;
+    height: 230px;
+
+    >div:first-child{
+      height: 60px;
+
+      *{
+        float: left !important;
+      }
+
+      button{
+        float: right !important;
+        margin-right: 3%;
+        margin-top: 15px;
+      }
+    }
+
+    >div:last-child{
+      >div{
+        font-family: "微软雅黑";
+        float: left;
+        width: 10%;
+        height: 100px;
+        margin: 1%;
+        background-color: #d8e9f1;
+        border-radius: 5%;
+
+        h5{
+          text-align: center;
+          font-weight: bold;
+          font-size: 16px;
+          color: #797979;
+        }
+
+        p{
+          text-align: center;
+          font-size: 40px;
+          font-weight: bold;
+          color: #1685a9;
+          font-family: Eurostile, Cambria, serif;
+          margin-top: -5px;
+        }
+
+        &:first-child{
+          margin-left: 3%;
+        }
+
+        &:last-child{
+          margin-right: 3%;
+        }
+      }
+    }
+  }
+
+  .chartAndInfo{
+    >div:first-child{
+      height: 60px;
+
+      *{
+        float: left !important;
+      }
+
+      button{
+        float: right !important;
+        margin-right: 3%;
+        margin-top: 15px;
+      }
+    }
+
+    .blockInfo{
+      height: 60px;
+
+      >ul{
+        list-style: none;
+        padding: 20px;
+        margin-bottom: 0;
+
+        >li{
+          height: 30px;
+          width: 25%;
+          float: left;
+
+          >span:first-child{
+            display: inline-block;
+            width: 200px;
+            color: #797979;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+
+  #memoryInfo{
+    height: 720px;
+
+    .memoryChart{
+      width: 96%;
+      margin: 0 auto;
+
+      #memoryChart24{
+        width: 68%;
+        margin-right: 2%;
+      }
+
+      #memoryChart60{
+        width: 30%;
+      }
+
+      >div{
+        float: left;
+        height: 500px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  #keyInfo{
+    height: 620px;
+
+    .blockInfo{
+      height: 90px;
+
+      >ul{
+        width: 25%;
+        float: left !important;
+
+        >li{
+          width: 100%;
+          float: none;
+        }
+      }
+    }
+
+    .keyChart{
+      width: 96%;
+      margin: 0 auto;
+
+      #pieChart{
+        width: 68%;
+        margin-right: 2%;
+
+        >div{
+          float: left;
+          width: 33.33%;
+          height: 350px;
+        }
+      }
+
+      #keyChart60{
+        width: 30%;
+      }
+
+      >div{
+        float: left;
+        height: 352px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  #commandInfo{
+    height: 720px;
+
+    .blockInfo{
+      height: 90px;
+
+      >ul{
+        width: 20%;
+        float: left !important;
+
+        >li{
+          width: 100%;
+          float: none;
+        }
+      }
+    }
+
+    .commandChart{
+      width: 96%;
+      margin: 0 auto 20px;
+
+
+      #commandChart{
+        width: 68%;
+        margin-right: 2%;
+
+        >div{
+          float: left;
+          width: 33.33%;
+          height: 350px;
+        }
+      }
+
+      #commandChart60{
+        width: 30%;
+      }
+
+      >div{
+        float: left;
+        height: 352px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+      }
+    }
+
+    .commandChart:last-child{
+
+      #command2Chart24{
+        width: 68%;
+        margin-right: 2%;
+      }
+
+      #command2Chart60{
+        width: 30%;
+      }
+
+      >div{
+        margin-top: 40px;
+        float: left;
+        height: 500px;
+        border: 1px solid lightgray;
+        border-radius: 5px;
+      }
+    }
+  }
+}
