@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/grey.css" />
+    <link type="text/css" rel="stylesheet/less" href="css/main.less" />
+    <link type="text/css" rel="stylesheet/less" href="css/home.less" />
+    <script type="text/javascript" src="js/less-1.7.5.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/icheck.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <title>云缓存</title>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home.html">OurCache</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="home.html">缓存管理</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">缓存监控<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="severMonitor.html">缓存服务器状态监控</a></li>
+                            <li><a href="netMonitor.html">网络链路监控</a></li>
+                            <li><a href="cacheMonitor.html">缓存服务监控</a></li>
+                            <li><a href="errorMonitor.html">缓存异常监控</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="statisticsMonitor.html">缓存统计</a></li>
+                    <li><a href="adjustMonitor.html">自动调整</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">管理员设置</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">另外的功能</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">退出系统</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="title">
+        <h1><span>OurCache</span>弹性云缓存系统</h1>
+    </div>
+    <div id="system">
+        <nav>
+            <div>
+                <h3><span>Hi</span> 庄奕峰</h3>
+                <h4>castiel.zyf@gmail.com</h4>
+            </div>
+            <div>
+                <h3>缓存管理子系统</h3>
+                <div>
+                    <button type="button" class="btn btn-primary btn-lg btn-block" id="create" data-toggle="modal" data-target="#createModal">创 建 新 的 实 例</button>
+                    <button type="button" class="btn btn-warning btn-lg btn-block needConfirm" id="stopAll" data-toggle="modal" data-target="#confirmModal">停 止 所 有 实 例</button>
+                    <button type="button" class="btn btn-danger btn-lg btn-block needConfirm" id="deleteAll" data-toggle="modal" data-target="#confirmModal">删 除 所 有 实 例</button>
+                </div>
+            </div>
+        </nav>
+        <div id="partSystem">
+            <div class="partSystemBlock">
+                <div class="hasButton">
+                    <h3 class="partTitle">实例列表</h3>
+                    <div>
+                        <button type="button" class="btn btn-info">刷新</button>
+                        <button type="button" class="btn btn-warning needConfirm" id="stopSelect" data-toggle="modal" data-target="#confirmModal">停止选中实例</button>
+                        <button type="button" class="btn btn-success needConfirm" id="restartSelect" data-toggle="modal" data-target="#confirmModal">重启选中实例</button>
+                        <button type="button" class="btn btn-danger needConfirm" id="deleteSelect" data-toggle="modal" data-target="#confirmModal">删除选中实例</button>
+                    </div>
+                </div>
+                <div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#all" role="tab" data-toggle="tab">所有实例</a></li>
+                        <li role="presentation"><a href="#redis" role="tab" data-toggle="tab">基于Redis的实例</a></li>
+                        <li role="presentation"><a href="#memcached" role="tab" data-toggle="tab">基于Memcached的实例</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="all">
+                            <div>
+                                <table class="table" id="allTable">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>IP：端口</th>
+                                        <th>实例号</th>
+                                        <th>管理员</th>
+                                        <th>状态</th>
+                                        <th>缓存引擎</th>
+                                        <th>区域</th>
+                                        <th>创建时间</th>
+                                        <th>已用缓存及配额</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="redis">
+                            <div>
+                                <table class="table" id="redisTable">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>IP：端口</th>
+                                        <th>实例号</th>
+                                        <th>管理员</th>
+                                        <th>状态</th>
+                                        <th>区域</th>
+                                        <th>创建时间</th>
+                                        <th>已用缓存及配额</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="memcached">
+                            <div>
+                                <table class="table" id="memcachedTable">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>IP：端口</th>
+                                        <th>实例号</th>
+                                        <th>管理员</th>
+                                        <th>状态</th>
+                                        <th>区域</th>
+                                        <th>创建时间</th>
+                                        <th>已用缓存及配额</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="float:none;clear:both;"></div>
+            </div>
+        </div>
+        <div style="float:none;clear:both;"></div>
+    </div>
+    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">创建新的实例</h4>
+                </div>
+                <div class="modal-body form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">管理员：</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="createName">
+                                <option>庄奕峰</option>
+                                <option>邓煜</option>
+                                <option>陈丽霞</option>
+                                <option>叶润</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">缓存引擎：</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="createType">
+                                <option>Redis</option>
+                                <option>Memcached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">集群区域：</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="createArea">
+                                <option>集群一</option>
+                                <option>集群二</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">缓存配额：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control"  placeholder="单位MB" id="createAll">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="createNewItem">创建</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-small">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="confirmModalLabel" style="text-align: center">请确认您的操作，此操作将不可逆!</h4>
+                </div>
+                <div class="modal-body">
+                    <button type="button" class="btn btn-primary btn-block" data-id="" data-type="" id="confirm">确认</button>
+                    <button type="button" class="btn btn-default btn-block" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modifyModal" tabindex="-1" role="dialog" aria-labelledby="modifyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="modifyLabel">修改实例</h4>
+                </div>
+                <div class="modal-body form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">编号：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="0001" disabled id="modifyID">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">实例号：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="f7657f31553b11e4" disabled id="modifyNumber">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">管理员：</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" value="庄奕峰" disabled id="modifyName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">缓存引擎：</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="modifyEngine">
+                                <option>Redis</option>
+                                <option>Memcached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">集群区域：</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="modifyGroup">
+                                <option>集群一</option>
+                                <option>集群二</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">缓存配额：</label>
+                        <div class="col-sm-9 input-group">
+                            <input type="text" class="form-control"  placeholder="单位MB" value="" id="modifyAmount">
+                            <span class="input-group-addon">MB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary btn-fix" data-id="0001">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

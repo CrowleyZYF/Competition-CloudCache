@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet/less" href="css/main.less" />
+    <link type="text/css" rel="stylesheet/less" href="css/index.less" />
+    <script type="text/javascript" src="js/less-1.7.5.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <title>云缓存</title>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">OurCache</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">版本更新说明</a></li>
+                    <li><a href="#">开发团队</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="center">
+        <div>
+            <img src="image/logo.png" />
+            <h3>The cloud cache system based on redis/memcached</h3>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="account" class="col-sm-3 control-label">账号：</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="account" placeholder="请输入账号/缓存服务实例号">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="col-sm-3 control-label">密码：</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="password" placeholder="请输入密码">
+                    </div>
+                </div>
+                <div class="form-group" id="buttons">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="button" class="btn btn-info btn-block" id="loginButton" onclick="location.href='home.html'">登 陆 系 统</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="content">
+        <div>
+            <ul>
+                <li>Our Tools</li>
+                <li>
+                    <i></i>
+                    <a>OurCache_V0.3.jar</a>
+                    <span>Nov 27</span>
+                </li>
+                <li>
+                    <i></i>
+                    <a>OurCache_V0.2.jar</a>
+                    <span>Nov 20</span>
+                </li>
+                <li>
+                    <i></i>
+                    <a>OurCache_V0.1.jar</a>
+                    <span>Oct 31</span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <ul>
+                <li>Supported Cache Engine</li>
+                <li>
+                    <i id="redis"></i>
+                    <a href="http://www.redis.io/">Redis</a>
+                </li>
+                <li>
+                    <i id="memcached"></i>
+                    <a href="http://www.memcached.org/">Memcached ( Developing... )</a>
+                </li>
+            </ul>
+        </div>
+        <div id="updateInfo">
+            <ul>
+                <li>Update Log</li>
+                <li>
+                    <a>Add the HashTable API</a>
+                    <span>Nov 27</span>
+                </li>
+                <li>
+                    <a>Add the List API</a>
+                    <span>Nov 7</span>
+                </li>
+                <li>
+                    <a>Finish the Docker Part</a>
+                    <span>Oct 31</span>
+                </li>
+                <li>
+                    <a>Init the project</a>
+                    <span>Oct 15</span>
+                </li>
+            </ul>
+        </div>
+        <div style="clear: both;float: none;"></div>
+    </div>
+    <footer>
+        <p>
+            © copyright OurCache 2014-2015
+            · <a href="">版本更新说明</a>
+            · <a href="">开发团队</a>
+            · <a href="">联系我们</a>
+            · A project by <a href="http://www.doublejdesign.co.uk/">OurCache Team</a>
+        </p>
+    </footer>
+</body>
+</html>

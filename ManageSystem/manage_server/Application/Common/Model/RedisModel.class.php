@@ -16,13 +16,8 @@ class RedisModel
 
     public function __construct()
     {
-        $this->mongo = new MongoClient();
+        $this->mongo = new MongoClient(Constant::$constant['db_host']);
         $this->collection = $this->mongo->selectCollection('emem_system', 'redis');
-    }
-
-    public function __destruct()
-    {
-        $this->mongo->close(false);
     }
 
     public function setMongo($ip, $port)
@@ -46,10 +41,14 @@ class RedisModel
         return $array;
     }
 
-    public function getOne($condition)
+    public function getByCondition($condition = [], $sort = [], $limit = 10)
     {
-        $cursor = $this->collection->findOne($condition);
-        return $cursor;
+        $cursor = $this->collection->find($condition)->sort($sort)->limit($limit);
+        $array = [];
+        foreach ($cursor as $document) {
+            $array[] = $document;
+        }
+        return $array;
     }
 
     public function insert($data)
@@ -59,12 +58,12 @@ class RedisModel
 
     public function stop($data)
     {
-        $this->collection->update($data, ['state' => 0]);
+        $this->collection->update($data, ['$set' => ['status' => 0]]);
     }
 
     public function start($data)
     {
-        $this->collection->update($data, ['state' => 1]);
+        $this->collection->update($data, ['$set' => ['status' => 1]]);
     }
 
     public function delete($condition)

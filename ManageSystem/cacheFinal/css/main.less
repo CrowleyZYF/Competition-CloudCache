@@ -1,0 +1,195 @@
+html{
+  min-width: 1366px;
+}
+body{
+  background: url("../image/bg.png") repeat;
+}
+nav{
+  margin-bottom: 0 !important;
+  font-family: "微软雅黑";
+}
+#title{
+  margin-top: 0;
+  box-shadow: 0 0 6px rgba(0, 0, 0, .3);
+  font-family: "微软雅黑";
+
+  h1{
+    margin: 0;
+    padding: 20px;
+    color: #797979;
+    font-family: "微软雅黑";
+    font-size: 32px;
+
+    span{
+      color: #1685a9;
+      font-family: Cambria, Georgia, serif;
+      padding-right: 10px;
+    }
+  }
+}
+
+#system {
+  min-width: 1366px;
+
+  > nav {
+    float: left;
+    width: 250px;
+    border-right: 3px solid lightgray;
+
+    > div:first-child {
+      width: 100%;
+      padding: 10px 20px;
+      color: #797979;
+      border-bottom: 1px solid lightgray;
+
+      h3 {
+        font-family: "微软雅黑";
+
+        span {
+          color: #1685a9;
+          font-family: Cambria, Georgia, serif;
+          margin-right: 10px;
+        }
+      }
+
+      h4{
+        font-family: Cambria, Georgia, serif;
+      }
+    }
+
+    > div:last-child {
+      h3 {
+        padding-left: 20px;
+        color: #797979;
+        font-family: "微软雅黑";
+      }
+      h4 {
+        padding-left: 20px;
+        color: #797979;
+        font-family: "微软雅黑";
+      }
+      > div {
+        width: 210px;
+        margin-left: 20px;
+        margin-top: 20px;
+
+        button {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+
+  #partSystem {
+    float: left;
+    min-width: 1100px;
+    margin-bottom: 50px;
+  }
+}
+
+/*监控内容块的基本样式*/
+.partSystemBlock {
+  width: 98%;
+  margin: 1%;
+
+  /*标题部分*/
+  >div:first-child {
+    margin-left: 20px;
+
+    h3 {
+      display: block;
+      color: #797979;
+      padding-left: 15px;
+      border-left: 5px solid #1685a9;
+      font-family: "微软雅黑";
+      padding-bottom: 3px;
+    }
+  }
+
+  >div:nth-child(2){
+    margin-left: 20px;
+  }
+}
+
+/*标题部分右侧有按钮组*/
+.hasButton{
+  height: 80px;
+  h3{
+    float: left;
+  }
+  /* 按钮组 */
+  >div{
+    float: right;
+    margin-right: 20px;
+
+    button{
+      margin-top: 20px;
+      margin-right: 5px;
+    }
+  }
+}
+
+.modal{
+  *{
+    font-family: "微软雅黑" !important;
+  }
+
+  .modal-dialog{
+    margin-top: 150px;
+  }
+
+  .modal-small{
+    width: 350px;
+  }
+}
+
+
+
+
+
+    /*#baseInfo{
+      font-family: "微软雅黑";
+
+      >div{
+        height: 160px;
+
+        >ul{
+          float: left;
+          width: 25%;
+          list-style: none;
+          padding: 20px;
+
+          >li{
+            height: 30px;
+
+            >span:first-child{
+              display: inline-block;
+              width: 130px;
+              color: #797979;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    .blockInfo{
+      width: 96%;
+      margin: 20px auto;
+      border: 1px solid lightgray;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+
+    .pagination>li>a, .pagination>li>span {
+      position: relative;
+      float: left;
+      padding: 6px 12px;
+      margin-left: -1px;
+      line-height: 1.428571429;
+      text-decoration: none;
+      background-color: transparent;
+      border: 1px solid lightgray;
+    }
+  }
+}*/
