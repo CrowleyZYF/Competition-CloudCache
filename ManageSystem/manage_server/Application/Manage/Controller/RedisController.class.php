@@ -18,17 +18,7 @@ use Common\Model\UserModel;
 
 class RedisController extends Controller
 {
-    private $map = [
-        'ip:port' => 'id',
-        'run_id' => 'identify',
-        'name' => 'name',
-        'status' => 'status',
-        'type' => 'type',
-        'area' => 'area',
-        'create_time' => 'time',
-        'used_memory' => 'used',
-        'maxmemory' => 'all'
-    ];
+    private $map;
     private $nodeModel;
     private $redisModel;
     private $userModel;
@@ -38,6 +28,7 @@ class RedisController extends Controller
         $this->nodeModel = new NodeModel();
         $this->redisModel = new RedisModel();
         $this->userModel = new UserModel();
+        $this->map = Constant::$constant['redis_map'];
     }
 
     public function getInstances()

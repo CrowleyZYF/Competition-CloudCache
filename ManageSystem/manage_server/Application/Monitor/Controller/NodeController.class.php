@@ -8,6 +8,7 @@
 
 namespace Monitor\Controller;
 
+use Common\Model\Constant;
 use Common\Model\RedisModel;
 use Think\Controller;
 use Common\Model\NodeModel;
@@ -16,12 +17,14 @@ class NodeController extends Controller
 {
     private $nodeModel;
     private $redisModel;
+    private $map;
 
     public function __construct()
     {
         parent::__construct();
         $this->nodeModel = new NodeModel();
         $this->redisModel = new RedisModel();
+        $this->map = Constant::$constant['redis_map'];
     }
 
     //获取所有node
@@ -40,7 +43,12 @@ class NodeController extends Controller
     public function getInstancesOnNode()
     {
         $ip = $_REQUEST['id'];
-        $this->ajaxReturn($this->redisModel->getByCondition(['ip' => $ip]));
+        $array = $this->redisModel->getByCondition(['ip' => $ip]);
+        $result = [];
+        foreach ($this->map as $mongoKey => $frontKey) {
+            $result[$frontKey] = $array[$mongoKey];
+        }
+        $this->ajaxReturn($result);
     }
 
     public function getHistory()

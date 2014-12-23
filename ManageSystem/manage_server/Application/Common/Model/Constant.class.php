@@ -9,9 +9,20 @@ namespace Common\Model;
 
 class Constant
 {
-    public static $constant = array(
+    public static $constant = [
         'db_host' => '192.168.1.73',
         'db_port' => '27017',
-        'cache_system' => 'http://192.168.1.73:8080'
-    );
+        'cache_system' => 'http://192.168.1.73:8080',
+        'redis_map' => [
+            'ip:port' => 'id',
+            'run_id' => 'identify',
+            'name' => 'name',
+            'status' => 'status',
+            'type' => 'type',
+            'area' => 'area',
+            'create_time' => 'time',
+            'used_memory' => 'used',
+            'maxmemory' => 'all'
+        ],
+    ];
 }
