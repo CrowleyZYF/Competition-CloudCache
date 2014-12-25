@@ -31,4 +31,14 @@ class NodeInfoModel extends Model
         }
         return $array;
     }
+
+    public function getByConditionAll($condition = [], $sort = ['date' => 1])
+    {
+        $cursor = $this->collection->find($condition)->sort($sort);
+        $array = [];
+        foreach ($cursor as $document) {
+            $array[] = $document;
+        }
+        return $array;
+    }
 }

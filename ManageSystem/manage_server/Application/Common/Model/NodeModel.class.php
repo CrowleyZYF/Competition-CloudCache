@@ -9,8 +9,8 @@
 
 namespace Common\Model;
 
-use \MongoClient;
 use Common\Model\Constant;
+use MongoClient;
 
 class NodeModel extends Model
 {
@@ -44,7 +44,7 @@ class NodeModel extends Model
         $this->mongo = $this->mongo->selectCollection($db, $collection);
     }
 
-    public function listAll()
+    public function getAll()
     {
         $cursor = $this->collection->find();
 //      print_r($collection);$collection
@@ -55,7 +55,7 @@ class NodeModel extends Model
         return $array;
     }
 
-    public function listByCondition($condition)
+    public function getByCondition($condition)
     {
         $cursor = $this->collection->find($condition);
         $array = [];
@@ -65,7 +65,7 @@ class NodeModel extends Model
         return $array;
     }
 
-    public function listOneByCondition($condition)
+    public function getOneByCondition($condition)
     {
         return $this->collection->findOne($condition);
     }

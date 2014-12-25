@@ -38,14 +38,14 @@ class NodeController extends Controller
     //获取所有node
     public function getNodes()
     {
-        $this->ajaxReturn($this->nodeModel->listAll());
+        $this->ajaxReturn($this->nodeModel->getAll());
     }
 
     //根据Host获取一个node
     public function getNodeById()
     {
         $condition = ['id' => $this->nodeId];
-        $this->ajaxReturn($this->nodeModel->listOneByCondition($condition));
+        $this->ajaxReturn($this->nodeModel->getOneByCondition($condition));
     }
 
     public function getInstancesOnNode()
@@ -65,19 +65,25 @@ class NodeController extends Controller
     public function getHistory()
     {
         $time = isset($_REQUEST['time']) ? $_REQUEST['time'] : new MongoDate(0);
-        $limit = isset($_REQUEST['limit']) ? $_REQUEST['limit'] : 5;
-        $this->ajaxReturn($this->infoModel->getByCondition(['date' => ['$gte' => $time]], $sort = ['date' => -1], $limit));
+        if (isset($_REQUEST['limit']))
+            $this->ajaxReturn($this->infoModel->getByCondition(['date' => ['$gte' => $time]], $sort = ['date' => -1], $_REQUEST['limit']));
+        else
+            $this->ajaxReturn($this->infoModel->getByConditionAll(['date' => ['$gte' => $time]], $sort = ['date' => -1]));
     }
 
     public function getHistoryAll()
     {
-        $this->ajaxReturn($this->infoModel->getByCondition($condition = [], $sort = ['date' => -1]));
+        $this->ajaxReturn($this->infoModel->getByConditionAll($condition = [], $sort = ['date' => -1]));
     }
 
     public function getHistoryBetween()
     {
         $start = $_REQUEST['start'];
         $end = $_REQUEST['end'];
-        $this->ajaxReturn($this->infoModel->getByCondition($condition = ['date' => ['$gte' => $start, '$lt' => $end]]));
+        if (isset($_REQUEST['limit'])) {
+            $this->ajaxReturn($this->infoModel->getByCondition($condition = ['date' => ['$gte' => $start, '$lt' => $end]], $_REQUEST['limit']));
+        } else {
+            $this->ajaxReturn($this->infoModel->getByConditionAll($condition = ['date' => ['$gte' => $start, '$lt' => $end]]));
+        }
     }
 }

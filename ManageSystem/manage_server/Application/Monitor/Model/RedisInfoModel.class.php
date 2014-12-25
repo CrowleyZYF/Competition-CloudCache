@@ -9,28 +9,34 @@
 namespace Monitor\Model;
 
 use Common\Model\Constant;
-use \MongoClient;
+use Common\Model\Model;
 
-class RedisInfoModel
+class RedisInfoModel extends Model
 {
     private $mongo;
     private $db;
     private $collection;
 
-    public function __construct()
+    public function __construct($collection)
     {
-        $this->mongo = new MongoClient(Constant::$constant['db_host']);
-        $this->db = $this->mongo->selectDB('redis_info');
+        parent::__construct();
+        $this->mongo = parent::getMongo();
+        $this->collection = $this->mongo->selectCollection(Constant::$constant['db_node_info'], $collection);
     }
 
-    public function init($name)
+    public function getByCondition($condition, $sort = ['date' => 1], $limit = 10)
     {
-        $this->collection = $this->db->selectCollection($name);
+        $cursor = $this->collection->find($condition)->sort($sort)->limit($limit);
+        $result = [];
+        foreach ($cursor as $document) {
+            $result[] = $document;
+        }
+        return $result;
     }
 
-    public function listByCondition($condition, $limit = 5)
+    public function getByConditionAll($condition = [], $sort = ['date' => 1])
     {
-        $cursor = $this->collection->find()->limit($limit);
+        $cursor = $this->collection->find($condition)->sort($sort);
         $result = [];
         foreach ($cursor as $document) {
             $result[] = $document;

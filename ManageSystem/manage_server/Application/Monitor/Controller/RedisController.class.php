@@ -8,11 +8,12 @@
 
 namespace Monitor\Controller;
 
-use Think\Controller;
 use Common\Model\RedisModel;
 use Monitor\Model\RedisInfoModel;
+use Think\Controller;
+use MongoDate;
 
-class RedisInfoController extends Controller
+class RedisController extends Controller
 {
 
     private $redisModel;
@@ -22,29 +23,48 @@ class RedisInfoController extends Controller
     {
         parent::__construct();
         $this->redisModel = new RedisModel();
-        $this->redisInfoModel = new RedisInfoModel();
+        if (isset($_REQUEST['id'])) {
+            $this->id = $_REQUEST['id'];
+            $this->redisInfoModel = new RedisInfoModel($this->id);
+        }
     }
 
-    public function listAll()
+    public function getInstances()
     {
         $array = $this->redisModel->getAll();
         $this->ajaxReturn($array);
     }
 
-    public function listOne()
+    public function getInstance()
     {
-        $condition = $_REQUEST['id'];
-        $array = $this->redisModel->getOne($condition);
+        $array = $this->redisModel->getByCondition(['ip:port' => $this->id]);
         $this->ajaxReturn($array);
     }
 
-    public function listOneHistory()
+    public function getHistory()
     {
-        $id = $_REQUEST['id'];
-        $limit = $_REQUEST['limit'];
-        $condition = $_REQUEST['condition'];
-        $this->redisInfoModel->init($id);
-        $array = $this->redisInfoModel->listByCondition($condition,$limit);
+        $time = isset($_REQUEST['time']) ? $_REQUEST['time'] : new MongoDate(0);
+        if (isset($_REQUEST['limit']))
+            $array = $this->redisInfoModel->getByCondition(['date' => ['$gte' => $time]], $sort = ['date' => -1], $_REQUEST['limit']);
+        else
+            $array = $this->redisInfoModel->getByConditionAll(['date' => ['$gte' => $time]], $sort = ['date' => -1]);
+        $this->ajaxReturn($array);
+    }
+
+    public function getHistoryBetween()
+    {
+        $start = $_REQUEST['start'];
+        $end = $_REQUEST['end'];
+        if (isset($_REQUEST['limit']))
+            $array = $this->redisInfoModel->getByCondition(['date' => ['$gte' => $start, '$lt' => $end]], ['date' => -1], $_REQUEST['limit']);
+        else
+            $array = $this->redisInfoModel->getByConditionAll(['date' => ['$gte' => $start, '$lt' => $end]], ['date' => -1], $_REQUEST['limit']);
+        $this->ajaxReturn($array);
+    }
+
+    public function getHistoryAll()
+    {
+        $array = $this->redisInfoModel->getByConditionAll([], ['date' => -1]);
         $this->ajaxReturn($array);
     }
 }

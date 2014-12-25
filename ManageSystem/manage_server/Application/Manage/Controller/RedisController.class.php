@@ -9,12 +9,11 @@
 namespace Manage\Controller;
 
 use Common\Model\Constant;
-use Monitor\Model\RedisInfoModel;
-use Think\Controller;
 use Common\Model\NodeModel;
 use Common\Model\RedisModel;
-use Manage\Controller\Util;
 use Common\Model\UserModel;
+use Monitor\Model\RedisInfoModel;
+use Think\Controller;
 
 class RedisController extends Controller
 {
@@ -166,7 +165,7 @@ class RedisController extends Controller
             $this->redisModel->delete(['ip:port' => $id]);
             $redisInfoModel = new RedisInfoModel();
             $redisInfoModel->deleteCollection($id);
-            $ports = $this->nodeModel->listOneByCondition(['ip' => $ip])['available_port'];
+            $ports = $this->nodeModel->getOneByCondition(['ip' => $ip])['available_port'];
             $ports[] = (int)$port;
             array_unique($ports);
             $this->nodeModel->update(['ip' => $ip], ['available_port' => $ports]);
@@ -180,7 +179,7 @@ class RedisController extends Controller
     private function chooseNode()
     {
         $nodeModel = $this->nodeModel;
-        $nodes = $nodeModel->listAll();
+        $nodes = $nodeModel->getAll();
         //print_r($nodes);
         $mems = [];
         foreach ($nodes as $node) {
