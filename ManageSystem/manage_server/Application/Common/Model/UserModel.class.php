@@ -11,15 +11,16 @@ namespace Common\Model;
 
 use \MongoClient;
 
-class UserModel
+class UserModel extends Model
 {
     private $mongo;
     private $collection;
 
     public function __construct()
     {
-        $this->mongo = new MongoClient(Constant::$constant['db_host']);
-        $this->collection = $this->mongo->selectCollection('emem_system', 'user');
+        parent::__construct();
+        $this->mongo = parent::getMongo();
+        $this->collection = $this->mongo->selectCollection(Constant::$constant['db_user'], Constant::$constant['collection_user']);
     }
 
     public function insert($data)

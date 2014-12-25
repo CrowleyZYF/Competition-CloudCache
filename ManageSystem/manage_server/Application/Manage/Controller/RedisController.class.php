@@ -9,12 +9,12 @@
 namespace Manage\Controller;
 
 use Common\Model\Constant;
-use Monitor\Model\RedisInfoModel;
-use Think\Controller;
 use Common\Model\NodeModel;
 use Common\Model\RedisModel;
-use Manage\Controller\Util;
 use Common\Model\UserModel;
+use Monitor\Model\RedisInfoModel;
+use Think\Controller;
+use MongoDate;
 
 class RedisController extends Controller
 {
@@ -43,8 +43,8 @@ class RedisController extends Controller
 
     public function getInstance()
     {
-        $condition = $_REQUEST['condition'];
-        $array = $this->redisModel->getOne($condition);
+        $id = $_REQUEST['id'];
+        $array = $this->redisModel->getByCondition(['ip:port' => $id]);
         $result = [];
         foreach ($array as $item) {
             $result[] = $this->backToFront($item);
@@ -77,7 +77,7 @@ class RedisController extends Controller
             $param['ip:port'] = $ip . ':' . $port;
             $param['ip'] = $ip;
             $param['status'] = 1;
-            $param['create_time'] = new \MongoDate();//(new \DateTime())->format('Y-m-d H:i:sP');
+            $param['create_time'] = new MongoDate();//(new \DateTime())->format('Y-m-d H:i:sP');
             //如果成功
             $this->redisModel->insert($param);
             $this->nodeModel->update(['ip' => $ip], ['available_port' => $ports]);
@@ -87,7 +87,7 @@ class RedisController extends Controller
             $this->post(Constant::$constant['cache_system'] . '/token/set', $userParam);
             $this->ajaxReturn($param);
         } else {
-            $this->error('New Instance failed' . $shell);
+            $this->error('New Instance failed' . print_r($shell));
         }
     }
 
@@ -135,7 +135,7 @@ class RedisController extends Controller
         if ($shell == 'ok') {
             $this->redisModel->stop(['ip:port' => $id]);
         } else {
-            $this->error('Stop failed' . $shell);
+            return $this->error('Stop failed' . $shell);
         }
     }
 
@@ -149,7 +149,7 @@ class RedisController extends Controller
         if ($shell == 'ok') {
             $this->redisModel->start(['ip:port' => $id]);
         } else {
-            $this->error('Start failed' . $shell);
+            return $this->error('Start failed' . $shell);
         }
     }
 
@@ -164,22 +164,23 @@ class RedisController extends Controller
         $shell = $this->execDelete($ip, $port);
         if ($shell == 'ok') {
             $this->redisModel->delete(['ip:port' => $id]);
-            $redisInfoModel = new RedisInfoModel();
+            $redisInfoModel = new RedisInfoModel($data);
             $redisInfoModel->deleteCollection($id);
-            $ports = $this->nodeModel->listOneByCondition(['ip' => $ip])['available_port'];
-            $ports[] = $port;
+            $ports = $this->nodeModel->getOneByCondition(['ip' => $ip])['available_port'];
+            $ports[] = (int)$port;
+            array_unique($ports);
             $this->nodeModel->update(['ip' => $ip], ['available_port' => $ports]);
             $token = $this->userModel->delete(['ip:port' => $id]);
             print_r($this->post(Constant::$constant['cache_system'] . '/token/remove', ['token' => $token]));
         } else {
-            $this->error('Delete failed' . $shell);
+            return $this->error('Delete failed' . $shell);
         }
     }
 
     private function chooseNode()
     {
         $nodeModel = $this->nodeModel;
-        $nodes = $nodeModel->listAll();
+        $nodes = $nodeModel->getAll();
         //print_r($nodes);
         $mems = [];
         foreach ($nodes as $node) {
@@ -242,7 +243,7 @@ class RedisController extends Controller
 
     protected function error($msg)
     {
-        echo $msg;
+        return $msg;
     }
 
     function post($url, $post_data)

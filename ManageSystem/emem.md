@@ -1,4 +1,4 @@
-###1.管理模块
+<h3>1.管理模块</h3>
 
  - 请求所有的redis实例: ***/manage/redis/getInstances***
 	 - 返回一个[]
@@ -35,7 +35,7 @@
 		 - **ids** ： ip：port的数组
 
 
-###2.节点监控
+<h3>2.节点监控</h3>
 
  - 获取系统所有节点：***/monitor/node/getNodes***
 	 - 参数：
@@ -98,4 +98,35 @@
 		 - **id**:ip
 		 - **time**: ISODate();
 
-###3.Redis实例监控
+<h3>3.Redis实例监控</h3>
+
+ - 获取所有的Redis实例：
+	 - 参数：无
+	 - 返回：[]
+	 - {}格式：
+
+
+ - 获取某个实例的所有历史监控信息：***/monitor/redis/getHistoryAll***
+	 - 参数：
+		 - **id** ： ip：port
+	 - 返回：[]
+	 - {}格式：参考redis实例
+
+ - 获取某个实例从某个时间点到现在的监控信息：***/monitor/redis/getHistory***
+	 - 参数：
+		 - **id** ： ip：port
+		 - **time** ： ISODate
+		 - **limit** : 如果没有则返回空，如果有则返回<=limit数量 
+	 - 返回：[]
+	 - {}格式：
+		 - 参考redis实例格式
+
+ - 获取某个时间段之间的监控信息：***/monitor/redis/getHistoryBetween***
+	 - 参数：
+		 - **id** ：ip：port
+		 - **start** ： ISODate
+		 - **end** ： ISODate
+		 - **limit** : 
+	 - 返回：[]
+	 - {}格式相同
+		

@@ -9,18 +9,19 @@
 
 namespace Common\Model;
 
-use \MongoClient;
 use Common\Model\Constant;
+use MongoClient;
 
-class NodeModel
+class NodeModel extends Model
 {
     private $mongo;
     private $collection;
 
-    public function __construct()
+    function __construct()
     {
+        parent::__construct();
         $this->mongo = new MongoClient(Constant::$constant['db_host']);
-        $this->collection = $this->mongo->selectCollection('emem_system', 'node');
+        $this->collection = $this->mongo->selectCollection(Constant::$constant['db_node'], Constant::$constant['collection_node']);
     }
 
     public function getCollection()
@@ -43,7 +44,7 @@ class NodeModel
         $this->mongo = $this->mongo->selectCollection($db, $collection);
     }
 
-    public function listAll()
+    public function getAll()
     {
         $cursor = $this->collection->find();
 //      print_r($collection);$collection
@@ -54,7 +55,7 @@ class NodeModel
         return $array;
     }
 
-    public function listByCondition($condition)
+    public function getByCondition($condition)
     {
         $cursor = $this->collection->find($condition);
         $array = [];
@@ -64,7 +65,7 @@ class NodeModel
         return $array;
     }
 
-    public function listOneByCondition($condition)
+    public function getOneByCondition($condition)
     {
         return $this->collection->findOne($condition);
     }

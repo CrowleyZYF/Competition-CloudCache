@@ -9,21 +9,18 @@ namespace Common\Model;
 
 use \MongoClient;
 
-class RedisModel
+class RedisModel extends Model
 {
     private $mongo;
     private $collection;
 
     public function __construct()
     {
-        $this->mongo = new MongoClient(Constant::$constant['db_host']);
-        $this->collection = $this->mongo->selectCollection('emem_system', 'redis');
+        parent::__construct();
+        $this->mongo = parent::getMongo();
+        $this->collection = $this->mongo->selectCollection(Constant::$constant['db_redis'], Constant::$constant['collection_redis']);
     }
 
-    public function setMongo($ip, $port)
-    {
-        $this->mongo = new MongoClient('mongodb://' . $ip . ':' . $port);
-    }
 
     public function setCollection($db, $collection)
     {
