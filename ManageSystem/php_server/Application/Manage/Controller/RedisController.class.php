@@ -68,7 +68,7 @@ class RedisController extends Controller
         $port = $node['port'];
         $ports = $node['available_ports'];
         //调用shell脚本执行redis启动
-        $shell = $this->execNew($ip, $port, $max);
+        $shell = $this->execCreate($ip, $port, $max);
         if ($shell == 'ok') {
             $param['threashold'] = 10;
             $param['number'] = 0;
@@ -197,7 +197,7 @@ class RedisController extends Controller
         }
         arsort($mems);
         foreach ($mems as $key => $mem) {
-            if (!empty($nodes[$key]['available_port'])) {
+            if ((int)$nodes[$key]['state'] == 1 && !empty($nodes[$key]['available_port'])) {
                 $result = ['ip' => $nodes[$key]['ip'], 'port' => array_pop($nodes[$key]['available_port']), 'available_ports' => $nodes[$key]['available_port']];
                 return $result;
             }
@@ -205,24 +205,24 @@ class RedisController extends Controller
         return $this->error('no available port');
     }
 
-    private function execNew($ip, $port, $max)
+    private function execCreate($ip, $port, $max)
     {
-        return $this->execCommand("/home/trollyxia/manage/create_redis.sh $ip $port $max");
+        return $this->execCommand(Constant::$constant['scripts_dir'] . "/create_redis.sh $ip $port $max");
     }
 
     private function execStart($ip, $port)
     {
-        return $this->execCommand("/home/trollyxia/manage/start_redis.sh $ip $port");
+        return $this->execCommand(Constant::$constant['scripts_dir'] . "/start_redis.sh $ip $port");
     }
 
     private function execStop($ip, $port)
     {
-        return $this->execCommand("/home/trollyxia/manage/stop_redis.sh $ip $port");
+        return $this->execCommand(Constant::$constant['scripts_dir'] . "/stop_redis.sh $ip $port");
     }
 
     private function execDelete($ip, $port)
     {
-        return $this->execCommand("/home/trollyxia/manage/delete_redis.sh $ip $port");
+        return $this->execCommand(Constant::$constant['scripts_dir'] . "/delete_redis.sh $ip $port");
     }
 
     private function execCommand($command)
