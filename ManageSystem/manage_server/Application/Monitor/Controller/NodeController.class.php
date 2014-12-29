@@ -45,7 +45,9 @@ class NodeController extends Controller
     public function getNodeById()
     {
         $condition = ['id' => $this->nodeId];
-        $this->ajaxReturn($this->nodeModel->getOneByCondition($condition));
+        $result = $this->nodeModel->getOneByCondition($condition);
+        $result['date'] = date('Y-m-d H:i:s', $result['date']->sec);
+        $this->ajaxReturn($result);
     }
 
     public function getInstancesOnNode()
@@ -57,6 +59,7 @@ class NodeController extends Controller
             foreach ($this->map as $mongoKey => $frontKey) {
                 $temp[$frontKey] = $instance[$mongoKey];
             }
+            $temp['time'] = date('Y-m-d H:i:s', $temp['time']->sec);
             $result[] = $temp;
         }
         $this->ajaxReturn($result);

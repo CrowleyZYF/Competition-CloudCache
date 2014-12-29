@@ -124,6 +124,15 @@ class RedisController extends Controller
         }
     }
 
+    public function deleteInstance()
+    {
+        $id = $_REQUEST['id'];
+        $result = $this->deleteOneInstance($id);
+        if (!empty($result)) {
+            $this->ajaxReturn($result);
+        }
+    }
+
     private function stopOneInstance($id)
     {
         //根据请求的参数
@@ -171,7 +180,7 @@ class RedisController extends Controller
             array_unique($ports);
             $this->nodeModel->update(['ip' => $ip], ['available_port' => $ports]);
             $token = $this->userModel->delete(['ip:port' => $id]);
-            print_r($this->post(Constant::$constant['cache_system'] . '/token/remove', ['token' => $token]));
+            $this->post(Constant::$constant['cache_system'] . '/token/remove', ['token' => $token]);
         } else {
             return $this->error('Delete failed' . $shell);
         }
@@ -232,6 +241,7 @@ class RedisController extends Controller
         foreach ($this->map as $mongoName => $frontName) {
             $result[$frontName] = $array[$mongoName];
         }
+        $result['time'] = date('Y-m-d H:i:s', $result['time']->sec);
         if (!isset($result['used'])) $result['used'] = 0;
         return $result;
     }

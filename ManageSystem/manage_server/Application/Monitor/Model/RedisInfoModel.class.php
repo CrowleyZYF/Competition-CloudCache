@@ -21,7 +21,8 @@ class RedisInfoModel extends Model
     {
         parent::__construct();
         $this->mongo = parent::getMongo();
-        $this->collection = $this->mongo->selectCollection(Constant::$constant['db_node_info'], $collection);
+        $this->db = $this->mongo->selectDb(Constant::$constant['db_redis_info']);
+        $this->collection = $this->mongo->selectCollection(Constant::$constant['db_redis_info'], $collection);
     }
 
     public function getByCondition($condition, $sort = ['date' => 1], $limit = 10)
