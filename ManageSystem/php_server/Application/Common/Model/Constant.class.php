@@ -32,6 +32,6 @@ class Constant
             'used_memory' => 'used',
             'maxmemory' => 'all'
         ],
-        'scripts_dir' => '/opt/lampp/CloudCache/ManageSystem/scripts'
+        'scripts_dir' => '/opt/CloudCache/ManageSystem/scripts'
     ];
 }
