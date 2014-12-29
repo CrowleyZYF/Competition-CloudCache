@@ -1,8 +1,6 @@
 package emem.manage.parser;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Scanner;
 
 import emem.manage.util.Constant;
@@ -42,6 +40,9 @@ public class RedisParser extends Parser {
 			all.add(s);
 		}
 
+		for (String s : statsInfo) {
+			all.add(s);
+		}
 	}
 
 	public void parse(Scanner scanner) {

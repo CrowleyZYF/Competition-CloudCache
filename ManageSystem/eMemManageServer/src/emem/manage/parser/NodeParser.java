@@ -1,6 +1,8 @@
 package emem.manage.parser;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NodeParser extends Parser {
 	private String[] tasksKeyword = { "task_total", "task_running",
@@ -66,6 +68,14 @@ public class NodeParser extends Parser {
 		String loadaverages = line.split("load average:")[1];
 		result.put("load_average",
 				loadaverages.split(",")[0].replaceAll(" ", ""));
+		Pattern p = Pattern.compile("\\d+\\susers");
+		Matcher m = p.matcher(line);
+		if (m.find()) {
+			result.put("users", m.group().split(" ")[0].trim());
+			String all = line.substring(0, m.start());
+			result.put("time_system", (all.split("up")[0].split("-")[1].trim()));
+			result.put("up", (all.split("up")[1].replaceAll(",", "").trim()));
+		}
 	}
 
 	private void doTasks(String line) {

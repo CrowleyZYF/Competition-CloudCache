@@ -1,6 +1,5 @@
 package emem.manage.server;
 
-import java.io.IOException;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.Executors;
 

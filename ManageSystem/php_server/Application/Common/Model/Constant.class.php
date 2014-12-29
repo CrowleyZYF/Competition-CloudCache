@@ -32,5 +32,6 @@ class Constant
             'used_memory' => 'used',
             'maxmemory' => 'all'
         ],
+        'scripts_dir' => '/opt/'
     ];
 }

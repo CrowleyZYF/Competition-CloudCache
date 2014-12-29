@@ -8,7 +8,6 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Server implements Runnable {
 	protected ServerSocketChannel serversocketchannel;
@@ -23,7 +22,7 @@ public class Server implements Runnable {
 	}
 
 	public void run() {
-		System.out.println("Server Start!");
+		System.out.println(this.getClass().getName());
 		try {
 			listen();
 		} catch (IOException e) {
@@ -64,7 +63,7 @@ public class Server implements Runnable {
 	}
 
 	protected void newThread(SocketChannel channel) {
-		
+
 	}
 
 	private void initChannel() {

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.mongodb.BasicDBObject;
+import com.mongodb.Cursor;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -29,6 +30,18 @@ public class NodeModel {
 		this();
 		infoCollection = infoDB.getCollection(name);
 		this.ip = name;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Map<String, Map<String, Object>> initAlive() {
+		Cursor c = collection.find();
+		Map<String, Map<String, Object>> result = new HashMap<String, Map<String, Object>>();
+		while (c.hasNext()) {
+			DBObject b = c.next();
+
+			result.put((String) b.get("ip"), (Map<String, Object>) b.toMap());
+		}
+		return result;
 	}
 
 	public void infoInsert(Map<String, Object> map) {
