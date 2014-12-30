@@ -62,7 +62,7 @@
 
     使用时, 首先使用emem.cacheclient.CacheClient的构造方法创建一个实例, 如下:
         import emem.cacheclient.CacheClient;
-        CacheClient cacheClient = new CacheClient(host, port, token);
+        HTTPCacheClient cacheClient = new HTTPCacheClient(host, port, token);
     然后使用的是与HTTP协议等效的方法, 例如set操作:
         cacheClient.set(key, value)
         cacheClient.set(key, value, expire)

@@ -6,12 +6,12 @@ import emem.common.data.SerializeUtil
 /**
  * Created by Hello on 2014/12/7.
  */
-class CacheClient {
+class HTTPCacheClient {
     private final host = 'localhost'
     private final port = 8080
     private final token = 'a'
 
-    CacheClient(String host, int port, String token) {
+    HTTPCacheClient(String host, int port, String token) {
         this.host = host
         this.port = port
         this.token = token

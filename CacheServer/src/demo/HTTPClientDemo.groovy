@@ -1,9 +1,17 @@
-import emem.cacheclient.CacheClient
+import emem.cacheclient.HTTPCacheClient
 
-CacheClient cacheClient = new CacheClient('localhost', 8080, 'a')
+def host = '192.168.1.73'
+
+def port = 8080
+
+def token = args.length > 1 ? args[0] : '192.168.1.113:6382';
+
+def n = args.length > 2 ? args[1] : 100
+
+HTTPCacheClient cacheClient = new HTTPCacheClient(host, port, token)
 
 long start = System.currentTimeMillis()
-for(i = 0; i < 1000000; i++) {
+for(i = 0; i < n; i++) {
     cacheClient.set('hello', 'world')
     println cacheClient.get('hello') == 'world'
 
@@ -19,8 +27,8 @@ for(i = 0; i < 1000000; i++) {
     println cacheClient.hashSize('hel') == 1
 
     cacheClient.get('hello', 1) //with expire
-    Thread.currentThread().sleep(1500)
-    println cacheClient.get('hello') == null
+    //Thread.currentThread().sleep(1500)
+    //println cacheClient.get('hello') == null
 }
 long end = System.currentTimeMillis()
-println end
+println end - start
