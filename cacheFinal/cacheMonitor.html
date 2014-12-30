@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.common.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.default.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.dataviz.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.dataviz.default.min.css" />
+    <link type="text/css" rel="stylesheet/less" href="css/main.less" />
+    <!--<link type="text/css" rel="stylesheet/less" href="css/cacheMonitor.less" />-->
+    <script type="text/javascript" src="js/less-1.7.5.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/kendo.all.min.js"></script>
+    <script type="text/javascript" src="js/chart.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <title>云缓存</title>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home.html">eMem</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="home.html">缓存管理</a></li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">缓存监控<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="severMonitor.html">缓存服务器状态监控</a></li>
+                            <li><a href="netMonitor.html">网络链路监控</a></li>
+                            <li class="active"><a href="cacheMonitor.html">缓存服务监控</a></li>
+                            <li><a href="errorMonitor.html">缓存异常监控</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="statisticsMonitor.html">缓存统计</a></li>
+                    <li><a href="adjustMonitor.html">自动调整</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">管理员设置</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">另外的功能</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">退出系统</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="title">
+        <h1><span>eMem</span>弹性云缓存系统</h1>
+    </div>
+    <div id="system">
+        <nav>
+            <div>
+                <h3><span>Hi</span> 庄奕峰</h3>
+                <h4>castiel.zyf@gmail.com</h4>
+            </div>
+            <div>
+                <h3>缓存监控子系统</h3>
+                <h4>缓存服务监控</h4>
+                <div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-lg btn-block dropdown-toggle" data-toggle="dropdown">选 择 实 例<span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a>61.164.36.20:1111</a></li>
+                            <li><a>61.164.36.20:1112</a></li>
+                            <li><a>61.164.36.20:1113</a></li>
+                            <li><a>61.164.36.20:1114</a></li>
+                            <li><a>61.164.36.20:1115</a></li>
+                            <li><a>61.164.36.20:1116</a></li>
+                            <li><a>61.164.36.20:1117</a></li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-warning btn-lg btn-block">监 控 设 置</button>
+                    <button type="button" class="btn btn-danger btn-lg btn-block">警 报 设 置</button>
+                </div>
+            </div>
+        </nav>
+        <div id="partSystem">
+            <div id="baseInfo" class="partSystemBlock">
+                <div class="noButton">
+                    <h3 class="partTitle">实例基本信息</h3>
+                </div>
+                <div class="blockInfo">
+                    <ul>
+                        <li><span>实例编号：</span><span>61.164.36.20:1111</span></li>
+                        <li><span>实例号：</span><span>f7657f31553b11</span></li>
+                        <li><span>管理员：</span><span>陈丽霞</span></li>
+                        <li><span>实例状态：</span><span>使用中</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>缓存引擎：</span><span>Redis</span></li>
+                        <li><span>缓存引擎版本：</span><span>V2.1</span></li>
+                        <li><span>区域：</span><span>集群1</span></li>
+                        <li><span>已用缓存及配额：</span><span>99Byte(28%)</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>宿主操作系统：</span><span>CentOS（64位）</span></li>
+                        <li><span>缓存使用时间：</span><span>3天（2568秒）</span></li>
+                        <li><span>连接客户端上限：</span><span>1000</span></li>
+                        <li><span>使用内存上限：</span><span>10000</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="insInfo" class="partSystemBlock">
+                <div class="hasButton">
+                    <h3 class="partTitle">实例主要信息</h3>
+                    <div>
+                        <button type="button" class="btn btn-info">历史记录</button>
+                    </div>
+                </div>
+                <div class="blueBlocks">
+                    <div>
+                        <h5>已连接客户端</h5>
+                        <p>12</p>
+                    </div>
+                    <div>
+                        <h5>阻塞客户端</h5>
+                        <p>2</p>
+                    </div>
+                    <div>
+                        <h5>执行命令总量</h5>
+                        <p>256</p>
+                    </div>
+                    <div>
+                        <h5>现存KEY总量</h5>
+                        <p>98</p>
+                    </div>
+                    <div>
+                        <h5>过期KEY总量</h5>
+                        <p>56</p>
+                    </div>
+                    <div>
+                        <h5>删除KEY总量</h5>
+                        <p>42</p>
+                    </div>
+                    <div>
+                        <h5>命中KEY总次数</h5>
+                        <p>79</p>
+                    </div>
+                    <div>
+                        <h5>未中KEY总次数</h5>
+                        <p>24</p>
+                    </div>
+                </div>
+            </div>
+            <div id="memoryInfo" class="partSystemBlock">
+                <div class="hasButton">
+                    <h3 class="partTitle">实例内存信息</h3>
+                    <div>
+                        <button type="button" class="btn btn-info">历史记录</button>
+                    </div>
+                </div>
+                <div class="blockInfo">
+                    <ul>
+                        <li><span>使用内存（数据）：</span><span>123</span></li>
+                        <li><span>物理内存（+碎片）：</span><span>223</span></li>
+                        <li><span>物理内存峰值：</span><span>345</span></li>
+                        <li><span>内存警戒线：</span><span>999</span></li>
+                    </ul>
+                </div>
+                <div class="chartBlock">
+                    <div id="memoryChartDefault"></div>
+                    <div id="memoryChartSet"></div>
+                </div>
+             </div>
+            <div id="keyInfo" class="partSystemBlock">
+                <div class="hasButton">
+                    <h3 class="partTitle">实例KEY信息</h3>
+                    <div>
+                        <button type="button" class="btn btn-info">历史记录</button>
+                    </div>
+                </div>
+                <div class="blockInfo">
+                    <ul>
+                        <li><span>历史KEY总量：</span><span>999</span></li>
+                        <li><span>现存KEY总量：</span><span>666</span></li>
+                        <li><span>过期KEY总量：</span><span>222</span></li>
+                        <li><span>删除KEY总量：</span><span>111</span></li>
+                    </ul>
+                </div>
+                <div class="chartBlock">
+                    <div class="chartSmallBlock">
+                        <div id="keyChart1"></div>
+                        <div id="keyChart2"></div>
+                        <div id="keyChart3"></div>
+                    </div>
+                    <div id="keyChartSet"></div>
+                </div>
+            </div>
+            <div id="commandInfo" class="partSystemBlock">
+                <div class="hasButton">
+                    <h3 class="partTitle">实例命令信息</h3>
+                    <div>
+                        <button type="button" class="btn btn-info">历史记录</button>
+                    </div>
+                </div>
+                <div class="blockInfo">
+                    <ul>
+                        <li><span>历史读取次数：</span><span>999</span></li>
+                        <li><span>历史设置次数：</span><span>999</span></li>
+                        <li><span>历史读取数据量：</span><span>999K</span></li>
+                        <li><span>历史设置数据量：</span><span>999K</span></li>
+
+                    </ul>
+                    <ul>
+                        <li><span>1小时读取次数：</span><span>125</span></li>
+                        <li><span>1小时设置次数：</span><span>125</span></li>
+                        <li><span>1小时读取数据量：</span><span>125K</span></li>
+                        <li><span>1小时设置数据量：</span><span>125K</span></li>
+                    </ul>
+                </div>
+                <div class="chartBlock">
+                    <div class="chartSmallBlock">
+                        <div id="commandChart1"></div>
+                        <div id="commandChart2"></div>
+                        <div id="commandChart3"></div>
+                    </div>
+                    <div id="commandChartSet"></div>
+                </div>
+                <div class="chartBlock">
+                    <div id="commandValChartDefault"></div>
+                    <div id="commandValChartSet"></div>
+                </div>
+            </div>
+        </div>
+        <div style="float:none;clear: both"></div>
+    </div>
+
+    <script>
+
+    var memoryChartDefault=[{
+        name: "配额",
+        data: [1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024],
+        color:"#F05C80"
+    },{
+        name: "使用内存",
+        data: [123, 321, 456, 187, 335, 678, 756, 751, 267, 500, 123, 321, 456, 187, 335, 678, 756, 751, 267, 500, 267, 500, 267, 500]
+    },{
+        name: "物理内存",
+        data: [350, 550, 766, 330, 552, 800, 900, 920, 420, 700, 350, 550, 766, 330, 552, 800, 900, 920, 420, 700, 420, 700, 420, 700]
+    },{
+        name: "物理内存峰值",
+        data: [230, 470, 636, 200, 462, 720, 850, 800, 300, 620, 230, 470, 636, 200, 462, 720, 850, 800, 300, 620, 300, 620, 300, 620]
+    }];
+
+    var memoryChartSet=[{
+        name: "配额",
+        data: [1024, 1024, 1024, 1024, 1024, 1024],
+        color:"#F05C80"
+    },{
+        name: "使用内存",
+        data: [123, 321, 456, 187, 335, 678]
+    },{
+        name: "物理内存",
+        data: [350, 550, 766, 330, 552, 800]
+    },{
+        name: "物理内存峰值",
+        data: [230, 470, 636, 200, 462, 720]
+    }];
+
+    var keyChart1=[{
+        category: "现存KEY总量",
+        value: 999,
+        color:"#94CDFE"
+    },{
+        category: "过期KEY总量",
+        value: 222,
+        color:"#8FEC7D"
+    },{
+        category: "删除KEY总量",
+        value: 111,
+        color:"#7F84E8"
+    }];
+
+    var keyChart2=[{
+        category: "现存KEY总量",
+        value: 999,
+        color:"#94CDFE"
+    },{
+        category: "过期KEY总量",
+        value: 222,
+        color:"#8FEC7D"
+    },{
+        category: "删除KEY总量",
+        value: 111,
+        color:"#7F84E8"
+    }];
+
+    var keyChart3=[{
+        category: "现存KEY总量",
+        value: 999,
+        color:"#94CDFE"
+    },{
+        category: "过期KEY总量",
+        value: 222,
+        color:"#8FEC7D"
+    },{
+        category: "删除KEY总量",
+        value: 111,
+        color:"#7F84E8"
+    }];
+
+    var keyChartSet=[{
+        name: "历史命中率",
+        data: [88, 88, 88, 88, 88, 89],
+        color:"#F05C80"
+    },{
+        name: "实时命中率",
+        data: [93, 98, 52, 80, 40, 70]
+    },{
+        name: "实时命中率",
+        data: [83, 88, 82, 70, 60, 40]
+    }];
+
+    var commandData=[{
+        category: "Get命令",
+        value: 999,
+        color:"#94CDFE"
+    },{
+        category: "Set命令",
+        value: 222,
+        color:"#8FEC7D"
+    },{
+        category: "其他命令",
+        value: 111,
+        color:"#7F84E8"
+    }];
+
+    var commandSet=[{
+        name: "命令总量",
+        data: [120, 240, 324, 120, 234, 350],
+        color:"#F05C80"
+    },{
+        name: "Get命令",
+        data: [60, 120, 162, 60, 117, 175]
+    },{
+        name: "Set命令",
+        data: [40, 80, 108, 40, 78, 108]
+    },{
+        name: "其他命令",
+        data: [20, 40, 54, 20, 39, 54]
+    }];
+
+    var col1=[{
+        name: "Get数据量",
+        data: [123,654,215,456,248,684,268,132,685,652,874,321,123,654,215,456,248,684,268,132,685,652,874,321],
+        color:"#94CDFE"
+    }, {
+        name: "Set数据量",
+        data: [80,454,115,356,148,484,168,32,655,252,174,221,23,54,245,356,48,384,168,124,285,352,274,121],
+        color:"#8FEC7D"
+    }];
+
+    var col2=[{
+        name: "Get数据量",
+        data: [123,654,215,456,248,684],
+        color:"#94CDFE"
+    }, {
+        name: "Set数据量",
+        data: [80,454,115,356,148,484],
+        color:"#8FEC7D"
+    }];
+
+    var cat1=["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
+    var cat2=["-59~-50", "-49~-40", "-39~-30", "-29~-20", "-19~-10", "-9~0"];
+
+
+    $(document).ready(function(){
+        createLineChart("#memoryChartDefault","24小时内缓存内存使用情况线图",memoryChartDefault,0,1200,900,cat1);
+        createLineChart("#memoryChartSet","1分钟内缓存内存使用情况线图",memoryChartSet,0,1200,900,cat2);
+        createPieChart("#keyChart1","目前各类KEY分布饼状图",keyChart1);
+        createPieChart("#keyChart2","24小时新增各类KEY分布饼状图",keyChart2);
+        createPieChart("#keyChart3","1小时新增各类KEY分布饼状图",keyChart3);
+        createLineChart("#keyChartSet","1分钟新增各类KEY实时情况线图",keyChartSet,0,100,60,cat2);
+        createPieChart("#commandChart1","历史命令分布饼状图",commandData);
+        createPieChart("#commandChart2","24小时命令分布饼状图",commandData);
+        createPieChart("#commandChart3","1小时内命令分布饼状图",commandData);
+        createLineChart("#commandChartSet","1分钟命令次数实时情况",commandSet,0,500,400,cat2);
+        createColChart("#commandValChartDefault","24小时读取/设置数据量小时分布图",col1,cat1);
+        createColChart("#commandValChartSet","1分钟读取/设置数据量小时分布图",col2,cat2);
+    });
+    </script>
+</body>
+</html>

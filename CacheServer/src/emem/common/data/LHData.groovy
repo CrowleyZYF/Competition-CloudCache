@@ -5,24 +5,31 @@ package emem.common.data
 class LHData {
 
     static def listToString(list) {
-        list.join(',')
+        list.collect {
+            it.replaceAll(',', '\\\\,')
+        }.join(',')
     }
 
-    static def listFromString(str) {
-        str.split(',')
+    static def listFromString(String str) {
+        str.replaceAll('\\\\,', '\\\\\0').split(',').collect {
+            it.replaceAll('\\\\\0', ',')
+        }
     }
 
     static def hashToString(hash) {
         listToString hash.entrySet().collect {
-            "${it.key}:${it.value}"
+            def key = it.key.replaceAll(':', '\\\\:')
+            def value = it.value.replaceAll(':', '\\\\:')
+            "$key:$value"
         }
     }
 
     static def hashFromString(str) {
         def hash = [:]
         listFromString(str).each {
+            it = it.replaceAll('\\\\:', '\\\\0')
             def tokens = it.split(':')
-            hash[tokens[0]] = tokens[1]
+            hash[tokens[0].replaceAll('\\\\0', '\\:')] = tokens[1].replaceAll('\\\\0', '\\:')
         }
         hash
     }

@@ -1,0 +1,19 @@
+下面是各种接口连续迭代10000次得到的平均值
+
+HTTP客户端:
+Test set: 3.43
+Test get: 1.94
+Test hashSetAll: 2.95
+Test hashGetAll: 2.42
+Test hashSet: 1.57
+Test hashRemove: 1.85
+Test hashGet: 1.62
+
+RMI客户端:
+Test set: 1.48
+Test get: 1.62
+Test hashSetAll: 2.45
+Test hashGetAll: 1.43
+Test hashSet: 1.32
+Test hashRemove: 1.44
+Test hashGet: 1.21

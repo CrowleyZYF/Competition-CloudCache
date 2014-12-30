@@ -23,13 +23,13 @@ class DispatchFilter implements Filter {
 
         //初始化基本服务器配置
         def tokenDBHost = filterConfig.getInitParameter('tokenDBHost')?:'localhost'
-        def tokenDBName = filterConfig.getInitParameter('tokenDBName')?:'tokens'
+        def tokenDBName = filterConfig.getInitParameter('tokenDBName')?:'emem_system'
         def statDBHost = filterConfig.getInitParameter('statDBHost')?:'localhost'
         def statDBName = filterConfig.getInitParameter('statDBName')?:'stat'
         ServerConfig.tokenDB = new GMongo(tokenDBHost).getDB(tokenDBName)
         ServerConfig.statDB = new GMongo(statDBHost).getDB(statDBName)
 
-        CacheConfig.getInstance().init(ServerConfig.tokenDB.tokens)
+        CacheConfig.getInstance().init(ServerConfig.tokenDB.user)
 
         //配置Controllers
         def pack = 'emem.cacheserver.controllers'

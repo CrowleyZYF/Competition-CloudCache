@@ -1,27 +1,24 @@
+数据类型:
+    缓存作为key-value的快速映射, key是字符串类型的. value支持两种数据类型, 分别是string, hash.
+    其中字符串类型就是字符序列, 不支持空字符序列, 空字符序列等效于null.
+    其中hash是索引-值得集合, 索引和值都是字符串类型的. 例如下面:
+        {'a': 'hello', 'b': 'value'}
+    可以看成是一个hash数据.
 
-接口中使用token来隔离不同的缓存服务. token配置的接口如下:
+缓存服务子系统支持客户端通过两种协议来访问, 分别是HTTP和RMI. 针对HTTP协议, 提供了客户端JAR封装.
 
-1. /config/token/set: token, host, port
+下面是对HTTP协议的接口描述, 客户端JAR和RMI具有等效的接口, 就不单独列出来了.
 
-2. /config/token/remove: token
-
-3. /config/token/list:
-    返回的数据格式是:
-        token1 127.0.0.1 6379
-        token2 192.168.1.100 6380
-        ...
-    每行用空格隔开
-
-整个协议层支持三种数据结构, 分别是string, hash.
-其中基本元素只有string, 和hash内的元素也是string类型的.
-然后键值即key一律都是string. 
-
-约束: 
+提前说明:
     下面的接口描述中, 所给的参数都不能为空, 加上[]的除外
+
     每个接口都有用户隔离的功能, 使用token参数进行区别, 就没有单独列出来了
     例如对于用户mingming来说, 其完整的调用应该是/set?key=hello&value=world&token=mingming
-    每个接口都添加有过期值的支持, 参数名为expire, value值是秒数
+
+    没有单独提供remove数据的接口, 因为意识到用户很少有意识的删除数据, 故前期就不实现了.
+    但每个接口都添加有过期值的支持, 参数名为expire, value值是秒数
     例如想要key在10秒后过期, 完整的调用应该是/set?key=hello&value=world&token=mingming&expire=10
+    [过期值有妙用]
 
 关于标量string的接口:
 
@@ -56,3 +53,33 @@
     /hash/size: key => size
         返回hashtable的大小
         例如: /hash/size?key=hello => 3
+
+Both客户端JAR包和RMI远程接口我们都给了JAVA DOC
+
+客户端JAR包:
+
+    用户可以使用JAVA语言来使用缓存服务. 需要引入下面的两个包:
+        cache-client.jar
+        groovy-all.x.x.x.jar (groovy依赖包)
+
+    使用时, 首先使用emem.cacheclient.CacheClient的构造方法创建一个实例, 如下:
+        import emem.cacheclient.CacheClient;
+        HTTPCacheClient cacheClient = new HTTPCacheClient(host, port, token);
+    然后使用的是与HTTP协议等效的方法, 例如set操作:
+        cacheClient.set(key, value)
+        cacheClient.set(key, value, expire)
+    其他的操作类似, 就不一一列出了.
+    另外, 为了便利JAVA接口的使用, 可以直接将一个完整的对象存储进缓存, 以后可以从缓存提取这个对象, 例如:
+        Person person = new Person(name, age)
+        cacheClient.set(key, person)
+        person = (Person)cacheClient.get(key)
+
+RMI远程接口:
+
+    缓存服务子系统支持客户端使用RMI协议进行缓存操作. 假设变量host和port保存RMI服务器的主机和端口. 客户端需要的动作如下:
+    1. 首先引入两个远程接口, CacheClientFactory和CacheClient(在包emem.common.rmi下, 已打包为cache-rmi.jar).
+    2. 通过名字查找获取CacheClientFactory
+        CacheClientFactory cacheClientFactory = Naming.lookup("rmi://$host:$port/CacheClientFactory");
+    3. 传入token获取CacheClient:
+        CacheClient cacheClient = cacheClientFactory.getCacheClient(token);
+    4. 使用cacheClient进行操作即可, 方法与客户端JAR包的一致.

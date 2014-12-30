@@ -1,0 +1,14 @@
+接口中使用token来隔离不同的缓存服务. token配置的接口如下:
+
+1. /token/set: token, host, port
+
+2. /token/remove: token
+
+3. /token/list:
+    返回的数据格式是:
+        token1 127.0.0.1 6379
+        token2 192.168.1.100 6380
+        ...
+    每行用空格隔开
+
+token的存储依赖mongodb数据库, 文档格式: token, host, port

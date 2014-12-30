@@ -4,9 +4,7 @@
 
 2. 基本的token配置接口
     token配置需要调用缓存服务子系统提供的接口.
-    token的配置内容放在mongodb数据库里, 现在放置的数据库是
-        IP: localhost, 数据库名: tokens
-    数据格式: _id(token), host, port
+    token的配置内容放在mongodb数据库里, 文档格式: token, host, port
 
 3. RMI协议的支持
 
@@ -20,14 +18,18 @@
 
 构建步骤:
 
+0. 已经将开发环境在邓老师的机器上搭建好了, 邓老师需要做的是:
+    git pull
+    run
+
 1. 首先, 将src中的groovy源码和java源码编译到文件夹WebContent/WEB-INF/classes
 
 2. 推荐命令行启动:
     cd CacheServer/WebContent
     Linux下执行:
-    java -classpath WEB-INF/classes:WEB-INF/lib/jetty-server-8.1.8.jar test.ServerStart
+    java -Djava.rmi.server.logCalls=true -cp 'WEB-INF/lib/jetty-server-8.1.8.jar:WEB-INF/classes' emem.cacheserver.ServerStart
     Windows下执行:
-    java -classpath WEB-INF/classes;WEB-INF/lib/jetty-server-8.1.8.jar test.ServerStart
+    java -Djava.rmi.server.logCalls=true -cp 'WEB-INF/lib/jetty-server-8.1.8.jar;WEB-INF/classes' emem.cacheserver.ServerStart
     区别在于-classpath参数下Linux以冒号分割, 而Windows用分号分割
 
 3. 可以把WebContent目录部署到Servlet容器下, 如Jetty, Tomcat等. 推荐使用轻量级的Jetty
@@ -38,10 +40,10 @@
 4. 对token和stat的数据库可以实现配置, 配置设置可以修改文件WebContent/WEB-INF/web.xml中的参数.
    在DispatchFilter下的init-param里, 修改其中的param-value即可
 
-需要稍稍注意的工作:
-1. 增加接口的过期支持
-    如何获取expire
-2. 增加协议HTTPS的支持
-    https://docs.oracle.com/cd/E19148-01/820-0843/aeopq/index.html
-3. RMI协议
-    Groovy拦截器
+5. 客户端测试:
+    打包: jar cvf http-client.jar .
+    java -cp '.:groovy-all-2.3.7.jar:http-client.jar' CacheClientDemo
+    java -cp '.:groovy-all-2.3.7.jar:rmi-client.jar' RMIClientDemo
+
+工作计划:
+Memcached?
