@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.common.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.default.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.dataviz.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.dataviz.default.min.css" />
+    <link type="text/css" rel="stylesheet/less" href="css/main.less" />
+    <link type="text/css" rel="stylesheet/less" href="css/cacheMonitor.less" />
+    <script type="text/javascript" src="js/less-1.7.5.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/kendo.all.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <title>云缓存</title>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home.html">OurCache</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="home.html">缓存管理</a></li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">缓存监控<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="severMonitor.html">缓存服务器状态监控</a></li>
+                            <li><a href="netMonitor.html">网络链路监控</a></li>
+                            <li class="active"><a href="cacheMonitor.html">缓存服务监控</a></li>
+                            <li><a href="errorMonitor.html">缓存异常监控</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="statisticsMonitor.html">缓存统计</a></li>
+                    <li><a href="adjustMonitor.html">自动调整</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">管理员设置</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">另外的功能</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">退出系统</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="title">
+        <h1><span>OurCache</span>弹性云缓存系统</h1>
+    </div>
+    <div id="system">
+        <nav>
+            <div>
+                <h3><span>Hi</span> 庄奕峰</h3>
+                <h4>castiel.zyf@gmail.com</h4>
+            </div>
+            <div>
+                <h3>缓存监控子系统</h3>
+                <h4>缓存服务监控</h4>
+                <div>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">选 择 实 例</button>
+                    <button type="button" class="btn btn-warning btn-lg btn-block">监 控 设 置</button>
+                    <button type="button" class="btn btn-danger btn-lg btn-block">警 报 设 置</button>
+                </div>
+            </div>
+        </nav>
+        <div id="partSystem">
+            <div id="baseInfo">
+                <h3 class="partTitle">实例基本信息</h3>
+                <div class="blockInfo">
+                    <ul>
+                        <li><span>实例编号：</span><span>0001</span></li>
+                        <li><span>实例号：</span><span>f7657f31553b11e4</span></li>
+                        <li><span>IP：</span><span>61.164.36.23</span></li>
+                        <li><span>管理员：</span><span>陈丽霞</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>实例状态：</span><span>使用中</span></li>
+                        <li><span>缓存引擎：</span><span>Redis</span></li>
+                        <li><span>缓存引擎版本：</span><span>V2.1</span></li>
+                        <li><span>区域：</span><span>集群1</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>已用缓存及配额：</span><span>99Byte(28%)</span></li>
+                        <li><span>宿主操作系统：</span><span>CentOS（64位）</span></li>
+                        <li><span>缓存使用时间：</span><span>3天（2568秒）</span></li>
+                        <li><span>TCP/IP 监听端口：</span><span>6379</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>连接客户端上限：</span><span>1000</span></li>
+                        <li><span>使用内存上限：</span><span>10000</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="insInfo">
+                <div>
+                    <h3 class="partTitle">实例主要信息</h3>
+                    <button type="button" class="btn btn-info">历史记录</button>
+                </div>
+                <div>
+                    <div>
+                        <h5>已连接客户端</h5>
+                        <p>12</p>
+                    </div>
+                    <div>
+                        <h5>阻塞客户端</h5>
+                        <p>2</p>
+                    </div>
+                    <div>
+                        <h5>执行命令总量</h5>
+                        <p>256</p>
+                    </div>
+                    <div>
+                        <h5>现存KEY总量</h5>
+                        <p>98</p>
+                    </div>
+                    <div>
+                        <h5>过期KEY总量</h5>
+                        <p>56</p>
+                    </div>
+                    <div>
+                        <h5>删除KEY总量</h5>
+                        <p>42</p>
+                    </div>
+                    <div>
+                        <h5>命中KEY总次数</h5>
+                        <p>79</p>
+                    </div>
+                    <div>
+                        <h5>未中KEY总次数</h5>
+                        <p>24</p>
+                    </div>
+                </div>
+            </div>
+            <div id="memoryInfo" class="chartAndInfo">
+                <div>
+                    <h3 class="partTitle">实例内存信息</h3>
+                    <button type="button" class="btn btn-info">历史记录</button>
+                </div>
+                <div class="blockInfo">
+                    <ul>
+                        <li><span>使用内存（数据）：</span><span>123</span></li>
+                        <li><span>物理内存（数据+碎片）：</span><span>223</span></li>
+                        <li><span>物理内存峰值：</span><span>345</span></li>
+                        <li><span>内存警戒线：</span><span>999</span></li>
+                    </ul>
+                </div>
+                <div class="memoryChart">
+                    <div id="memoryChart24"></div>
+                    <div id="memoryChart60"></div>
+                </div>
+             </div>
+            <div id="keyInfo" class="chartAndInfo">
+                <div>
+                    <h3 class="partTitle">实例内存信息</h3>
+                    <button type="button" class="btn btn-info">历史记录</button>
+                </div>
+                <div class="blockInfo">
+                    <ul>
+                        <li><span>历史KEY总量：</span><span>999</span></li>
+                        <li><span>历史KEY命中率：</span><span>87%</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>现存KEY总量：</span><span>666</span></li>
+                        <li><span>命中KEY次数（1小时）：</span><span>345</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>过期KEY总量：</span><span>222</span></li>
+                        <li><span>未中KEY次数（1小时）：</span><span>999</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>删除KEY总量：</span><span>111</span></li>
+                        <li><span>1小时内KEY的命中率：</span><span>98%</span></li>
+                    </ul>
+                </div>
+                <div class="keyChart">
+                    <div id="pieChart">
+                        <div id="keyChart1"></div>
+                        <div id="keyChart2"></div>
+                        <div id="keyChart3"></div>
+                    </div>
+                    <div id="keyChart60"></div>
+                </div>
+            </div>
+            <div id="commandInfo" class="chartAndInfo">
+                <div>
+                    <h3 class="partTitle">实例命令信息</h3>
+                    <button type="button" class="btn btn-info">历史记录</button>
+                </div>
+                <div class="blockInfo">
+                    <ul>
+                        <li><span>历史命令总量：</span><span>999</span></li>
+                        <li><span>1小时命令数量：</span><span>125</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>历史读取次数：</span><span>999</span></li>
+                        <li><span>1小时读取次数：</span><span>125</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>历史设置次数：</span><span>999</span></li>
+                        <li><span>1小时设置次数：</span><span>125</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>历史读取数据量：</span><span>999K</span></li>
+                        <li><span>1小时读取数据量：</span><span>125K</span></li>
+                    </ul>
+                    <ul>
+                        <li><span>历史设置数据量：</span><span>999K</span></li>
+                        <li><span>1小时设置数据量：</span><span>125K</span></li>
+                    </ul>
+                </div>
+                <div class="commandChart">
+                    <div id="commandChart">
+                        <div id="commandChart1"></div>
+                        <div id="commandChart2"></div>
+                        <div id="commandChart3"></div>
+                    </div>
+                    <div id="commandChart60"></div>
+                </div>
+                <div class="commandChart">
+                    <div id="command2Chart24"></div>
+                    <div id="command2Chart60"></div>
+                </div>
+            </div>
+        </div>
+        <div style="float:none;clear: both"></div>
+    </div>
+
+    <script>
+        function memoryChart24() {
+            $("#memoryChart24").kendoChart({
+                theme:"metro",
+                title: {
+                    text: "9月24日 f7657f31553b11e4 缓存内存使用信息"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                seriesDefaults: {
+                    type: "line",
+                    style: "smooth"
+                },
+                series: [{
+                    name: "配额",
+                    data: [1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024, 1024],
+                    color:"#F05C80"
+                },{
+                    name: "使用内存",
+                    data: [123, 321, 456, 187, 335, 678, 756, 751, 267, 500, 123, 321, 456, 187, 335, 678, 756, 751, 267, 500, 267, 500, 267, 500]
+                },{
+                    name: "物理内存",
+                    data: [350, 550, 766, 330, 552, 800, 900, 920, 420, 700, 350, 550, 766, 330, 552, 800, 900, 920, 420, 700, 420, 700, 420, 700]
+                },{
+                    name: "物理内存峰值",
+                    data: [230, 470, 636, 200, 462, 720, 850, 800, 300, 620, 230, 470, 636, 200, 462, 720, 850, 800, 300, 620, 300, 620, 300, 620]
+                }],
+                valueAxis: {
+                    min:0,
+                    max:1200,
+                    labels: {
+                        format: "{0}"
+                    },
+                    line: {
+                        visible: false
+                    },
+                    plotBands: [{
+                        from: 900,
+                        to: 1200,
+                        color: "#D8534F",
+                        opacity: 0.3
+                    }, {
+                        from: 0,
+                        to: 900,
+                        color: "#5CB75C",
+                        opacity: 0.3
+                    }
+                    ]
+                },
+                categoryAxis: {
+                    categories: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+                    majorGridLines: {
+                        visible: false
+                    }
+                },
+                tooltip: {
+                    visible: true,
+                    format: "{0}%",
+                    template: "#= series.name #: #= value #"
+                }
+            });
+        }
+
+        function memoryChart60() {
+            $("#memoryChart60").kendoChart({
+                theme:"metro",
+                title: {
+                    text: "f7657f31553b11e4 1分钟缓存内存实时使用情况"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                seriesDefaults: {
+                    type: "line",
+                    style: "smooth"
+                },
+                series: [{
+                    name: "配额",
+                    data: [1024, 1024, 1024, 1024, 1024, 1024],
+                    color:"#F05C80"
+                },{
+                    name: "使用内存",
+                    data: [123, 321, 456, 187, 335, 678]
+                },{
+                    name: "物理内存",
+                    data: [350, 550, 766, 330, 552, 800]
+                },{
+                    name: "物理内存峰值",
+                    data: [230, 470, 636, 200, 462, 720]
+                }],
+                valueAxis: {
+                    min:0,
+                    max:1200,
+                    labels: {
+                        format: "{0}"
+                    },
+                    line: {
+                        visible: false
+                    },
+                    plotBands: [{
+                        from: 900,
+                        to: 1200,
+                        color: "#D8534F",
+                        opacity: 0.3
+                    }, {
+                        from: 0,
+                        to: 900,
+                        color: "#5CB75C",
+                        opacity: 0.3
+                    }
+                    ]
+                },
+                categoryAxis: {
+                    categories: ["-59~-50", "-49~-40", "-39~-30", "-29~-20", "-19~-10", "-9~0"],
+                    majorGridLines: {
+                        visible: false
+                    }
+                },
+                tooltip: {
+                    visible: true,
+                    format: "{0}%",
+                    template: "#= series.name #: #= value #"
+                }
+            });
+        }
+
+        function keyChart1Chart() {
+            $("#keyChart1").kendoChart({
+                theme:"metro",
+                title: {
+                    position: "top",
+                    text: "历史KEY总量分布饼状图"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                series: [{
+                    type: "pie",
+                    startAngle: 150,
+                    data: [{
+                        category: "现存KEY总量",
+                        value: 999,
+                        color:"#94CDFE"
+                    },{
+                        category: "过期KEY总量",
+                        value: 222,
+                        color:"#8FEC7D"
+                    },{
+                        category: "删除KEY总量",
+                        value: 111,
+                        color:"#7F84E8"
+                    }]
+                }],
+                tooltip: {
+                    visible: true,
+                    format: "{0}",
+                    template: "#= category #: #= value #"
+                }
+            });
+        }
+
+        function keyChart2Chart() {
+            $("#keyChart2").kendoChart({
+                theme:"metro",
+                title: {
+                    position: "top",
+                    text: "历史命中/未命中KEY分布饼状图"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                series: [{
+                    type: "pie",
+                    startAngle: 150,
+                    data: [{
+                        category: "命中KEY总量",
+                        value: 999,
+                        color:"#94CDFE"
+                    },{
+                        category: "未命中KEY总量",
+                        value: 222,
+                        color:"#8FEC7D"
+                    }]
+                }],
+                tooltip: {
+                    visible: true,
+                    format: "{0}",
+                    template: "#= category #: #= value #"
+                }
+            });
+         }
+
+        function keyChart3Chart() {
+                $("#keyChart3").kendoChart({
+                    theme:"metro",
+                    title: {
+                        position: "top",
+                        text: "命中/未命中KEY分布饼状图（1小时）"
+                    },
+                    legend: {
+                        position: "bottom"
+                    },
+                    chartArea: {
+                        background: "#f5f5f5"
+                    },
+                    series: [{
+                        type: "pie",
+                        startAngle: 150,
+                        data: [{
+                            category: "命中KEY总量",
+                            value: 999,
+                            color:"#94CDFE"
+                        },{
+                            category: "未命中KEY总量",
+                            value: 222,
+                            color:"#8FEC7D"
+                        }]
+                    }],
+                    tooltip: {
+                        visible: true,
+                        format: "{0}",
+                        template: "#= category #: #= value #"
+                    }
+                });
+        }
+
+        function keyChart60() {
+            $("#keyChart60").kendoChart({
+                theme:"metro",
+                title: {
+                    text: "f7657f31553b11e4 1分钟缓存KEY命中率实时情况"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                seriesDefaults: {
+                    type: "line",
+                    style: "smooth"
+                },
+                series: [{
+                    name: "历史命中率",
+                    data: [88, 88, 88, 88, 88, 89],
+                    color:"#F05C80"
+                },{
+                    name: "实时命中率",
+                    data: [93, 98, 52, 80, 40, 70]
+                }],
+                valueAxis: {
+                    min:0,
+                    max:100,
+                    labels: {
+                        format: "{0}"
+                    },
+                    line: {
+                        visible: false
+                    },
+                    plotBands: [{
+                        from: 0,
+                        to: 60,
+                        color: "#D8534F",
+                        opacity: 0.3
+                    }, {
+                        from: 60,
+                        to: 100,
+                        color: "#5CB75C",
+                        opacity: 0.3
+                    }
+                    ]
+                },
+                categoryAxis: {
+                    categories: ["-59~-50", "-49~-40", "-39~-30", "-29~-20", "-19~-10", "-9~0"],
+                    majorGridLines: {
+                        visible: false
+                    }
+                },
+                tooltip: {
+                    visible: true,
+                    format: "{0}%",
+                    template: "#= series.name #: #= value #"
+                }
+            });
+        }
+
+        function commandChart1Chart() {
+            $("#commandChart1").kendoChart({
+                theme:"metro",
+                title: {
+                    position: "top",
+                    text: "历史命令分布饼状图"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                series: [{
+                    type: "pie",
+                    startAngle: 150,
+                    data: [{
+                        category: "Get命令",
+                        value: 999,
+                        color:"#94CDFE"
+                    },{
+                        category: "Set命令",
+                        value: 222,
+                        color:"#8FEC7D"
+                    },{
+                        category: "其他命令",
+                        value: 111,
+                        color:"#7F84E8"
+                    }]
+                }],
+                tooltip: {
+                    visible: true,
+                    format: "{0}",
+                    template: "#= category #: #= value #"
+                }
+            });
+        }
+
+        function commandChart2Chart() {
+            $("#commandChart2").kendoChart({
+                theme:"metro",
+                title: {
+                    position: "top",
+                    text: "今日命令分布饼状图"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                series: [{
+                    type: "pie",
+                    startAngle: 150,
+                    data: [{
+                        category: "Get命令",
+                        value: 999,
+                        color:"#94CDFE"
+                    },{
+                        category: "Set命令",
+                        value: 222,
+                        color:"#8FEC7D"
+                    },{
+                        category: "其他命令",
+                        value: 111,
+                        color:"#7F84E8"
+                    }]
+                }],
+                tooltip: {
+                    visible: true,
+                    format: "{0}",
+                    template: "#= category #: #= value #"
+                }
+            });
+        }
+
+        function commandChart3Chart() {
+            $("#commandChart3").kendoChart({
+                theme:"metro",
+                title: {
+                    position: "top",
+                    text: "一小时内命令分布饼状图"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                series: [{
+                    type: "pie",
+                    startAngle: 150,
+                    data: [{
+                        category: "Get命令",
+                        value: 999,
+                        color:"#94CDFE"
+                    },{
+                        category: "Set命令",
+                        value: 222,
+                        color:"#8FEC7D"
+                    },{
+                        category: "其他命令",
+                        value: 111,
+                        color:"#7F84E8"
+                    }]
+                }],
+                tooltip: {
+                    visible: true,
+                    format: "{0}",
+                    template: "#= category #: #= value #"
+                }
+            });
+        }
+
+        function commandChart60() {
+            $("#commandChart60").kendoChart({
+                theme:"metro",
+                title: {
+                    text: "f7657f31553b11e4 1分钟命令次数实时情况"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                seriesDefaults: {
+                    type: "line",
+                    style: "smooth"
+                },
+                series: [{
+                    name: "命令总量",
+                    data: [120, 240, 324, 120, 234, 350],
+                    color:"#F05C80"
+                },{
+                    name: "Get命令",
+                    data: [60, 120, 162, 60, 117, 175]
+                },{
+                    name: "Set命令",
+                    data: [40, 80, 108, 40, 78, 108]
+                },{
+                    name: "其他命令",
+                    data: [20, 40, 54, 20, 39, 54]
+                }
+                ],
+                valueAxis: {
+                    min:0,
+                    max:500,
+                    labels: {
+                        format: "{0}"
+                    },
+                    line: {
+                        visible: false
+                    },
+                    plotBands: [{
+                        from: 400,
+                        to: 500,
+                        color: "#D8534F",
+                        opacity: 0.3
+                    }, {
+                        from: 0,
+                        to: 400,
+                        color: "#5CB75C",
+                        opacity: 0.3
+                    }
+                    ]
+                },
+                categoryAxis: {
+                    categories: ["-59~-50", "-49~-40", "-39~-30", "-29~-20", "-19~-10", "-9~0"],
+                    majorGridLines: {
+                        visible: false
+                    }
+                },
+                tooltip: {
+                    visible: true,
+                    format: "{0}%",
+                    template: "#= series.name #: #= value #"
+                }
+            });
+        }
+
+        function command2Chart24() {
+            $("#command2Chart24").kendoChart({
+                theme:"metro",
+                title: {
+                    text: "今日读取/设置数据量小时分布图"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                seriesDefaults: {
+                    type: "column"
+                },
+                series: [{
+                    name: "Get数据量",
+                    data: [123,654,215,456,248,684,268,132,685,652,874,321,123,654,215,456,248,684,268,132,685,652,874,321],
+                    color:"#94CDFE"
+                }, {
+                    name: "Set数据量",
+                    data: [80,454,115,356,148,484,168,32,655,252,174,221,23,54,245,356,48,384,168,124,285,352,274,121],
+                    color:"#8FEC7D"
+                }],
+                valueAxis: {
+                    labels: {
+                        format: "{0}"
+                    },
+                    line: {
+                        visible: false
+                    }
+                },
+                categoryAxis: {
+                    categories: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"],
+                    line: {
+                        visible: false
+                    }
+                },
+                tooltip: {
+                    visible: true,
+                    format: "{0}%",
+                    template: "#= series.name #: #= value #"
+                }
+            });
+        }
+
+        function command2Chart60() {
+            $("#command2Chart60").kendoChart({
+                theme:"metro",
+                title: {
+                    text: "f7657f31553b11e4 1分钟读取/设置数据量柱状图"
+                },
+                chartArea: {
+                    background: "#f5f5f5"
+                },
+                legend: {
+                    position: "bottom"
+                },
+                seriesDefaults: {
+                    type: "column"
+                },
+                series: [{
+                    name: "Get数据量",
+                    data: [123,654,215,456,248,684],
+                    color:"#94CDFE"
+                }, {
+                    name: "Set数据量",
+                    data: [80,454,115,356,148,484],
+                    color:"#8FEC7D"
+                }],
+                valueAxis: {
+                    labels: {
+                        format: "{0}"
+                    },
+                    line: {
+                        visible: false
+                    }
+                },
+                categoryAxis: {
+                    categories: ["-59~-50", "-49~-40", "-39~-30", "-29~-20", "-19~-10", "-9~0"],
+                    line: {
+                        visible: false
+                    }
+                },
+                tooltip: {
+                    visible: true,
+                    format: "{0}%",
+                    template: "#= series.name #: #= value #"
+                }
+            });
+        }
+
+
+        $(document).ready(function(){
+            memoryChart24();
+            memoryChart60();
+            keyChart1Chart();
+            keyChart2Chart();
+            keyChart3Chart();
+            keyChart60();
+            commandChart1Chart();
+            commandChart2Chart();
+            commandChart3Chart();
+            commandChart60();
+            command2Chart24();
+            command2Chart60();
+        });
+    </script>
+</body>
+</html>

@@ -42,18 +42,8 @@
 
 5. 客户端测试:
     打包: jar cvf http-client.jar .
-    java -cp '.:groovy-all-2.3.7.jar:http-client.jar' HttpClientExample
-    java -cp '.:groovy-all-2.3.7.jar:rmi-client.jar' RMIClientExample
+    java -cp '.:groovy-all-2.3.7.jar:http-client.jar' CacheClientDemo
+    java -cp '.:groovy-all-2.3.7.jar:rmi-client.jar' RMIClientDemo
 
 工作计划:
-1. 整理文档
-2. hash数据的转义支持
-3. RMI协议没有写入stat
-
-需要稍稍注意的工作:
-1. 增加接口的过期支持
-    如何获取expire
-2. 增加协议HTTPS的支持
-    https://docs.oracle.com/cd/E19148-01/820-0843/aeopq/index.html
-3. RMI协议
-    Groovy拦截器
+Memcached?
