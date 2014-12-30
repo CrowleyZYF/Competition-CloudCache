@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.common.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.default.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.dataviz.min.css" />
+    <link type="text/css" rel="stylesheet" href="css/kendo.dataviz.default.min.css" />
+    <link type="text/css" rel="stylesheet/less" href="css/main.less" />
+    <link type="text/css" rel="stylesheet/less" href="css/adjust.less" />
+    <script type="text/javascript" src="js/less-1.7.5.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/kendo.all.min.js"></script>
+    <script type="text/javascript" src="js/chart.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <title>云缓存</title>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="home.html">eMem</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="home.html">缓存管理</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">缓存监控<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="severMonitor.html">缓存服务器状态监控</a></li>
+                        <li><a href="netMonitor.html">网络链路监控</a></li>
+                        <li><a href="cacheMonitor.html">缓存服务监控</a></li>
+                        <li><a href="errorMonitor.html">缓存异常监控</a></li>
+                    </ul>
+                </li>
+                <li><a href="statisticsMonitor.html">缓存统计</a></li>
+                <li class="active"><a href="adjustMonitor.html">自动调整</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">系统管理<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">管理员设置</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">另外的功能</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">退出系统</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div id="title">
+    <h1><span>eMem</span>弹性云缓存系统</h1>
+</div>
+<div id="system">
+<nav>
+    <div>
+        <h3><span>Hi</span> 庄奕峰</h3>
+        <h4>castiel.zyf@gmail.com</h4>
+    </div>
+    <div>
+        <h3>缓存自动调整记录</h3>
+        <h4>调整记录详情：</h4>
+        <div>
+            <button type="button" class="btn btn-primary btn-lg btn-block needConfirm" id="stopAll" data-toggle="modal" data-target="#confirmModal">查 看 实 例 概 况</button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-warning btn-lg btn-block dropdown-toggle" data-toggle="dropdown">查 看 实 例 明 细<span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="adjustRecord.html">61.164.36.20:1111</a></li>
+                    <li><a href="adjustRecord.html">61.164.36.20:1112</a></li>
+                    <li><a href="adjustRecord.html">61.164.36.20:1113</a></li>
+                    <li><a href="adjustRecord.html">61.164.36.20:1114</a></li>
+                    <li><a href="adjustRecord.html">61.164.36.20:1115</a></li>
+                    <li><a href="adjustRecord.html">61.164.36.20:1116</a></li>
+                    <li><a href="adjustRecord.html">61.164.36.20:1117</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div id="partSystem">
+    <div id="baseInfo" class="partSystemBlock">
+        <div class="hasButton">
+            <h3 class="partTitle">实例基本信息</h3>
+            <div>
+                <button type="button" class="btn btn-info">更换自动调整算法</button>
+            </div>
+        </div>
+        <div class="blockInfo">
+            <ul>
+                <li><span>实例编号：</span><span>61.164.36.20:1111</span></li>
+                <li><span>实例号：</span><span>f7657f31553b11</span></li>
+                <li><span>管理员：</span><span>陈丽霞</span></li>
+                <li><span>实例状态：</span><span>使用中</span></li>
+            </ul>
+            <ul>
+                <li><span>缓存引擎：</span><span>Redis</span></li>
+                <li><span>缓存引擎版本：</span><span>V2.1</span></li>
+                <li><span>区域：</span><span>集群1</span></li>
+                <li><span>已用缓存及配额：</span><span>99Byte(28%)</span></li>
+            </ul>
+            <ul>
+                <li><span>宿主操作系统：</span><span>CentOS（64位）</span></li>
+                <li><span>缓存使用时间：</span><span>3天（2568秒）</span></li>
+                <li><span>连接客户端上限：</span><span>1000</span></li>
+                <li><span>使用内存上限：</span><span>10000</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="partSystemBlock">
+        <div class="hasButton">
+            <h3 class="partTitle">缓存自动调整记录图</h3>
+            <div>
+                <button type="button" class="btn btn-info">更换时间</button>
+            </div>
+        </div>
+        <div class="chartBlock">
+            <div id="default"></div>
+        </div>
+        <div class="chartBlock">
+            <div id="set"></div>
+        </div>
+    </div>
+    <div id="keyHitInfo" class="partSystemBlock">
+        <div class="hasButton">
+            <h3 class="partTitle">缓存自动调整记录（最近的50次）</h3>
+            <div>
+                <button type="button" class="btn btn-info">历史记录</button>
+            </div>
+        </div>
+        <div class="lineInfo">
+            <ul>
+                <li><span>调整时间</span></li>
+                <li><span>调整算法</span></li>
+                <li><span>调整前容量</span></li>
+                <li><span>调整后容量</span></li>
+                <li><span>增减容量（单位MB）</span></li>
+                <li><span>增减比例（单位%）</span></li>
+                <li><span>调整时间间隔</span></li>
+                <li><span>调整时间频率</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustDown">变高</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustDown">变高</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustDown">-128</span></li>
+                <li><span class="adjustDown">-100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustDown">变高</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustDown">-128</span></li>
+                <li><span class="adjustDown">-100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustDown">变高</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustDown">-128</span></li>
+                <li><span class="adjustDown">-100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustDown">变高</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustDown">-128</span></li>
+                <li><span class="adjustDown">-100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustDown">-128</span></li>
+                <li><span class="adjustDown">-100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustDown">-128</span></li>
+                <li><span class="adjustDown">-100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustDown">-128</span></li>
+                <li><span class="adjustDown">-100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustDown">-128</span></li>
+                <li><span class="adjustDown">-100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustDown">-128</span></li>
+                <li><span class="adjustDown">-100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustDown">-128</span></li>
+                <li><span class="adjustDown">-100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+            <ul>
+                <li><span>2014-12-15 23:45:45</span></li>
+                <li><span>算法一</span></li>
+                <li><span>128</span></li>
+                <li><span>256</span></li>
+                <li><span class="adjustUP">+128</span></li>
+                <li><span class="adjustUP">+100%</span></li>
+                <li><span>1小时15分45秒</span></li>
+                <li><span class="adjustUP">变低</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div style="float:none;clear: both"></div>
+</div>
+<script>
+    var keyHitDefault=[{
+        type: "line",
+        data: [251,462,212,823,212,244,651,136,985,262,324,551,336,585,662],
+        color:"#EF5C80",
+        name: "调整前容量",
+        axis: "size"
+    }, {
+        type: "line",
+        data: [451,562,512,623,412,424,751,236,785,362,424,751,236,785,362],
+        color:"#93CCFD",
+        name: "调整后容量",
+        axis: "size"
+    }, {
+        type: "column",
+        data: [352,462,412,423,212,324,551,136,585,462,324,551,136,585,462],
+        color:"#EFAC4E",
+        name: "调整时间间隔 [单位：分钟]",
+        axis: "time"
+    }];
+    var cat1=["12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45","12-15 23:45"];
+    $(document).ready(function(){
+        createDouble2Chart("#default","最近15次缓存容量大小调整情况图",keyHitDefault,0,800,100,600,0,1000,cat1);
+        createDouble2Chart("#set","2014-12-15 23:45:00 之后的15次缓存容量大小调整情况图",keyHitDefault,0,800,100,600,0,1000,cat1);
+    });
+</script>
+</body>
+</html>
