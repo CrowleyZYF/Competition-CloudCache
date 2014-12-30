@@ -54,6 +54,8 @@
         返回hashtable的大小
         例如: /hash/size?key=hello => 3
 
+Both客户端JAR包和RMI远程接口我们都给了JAVA DOC
+
 客户端JAR包:
 
     用户可以使用JAVA语言来使用缓存服务. 需要引入下面的两个包:
