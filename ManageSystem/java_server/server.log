@@ -1,0 +1,43 @@
+emem.manage.server.RedisServer
+Start Listen!
+emem.manage.server.NodeServer
+Start Listen!
+客户端请求连接事件！
+读取客户端发送消息
+top
+top - 04:40:02 up 29 days,  3:34,  2 users,  load average: 0.00, 0.01, 0.05
+Tasks: 198 total,   1 running, 196 sleeping,   0 stopped,   1 zombie
+%Cpu(s):  0.1 us,  0.1 sy,  0.0 ni, 99.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem:   1011868 total,   809364 used,   202504 free,    89588 buffers
+KiB Swap:  1046524 total,    88828 used,   957696 free,   252640 cached
+io2
+2
+net客户端请求连接事件！
+读取客户端发送消息
+top
+客户端请求连接事件！
+读取客户端发送消息
+top - 20:40:02 up  8:50,  0 users,  load average: 0.00, 0.01, 0.04
+Tasks: 226 total,   2 running, 224 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.1 us,  0.2 sy,  0.0 ni, 99.6 id,  0.0 wa,  0.1 hi,  0.0 si,  0.0 st
+KiB Mem:   1010460 total,   265144 used,   745316 free,    50572 buffers
+KiB Swap:  2094076 total,        0 used,  2094076 free.   125948 cached Mem
+io6
+1
+net客户端请求连接事件！
+读取客户端发送消息
+top
+客户端请求连接事件！
+读取客户端发送消息
+客户端请求连接事件！
+读取客户端发送消息
+客户端请求连接事件！
+读取客户端发送消息
+top - 04:40:02 up  6:44,  0 users,  load average: 0.00, 0.01, 0.05
+Tasks: 225 total,   2 running, 223 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.1 us,  0.2 sy,  0.0 ni, 99.6 id,  0.0 wa,  0.1 hi,  0.0 si,  0.0 st
+KiB Mem:   1010460 total,   225404 used,   785056 free,    21828 buffers
+KiB Swap:  2094076 total,        0 used,  2094076 free.   118940 cached Mem
+io6
+1
+net

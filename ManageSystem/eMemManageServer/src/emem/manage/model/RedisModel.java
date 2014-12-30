@@ -31,6 +31,11 @@ public class RedisModel {
 		this.ip_port = name;
 	}
 
+	public void initInfoCollection(String name) {
+		infoCollection = infoDB.getCollection(name);
+		this.ip_port = name;
+	}
+
 	public void infoInsert(Map<String, Object> map) {
 		map.put("date", new Date());
 		DBObject object = new BasicDBObject(map);

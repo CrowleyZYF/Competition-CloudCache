@@ -17,14 +17,7 @@ public class RedisServerHandle implements Runnable {
 
 	public RedisServerHandle(SocketChannel channel) {
 		this.channel = channel;
-		try {
-			this.model = new RedisModel(getHostPort(channel.getRemoteAddress()
-					.toString()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			this.model = new RedisModel();
-			e.printStackTrace();
-		}
+		this.model = new RedisModel();
 	}
 
 	public void run() {
@@ -40,15 +33,18 @@ public class RedisServerHandle implements Runnable {
 	}
 
 	private void doMongo() {
-		// for (Map.Entry<String, Object> entry : result.entrySet()) {
-		// System.out.println(entry.getKey() + "---->" + entry.getValue());
-		// }
-		model.infoInsert(result);
+		try {
+			model.initInfoCollection(getHostPort(channel.getRemoteAddress()
+					.toString()));
+			model.infoInsert(result);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		model.update(result);
 	}
 
 	private String getHostPort(String name) {
-		return name.replace("/", "");
+		return name.replace("/", "").split(":")[0] + result.get("tcp_port");
 	}
 
 }
