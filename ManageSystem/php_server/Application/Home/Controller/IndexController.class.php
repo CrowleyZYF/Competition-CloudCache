@@ -44,13 +44,9 @@ class IndexController extends Controller
                 6379, 6380, 6381, 6382, 6383
             ]
         ];
-        $nodes = [
-            0 => $node1,
-            1 => $node2,
-            2 => $node3,
-            3 => $node4
-        ];
-
+        $nodes[] = $node2;
+        $nodes[] = $node3;
+        $nodes[] = $node4;
         $nodeModel = new NodeModel();
         $collection = $nodeModel->getCollection();
         foreach ($nodes as $node) {

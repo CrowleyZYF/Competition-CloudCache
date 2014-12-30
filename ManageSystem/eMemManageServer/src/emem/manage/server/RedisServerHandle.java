@@ -44,7 +44,8 @@ public class RedisServerHandle implements Runnable {
 	}
 
 	private String getHostPort(String name) {
-		return name.replace("/", "").split(":")[0] + result.get("tcp_port");
+		return name.replace("/", "").split(":")[0] + ":"
+				+ result.get("tcp_port");
 	}
 
 }
