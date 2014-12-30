@@ -29,5 +29,7 @@ cd ..
 classes='../WebContent/WEB-INF/classes'
 cp $classes/HTTPClientDemo.class .
 cp $classes/RMIClientDemo.class .
+cp $classes/HTTPClientTest.class .
+cp $classes/RMIClientTest.class .
 
 rm -rf cache-client cache-rmi
