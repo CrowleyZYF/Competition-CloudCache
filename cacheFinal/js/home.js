@@ -72,7 +72,7 @@ function createTr(data,cacheType){
     var td2=$("<td>"+data["id"]+"</td>");
     var td3=$("<td>"+data["identify"]+"</td>");
     var td5=$("<td>"+data["name"]+"</td>");
-    if(data["status"]==0){
+    if(data["status"]==1){
         var td6=$("<td class='using'>使用中</td>");
     }else{
         var td6=$("<td class='stopping'>已停止</td>");
