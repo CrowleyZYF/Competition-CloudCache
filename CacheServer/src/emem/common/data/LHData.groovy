@@ -29,6 +29,7 @@ class LHData {
         listFromString(str).each {
             it = it.replaceAll('\\\\:', '\\\\0')
             def tokens = it.split(':')
+            if(tokens.length <= 1) throw new SyntaxException();
             hash[tokens[0].replaceAll('\\\\0', '\\:')] = tokens[1].replaceAll('\\\\0', '\\:')
         }
         hash

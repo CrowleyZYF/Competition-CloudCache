@@ -1,8 +1,11 @@
 package emem.cacheserver.controllers
+
+import emem.cacheserver.core.Stat
+
 /**
  * Created by hello on 14-11-20.
  */
-@Route("/data")
+@Route("/")
 class StringController {
 
     def set(rq, res) {
@@ -13,7 +16,9 @@ class StringController {
         if(!cacheClient) return
 
         cacheClient.operate {
-            it.set(params.key, params.value)
+            def result = it.set(params.key, params.value)
+            Stat.insert(params.token, [key: params.key, op: 'set'])
+            res.getWriter().print result
         }
     }
 
@@ -25,8 +30,9 @@ class StringController {
         if(!cacheClient) return
 
         cacheClient.operate {
-            def value = it.get(params.key)?:''
-            res.getWriter().print(value)
+            def value = it.get(params.key)
+            Stat.insert(params.token, [key: params.key, op: 'get', hit: value != null])
+            res.getWriter().print value?:''
         }
     }
 

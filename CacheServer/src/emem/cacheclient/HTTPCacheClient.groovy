@@ -7,9 +7,9 @@ import emem.common.data.SerializeUtil
  * Created by Hello on 2014/12/7.
  */
 class HTTPCacheClient {
-    private final host = 'localhost'
-    private final port = 8080
-    private final token = 'a'
+    private final host
+    private final port
+    private final token
 
     HTTPCacheClient(String host, int port, String token) {
         this.host = host
@@ -21,7 +21,7 @@ class HTTPCacheClient {
         new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/set'),
+                path: '/set',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'value': value]
         ).request()
@@ -31,7 +31,7 @@ class HTTPCacheClient {
         def value = new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/get'),
+                path: '/get',
                 method: 'POST',
                 parameters: ['token': token, 'key': key]
         ).request()
@@ -43,7 +43,7 @@ class HTTPCacheClient {
         new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/setAll'),
+                path: '/hash/setAll',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'value': value]
         ).request()
@@ -53,7 +53,7 @@ class HTTPCacheClient {
         def value = new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/getAll'),
+                path: '/hash/getAll',
                 method: 'POST',
                 parameters: ['token': token, 'key': key]
         ).request()
@@ -64,7 +64,7 @@ class HTTPCacheClient {
         new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/set'),
+                path: '/hash/set',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'index': index, 'value': value]
         ).request()
@@ -74,7 +74,7 @@ class HTTPCacheClient {
         def value = new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/get'),
+                path: '/hash/get',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'index': index]
         ).request()
@@ -85,7 +85,7 @@ class HTTPCacheClient {
         new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/remove'),
+                path: '/hash/remove',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'index': index]
         ).request()
@@ -95,7 +95,7 @@ class HTTPCacheClient {
         def value = new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/size'),
+                path: '/hash/size',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'value': value]
         ).request()
@@ -106,7 +106,7 @@ class HTTPCacheClient {
         new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/set'),
+                path: '/set',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'value': value, 'expire': expire]
         ).request()
@@ -116,7 +116,7 @@ class HTTPCacheClient {
         def value = new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/get'),
+                path: '/get',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'expire': expire]
         ).request()
@@ -128,7 +128,7 @@ class HTTPCacheClient {
         new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/setAll'),
+                path: '/hash/setAll',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'value': value, 'expire': expire]
         ).request()
@@ -138,7 +138,7 @@ class HTTPCacheClient {
         def value = new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/getAll'),
+                path: '/hash/getAll',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'expire': expire]
         ).request()
@@ -149,7 +149,7 @@ class HTTPCacheClient {
         new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/set'),
+                path: '/hash/set',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'index': index, 'value': value, 'expire': expire]
         ).request()
@@ -159,7 +159,7 @@ class HTTPCacheClient {
         def value = new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/get'),
+                path: '/hash/get',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'index': index, 'expire': expire]
         ).request()
@@ -170,7 +170,7 @@ class HTTPCacheClient {
         new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/remove'),
+                path: '/hash/remove',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'index': index, 'expire': expire]
         ).request()
@@ -180,7 +180,7 @@ class HTTPCacheClient {
         def value = new HTTPClient(
                 host: host,
                 port: port,
-                path: url('/hash/size'),
+                path: '/hash/size',
                 method: 'POST',
                 parameters: ['token': token, 'key': key, 'value': value, 'expire': expire]
         ).request()
@@ -205,10 +205,6 @@ class HTTPCacheClient {
     Serializable getObject(String key, int expire) {
         def value = get(key, expire)
         return SerializeUtil.stringToObject(value)
-    }
-
-    def url(path) {
-        return "/data$path"
     }
 
 }

@@ -4,6 +4,7 @@ import com.gmongo.GMongo
 import emem.cacheserver.core.CacheConfig
 import emem.cacheserver.core.ServerConfig
 import emem.cacheserver.rmi.RMIServer
+import emem.common.data.SyntaxException
 
 import javax.servlet.*
 import javax.servlet.http.HttpServletRequest
@@ -68,10 +69,17 @@ class DispatchFilter implements Filter {
             return;
         }
 
-        //TODO 方法执行过程中可能产生异常
-        metaMethods[0].invoke(c, rq, res)
+        try {
+            metaMethods[0].invoke(c, rq, res)
+        } catch(SyntaxException ex) {
+            res.status = 400
+            res.getWriter().print 'Syntax Error'
+        } catch(Exception ex) {
+            ex.printStackTrace()
+            res.status = 500
+            res.getWriter().print 'Internal Server Error'
+        }
 
-        if(path.startsWith('/data')) filterChain.doFilter(servletRequest, servletResponse)
     }
 
     @Override

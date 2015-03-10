@@ -1,11 +1,12 @@
 package emem.cacheserver.controllers
 
+import emem.cacheserver.core.Stat
 import emem.common.data.LHData
 
 /**
  * Created by hello on 14-11-20.
  */
-@Route('/data/hash')
+@Route('/hash')
 class HashController {
 
     def setAll(rq, res) {
@@ -17,7 +18,9 @@ class HashController {
 
         cacheClient.operate {
             def hash = LHData.hashFromString(params.value)
-            res.getWriter().print it.hashSetAll(params.key, hash)
+            def result = it.hashSetAll(params.key, hash)
+            Stat.insert(params.token, [key: params.key, op: 'hash/setAll'])
+            res.getWriter().print result
         }
     }
 
@@ -30,6 +33,7 @@ class HashController {
 
         cacheClient.operate {
             def hash = it.hashGetAll(params.key)
+            Stat.insert(params.token, [key: params.key, op: 'hash/getAll', hit: hash != null])
             res.getWriter().print LHData.hashToString(hash)
         }
     }
@@ -42,7 +46,9 @@ class HashController {
         if(!cacheClient) return
 
         cacheClient.operate {
-            res.getWriter().print it.hashSet(params.key, params.index, params.value)
+            def result = it.hashSet(params.key, params.index, params.value)
+            Stat.insert(params.token, [key: params.key, op: 'hash/set'])
+            res.getWriter().print result
         }
     }
 
@@ -54,7 +60,9 @@ class HashController {
         if(!cacheClient) return
 
         cacheClient.operate {
-            res.getWriter().print it.hashGet(params.key, params.index)?:''
+            def value = it.hashGet(params.key, params.index)
+            Stat.insert(params.token, [key: params.key, op: 'hash/get', hit: value != null])
+            res.getWriter().print value?:''
         }
     }
 
@@ -66,7 +74,9 @@ class HashController {
         if(!cacheClient) return
 
         cacheClient.operate {
-            res.getWriter().print it.hashRemove(params.key, params.index)
+            def result = it.hashRemove(params.key, params.index)
+            Stat.insert(params.token, [key: params.key, op: 'hash/remove'])
+            res.getWriter().print result
         }
     }
 
@@ -78,7 +88,9 @@ class HashController {
         if(!cacheClient) return
 
         cacheClient.operate {
-            res.getWriter().print it.hashSize(params.key)
+            def size = it.hashSize(params.key)
+            Stat.insert(params.token, [key: params.key, op: 'hash/size'])
+            res.getWriter().print size
         }
     }
 }

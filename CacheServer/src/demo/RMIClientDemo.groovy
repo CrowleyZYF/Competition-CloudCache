@@ -1,10 +1,10 @@
 import java.rmi.Naming
 
-def host = '192.168.1.73'
+def host = 'localhost'
 
 def port = 8088
 
-def token = args.length > 1 ? args[0] : '192.168.1.113:6382';
+def token = 'a';
 
 def cacheClientFactory = Naming.lookup("rmi://$host:$port/CacheClientFactory")
 def cacheClient = cacheClientFactory.getCacheClient(token)
