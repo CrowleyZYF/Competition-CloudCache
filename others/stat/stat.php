@@ -54,11 +54,23 @@ class Stat {
 	}
 	
 	//这个返回最火的10个key
-	function top10($token, $from) {
-		return $this->top($token, $from, 10);
+	function top10($token) {
+		$names = ['day', 'hour'];
+		$now = time() * 1000;
+		$froms = [
+			self::today(),
+			$now - self::hours(1)
+		];
+		
+		foreach($froms as $i => $from) {
+			$list = $this->top($token, $from, 10);
+			$result[$names[$i]] = $list;
+		}
+		
+		return $result;
 	}
 	
-	function top($token, $from, $limit) {
+	private function top($token, $from, $limit) {
 		$result = $this->db->$token->aggregate(
 			['$match' => ['time' => ['$gte' => $from]]], 
 			['$group' => ['_id' => '$key', 'count' => ['$sum' => 1]]],
